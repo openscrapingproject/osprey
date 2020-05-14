@@ -1,0 +1,13 @@
+[package]
+name = "osprey"
+version = "0.1.0"
+authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "3.0.0-beta.1", features = ["yaml"] }
+fs_extra = "1.1.0"
+serde = { version = "1.0.110", features = ["derive"] }
+serde_json = "1.0.53"
