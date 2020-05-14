@@ -1,0 +1,47 @@
+{
+  "name": "agentname",
+  "initial_urls": [
+    "/product/:ID1",
+    "/product/:ID2"
+  ],
+  "requestor": {
+    "plugin": "builtin",
+    "config": {
+      "browser": [
+        "Firefox",
+        "random"
+      ],
+      "template": "default"
+    }
+  },
+  "pages": {
+    "<page_ID>": {
+      "matcher": {
+        "url": "/product/*/"
+      },
+      "data": {
+        "<data_layer>": {
+          "plugin": "extractorID",
+          "config": {
+            "econfKey": "eConfVal"
+          }
+        }
+      }
+    }
+  },
+  "parsers": {
+    "html": {
+      "plugin": "<pluginID>",
+      "headers": {
+        "Content-Type": "text/html"
+      }
+    }
+  },
+  "data": {
+    "plugin": "output",
+    "config": {
+      "serialize": "json",
+      "out": "stdout"
+    }
+  }
+}
