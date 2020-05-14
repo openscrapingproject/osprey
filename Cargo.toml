@@ -3,8 +3,15 @@ name = "osprey"
 version = "0.1.0"
 authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
 edition = "2018"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "osp"
+path = "src/lib/main.rs"
+
+[[bin]]
+name = "osprey"
+path = "src/bin/main.rs"
 
 [dependencies]
 clap = { version = "3.0.0-beta.1", features = ["yaml"] }

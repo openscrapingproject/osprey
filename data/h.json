@@ -1,4 +1,5 @@
 {
-    "fingerprint": "bla",
-    "location": "MD"
+    "name": "bla",
+    "config": {
+    }
 }
