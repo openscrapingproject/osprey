@@ -12,7 +12,7 @@ use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
 
-use osp::api::Agent;
+use osprey::api::Agent;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // The YAML file is found relative to the current file, similar to how modules are found
