@@ -2,6 +2,10 @@ use osprey::plugins::Plugin;
 
 use actix_web::{get, web, App, HttpResponse, HttpServer};
 use std::net::{SocketAddrV4, Ipv4Addr};
+use serde::{Deserialize, Serialize};
+use reqwest;
+
+use async_trait::async_trait;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
@@ -20,4 +24,21 @@ async fn main() -> std::io::Result<()> {
         .bind(bindaddr)?
         .run()
         .await
+}
+
+
+struct Requestor;
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Config {
+    version: String,
+}
+
+#[async_trait]
+impl osprey::plugin::Requestor<Config, simple_error::SimpleError> for Requestor {
+    async fn make_request(url: String) -> Result<http::Response<()>, simple_error::SimpleError> {
+        let resp = reqwest::get(url).await?;
+        eprintln!("resp = {:#?}", resp);
+        Ok(resp)
+    }
 }

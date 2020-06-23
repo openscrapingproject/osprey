@@ -1,0 +1,562 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "name": "collection_name",
+            "initial_urls": [
+                "/product/:ID1",
+                "/product/:ID2",
+                "each URL generates a new Job",
+                "with an ID of collection_name_0 ... collection_name_N"
+            ],
+            "requestor": {
+                "plugin": "builtin",
+                "config": {
+                    "browser": [
+                        "Firefox",
+                        "random"
+                    ],
+                    "template": "default"
+                }
+            },
+            "pages": {
+                "<page_ID>": {
+                    "matcher": {
+                        "url": "/product/*/",
+                        "headers": {
+                            "Content-Type": "text/html"
+                        }
+                    },
+                    "extractor": {
+                        "<data_layer>": {
+                            "plugin": "extractorID",
+                            "config": {
+                                "extra": "config"
+                            },
+                            "definition": {
+                                "scraping": "definition",
+                                "can include": "hardcoded values",
+                                "or use of": "XPATH, css or similar"
+                            }
+                        }
+                    }
+                }
+            },
+            "data": {
+                "plugin": "output",
+                "config": {
+                    "serialize": "json",
+                    "out": "stdout"
+                }
+            }
+        }
+    ],
+    "required": [
+        "name",
+        "initial_urls",
+        "requestor",
+        "pages",
+        "data"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "collection_name"
+            ]
+        },
+        "initial_urls": {
+            "$id": "#/properties/initial_urls",
+            "type": "array",
+            "title": "The initial_urls schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "/product/:ID1",
+                    "/product/:ID2"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/initial_urls/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "/product/:ID1",
+                            "/product/:ID2"
+                        ]
+                    }
+                ],
+                "$id": "#/properties/initial_urls/items"
+            }
+        },
+        "requestor": {
+            "$id": "#/properties/requestor",
+            "type": "object",
+            "title": "The requestor schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "plugin": "builtin",
+                    "config": {
+                        "browser": [
+                            "Firefox",
+                            "random"
+                        ],
+                        "template": "default"
+                    }
+                }
+            ],
+            "required": [
+                "plugin",
+                "config"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "plugin": {
+                    "$id": "#/properties/requestor/properties/plugin",
+                    "type": "string",
+                    "title": "The plugin schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "builtin"
+                    ]
+                },
+                "config": {
+                    "$id": "#/properties/requestor/properties/config",
+                    "type": "object",
+                    "title": "The config schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "browser": [
+                                "Firefox",
+                                "random"
+                            ],
+                            "template": "default"
+                        }
+                    ],
+                    "required": [
+                        "browser",
+                        "template"
+                    ],
+                    "additionalProperties": true,
+                    "properties": {
+                        "browser": {
+                            "$id": "#/properties/requestor/properties/config/properties/browser",
+                            "type": "array",
+                            "title": "The browser schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                [
+                                    "Firefox",
+                                    "random"
+                                ]
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$id": "#/properties/requestor/properties/config/properties/browser/items/anyOf/0",
+                                        "type": "string",
+                                        "title": "The first anyOf schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "Firefox",
+                                            "random"
+                                        ]
+                                    }
+                                ],
+                                "$id": "#/properties/requestor/properties/config/properties/browser/items"
+                            }
+                        },
+                        "template": {
+                            "$id": "#/properties/requestor/properties/config/properties/template",
+                            "type": "string",
+                            "title": "The template schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "default"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "pages": {
+            "$id": "#/properties/pages",
+            "type": "object",
+            "title": "The pages schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "<page_ID>": {
+                        "matcher": {
+                            "url": "/product/*/",
+                            "headers": {
+                                "Content-Type": "text/html"
+                            }
+                        },
+                        "extractor": {
+                            "<data_layer>": {
+                                "plugin": "extractorID",
+                                "config": {
+                                    "extra": "config"
+                                },
+                                "definition": {
+                                    "scraping": "definition",
+                                    "can include": "hardcoded values",
+                                    "or use of": "XPATH, css or similar"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "required": [
+                "<page_ID>"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "<page_ID>": {
+                    "$id": "#/properties/pages/properties/<page_ID>",
+                    "type": "object",
+                    "title": "The <page_ID> schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "matcher": {
+                                "url": "/product/*/",
+                                "headers": {
+                                    "Content-Type": "text/html"
+                                }
+                            },
+                            "extractor": {
+                                "<data_layer>": {
+                                    "plugin": "extractorID",
+                                    "config": {
+                                        "extra": "config"
+                                    },
+                                    "definition": {
+                                        "scraping": "definition",
+                                        "can include": "hardcoded values",
+                                        "or use of": "XPATH, css or similar"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "required": [
+                        "matcher",
+                        "extractor"
+                    ],
+                    "additionalProperties": true,
+                    "properties": {
+                        "matcher": {
+                            "$id": "#/properties/pages/properties/<page_ID>/properties/matcher",
+                            "type": "object",
+                            "title": "The matcher schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "url": "/product/*/",
+                                    "headers": {
+                                        "Content-Type": "text/html"
+                                    }
+                                }
+                            ],
+                            "required": [
+                                "url",
+                                "headers"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "url": {
+                                    "$id": "#/properties/pages/properties/<page_ID>/properties/matcher/properties/url",
+                                    "type": "string",
+                                    "title": "The url schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "/product/*/"
+                                    ]
+                                },
+                                "headers": {
+                                    "$id": "#/properties/pages/properties/<page_ID>/properties/matcher/properties/headers",
+                                    "type": "object",
+                                    "title": "The headers schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {
+                                            "Content-Type": "text/html"
+                                        }
+                                    ],
+                                    "required": [
+                                        "Content-Type"
+                                    ],
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "Content-Type": {
+                                            "$id": "#/properties/pages/properties/<page_ID>/properties/matcher/properties/headers/properties/Content-Type",
+                                            "type": "string",
+                                            "title": "The Content-Type schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "text/html"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "extractor": {
+                            "$id": "#/properties/pages/properties/<page_ID>/properties/extractor",
+                            "type": "object",
+                            "title": "The extractor schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "<data_layer>": {
+                                        "plugin": "extractorID",
+                                        "config": {
+                                            "extra": "config"
+                                        },
+                                        "definition": {
+                                            "scraping": "definition",
+                                            "can include": "hardcoded values",
+                                            "or use of": "XPATH, css or similar"
+                                        }
+                                    }
+                                }
+                            ],
+                            "required": [
+                                "<data_layer>"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "<data_layer>": {
+                                    "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>",
+                                    "type": "object",
+                                    "title": "The <data_layer> schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {
+                                            "plugin": "extractorID",
+                                            "config": {
+                                                "extra": "config"
+                                            },
+                                            "definition": {
+                                                "scraping": "definition",
+                                                "can include": "hardcoded values",
+                                                "or use of": "XPATH, css or similar"
+                                            }
+                                        }
+                                    ],
+                                    "required": [
+                                        "plugin",
+                                        "config",
+                                        "definition"
+                                    ],
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "plugin": {
+                                            "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/plugin",
+                                            "type": "string",
+                                            "title": "The plugin schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "extractorID"
+                                            ]
+                                        },
+                                        "config": {
+                                            "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/config",
+                                            "type": "object",
+                                            "title": "The config schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "extra": "config"
+                                                }
+                                            ],
+                                            "required": [
+                                                "extra"
+                                            ],
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "extra": {
+                                                    "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/config/properties/extra",
+                                                    "type": "string",
+                                                    "title": "The extra schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "config"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "definition": {
+                                            "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/definition",
+                                            "type": "object",
+                                            "title": "The definition schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "scraping": "definition",
+                                                    "can include": "hardcoded values",
+                                                    "or use of": "XPATH, css or similar"
+                                                }
+                                            ],
+                                            "required": [
+                                                "scraping",
+                                                "can include",
+                                                "or use of"
+                                            ],
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "scraping": {
+                                                    "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/definition/properties/scraping",
+                                                    "type": "string",
+                                                    "title": "The scraping schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "definition"
+                                                    ]
+                                                },
+                                                "can include": {
+                                                    "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/definition/properties/can include",
+                                                    "type": "string",
+                                                    "title": "The can include schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "hardcoded values"
+                                                    ]
+                                                },
+                                                "or use of": {
+                                                    "$id": "#/properties/pages/properties/<page_ID>/properties/extractor/properties/<data_layer>/properties/definition/properties/or use of",
+                                                    "type": "string",
+                                                    "title": "The or use of schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "XPATH, css or similar"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "data": {
+            "$id": "#/properties/data",
+            "type": "object",
+            "title": "The data schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "plugin": "output",
+                    "config": {
+                        "serialize": "json",
+                        "out": "stdout"
+                    }
+                }
+            ],
+            "required": [
+                "plugin",
+                "config"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "plugin": {
+                    "$id": "#/properties/data/properties/plugin",
+                    "type": "string",
+                    "title": "The plugin schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "output"
+                    ]
+                },
+                "config": {
+                    "$id": "#/properties/data/properties/config",
+                    "type": "object",
+                    "title": "The config schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "serialize": "json",
+                            "out": "stdout"
+                        }
+                    ],
+                    "required": [
+                        "serialize",
+                        "out"
+                    ],
+                    "additionalProperties": true,
+                    "properties": {
+                        "serialize": {
+                            "$id": "#/properties/data/properties/config/properties/serialize",
+                            "type": "string",
+                            "title": "The serialize schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "json"
+                            ]
+                        },
+                        "out": {
+                            "$id": "#/properties/data/properties/config/properties/out",
+                            "type": "string",
+                            "title": "The out schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "stdout"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

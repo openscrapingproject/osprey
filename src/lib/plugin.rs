@@ -1,4 +1,10 @@
 use serde::{Deserialize, Serialize};
+use http::Result as HRes;
+use http::Response;
+// use std::future::Future;
+
+
+use async_trait::async_trait;
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Plugin<ComponentConfigType> {
@@ -6,33 +12,35 @@ struct Plugin<ComponentConfigType> {
     config: ComponentConfigType
 }
 
-type DataRepresentation Serialize;
-type InMemResult Result<DataRepresentation, _>;
+// type DataRepresentation<R> = dyn Serialize;
+type InMemResult<R> = Result<R, simple_error::SimpleError>;
 
-type PluginID String;
+type PluginID = String;
 
-trait BasicPlugin<ComponentConfigType> {
-    fn configure(ComponentConfigType) -> Result;
+pub trait BasicPlugin<ComponentConfig, Err> {
+    fn configure(config: ComponentConfig) -> Result<(), Err>;
 }
 
-trait Requestor: BasicPlugin {
-    fn makeRequest(url: String) -> Result;
+
+#[async_trait]
+pub trait Requestor<C, E>: BasicPlugin<C, E> {
+    async fn make_request(url: String) -> HRes<Response<()>>;
 }
 
-trait Matcher: BasicPlugin {
-    fn runParseMatch(headers: String) -> PluginID;
-    fn runExtractorMatch(headers: String) -> PluginID;
+trait Matcher<C, E>: BasicPlugin<C, E> {
+    fn run_parse_match(headers: String) -> PluginID;
+    fn run_extractor_match(headers: String) -> PluginID;
 }
 
-trait Parser: BasicPlugin {
-    fn parse(response: String) -> InMemResult;
-}
+// trait Parser<C, E, R>: BasicPlugin<C, E> {
+//     fn parse(response: String) -> InMemResult<R>;
+// }
 
-trait Extractor: BasicPlugin {
+trait Extractor<C, E, R>: BasicPlugin<C, E> {
     // , definition: String should be encoded in config??
-    fn extract(repres: InMemResult) -> InMemResult;
+    fn extract(repres: InMemResult<R>) -> InMemResult<R>;
 }
 
-trait Generator: BasicPlugin {
-    fn generate(repres: InMemResult) -> InMemResult;
+trait Generator<C, E, R>: BasicPlugin<C, E> {
+    fn generate(repres: InMemResult<R>) -> InMemResult<R>;
 }
