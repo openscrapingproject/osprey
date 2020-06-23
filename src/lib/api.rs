@@ -1,87 +1,44 @@
 use serde::{Deserialize, Serialize};
+use super::plugin::Plugin;
+
+use serde_json::Value;
+use std::collections::HashMap;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Agent {
-    name: String,
-    initial_urls: Vec<String>,
-    requestor: Option<Requestor>,
-    pages: Option<Pages>,
-    parsers: Option<Parsers>,
-    data: Option<Data>,
+pub struct JobCollection {
+    pub name: String,
+    pub initial_urls: Vec<String>,
+    pub requestor: PluginWithConfig,
+    pub pages: HashMap<PageSetID, PageSet>,
+    pub data: PluginWithConfig,
+}
+
+// PluginConfig represents generic plugin configuration read from JSON. It could then be converted to a specific plugin's configuration type
+pub type PluginWithConfig = Plugin<HashMap<String, Value>>;
+
+pub type PageSetID = String;
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PageSet {
+    pub matcher: PluginWithConfig,
+    pub extractor: Extractor,
+}
+
+// TODO: make this generic?
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Extractor {
+    pub plugin: String,
+    pub config: ExtractorConfig,
+    pub definition: Definition,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Data {
-    plugin: Option<String>,
-    config: Option<DataConfig>,
+pub struct ExtractorConfig {
+    pub extra: String,
 }
 
+// TODO: implement this
 #[derive(Debug, Serialize, Deserialize)]
-pub struct DataConfig {
-    serialize: Option<String>,
-    out: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Pages {
-    #[serde(rename = "<page_ID>")]
-    page_id: Option<PageId>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct PageId {
-    matcher: Option<Matcher>,
-    data: Option<PageIdData>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct PageIdData {
-    #[serde(rename = "<data_layer>")]
-    data_layer: Option<DataLayer>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct DataLayer {
-    plugin: Option<String>,
-    config: Option<DataLayerConfig>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct DataLayerConfig {
-    #[serde(rename = "econfKey")]
-    econf_key: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Matcher {
-    url: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Parsers {
-    html: Option<Html>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Html {
-    plugin: Option<String>,
-    headers: Option<Headers>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Headers {
-    #[serde(rename = "Content-Type")]
-    content_type: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Requestor {
-    plugin: Option<String>,
-    config: Option<RequestorConfig>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct RequestorConfig {
-    browser: Option<Vec<String>>,
-    template: Option<String>,
+pub struct Definition {
+    pub scraping: String,
 }

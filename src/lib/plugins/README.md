@@ -1,0 +1,1 @@
+This directory defines some basic configuration registration utilities for external plugins, those that are separated and provide HTTP servers.

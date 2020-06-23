@@ -5,15 +5,21 @@ about: "The OpenScraping CLI. A simple, declarative, scalable scraping tool.
 \n\nThis is the reference implementation of the OpenScraping Specification. Right now, it only works on one machine, but eventually it will be easily be scaled up to a cluster.
 \n\nYou can pass the input specification to the agent via stdin or by passing a filename argument."
 args:
-    - INPUT:
-        about: Sets the input file to use. Should be in JSON format.
-        required: false
-        index: 1
     - verbose:
         short: v
         multiple: true
         about: Sets the level of verbosity
 subcommands:
+    - run:
+        about: runs a Job Collection from the input specification
+        args:
+            - INPUT:
+                about: Sets the input file to use. Should be in JSON format.
+                required: false
+                index: 1
+            - file:
+                short: f
+                about: Specifies an input file to use
     - test:
         about: controls testing features
         args:

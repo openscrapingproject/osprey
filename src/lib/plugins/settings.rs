@@ -1,5 +1,5 @@
 use serde::Deserialize;
-use std::net::{SocketAddrV4, Ipv4Addr};
+use std::net::{Ipv4Addr};
 
 fn default_address() -> Ipv4Addr {
     "127.0.0.1".parse().unwrap()
