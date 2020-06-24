@@ -5,3 +5,7 @@ pub mod api;
 pub mod plugins;
 
 pub mod plugin;
+
+pub mod agent;
+
+pub mod builtin;
