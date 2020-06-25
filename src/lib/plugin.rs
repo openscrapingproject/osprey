@@ -25,12 +25,12 @@ pub trait BasicPlugin {
 #[async_trait]
 pub trait Requestor: BasicPlugin {
     type Response;
-    async fn make_request(self, url: &str) -> AResult<Self::Response>;
+    async fn make_request(&self, url: &str) -> AResult<Self::Response>;
 }
 
 pub trait Matcher: BasicPlugin {
     type MatchInput;
-    fn run_match(self, data: Self::MatchInput) -> AResult<bool>;
+    fn run_match(&self, data: Self::MatchInput) -> AResult<bool>;
 }
 
 pub trait Extractor: BasicPlugin {
@@ -38,5 +38,5 @@ pub trait Extractor: BasicPlugin {
     type Relevant: Serialize;
     // I represents input type
     // R represents Relevant data type
-    fn extract(self, input: Self::Input) -> AResult<Self::Relevant>;
+    fn extract(&self, input: Self::Input) -> AResult<Self::Relevant>;
 }

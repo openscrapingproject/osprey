@@ -19,7 +19,7 @@ pub struct Config {
 #[async_trait]
 impl crate::plugin::Requestor for Requestor {
     type Response = Response;
-    async fn make_request(self, url: &str) -> AResult<Response> {
+    async fn make_request(&self, url: &str) -> AResult<Response> {
         // let parsed_url: Url = Url::parse(url)?;
         let resp = reqwest::get(url).await?;
         info!("resp = {:#?}", resp);
@@ -36,5 +36,27 @@ impl crate::plugin::BasicPlugin for Requestor {
         Config {
             version: "".to_string(),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::plugin::Requestor;
+    use crate::plugin::*;
+
+    #[tokio::test]
+    async fn get() -> AResult<()> {
+        let mut r = super::Requestor{};
+        r.configure(Config {
+            version: "".to_string(),
+        })?;
+        
+        let url = "https://google.com";
+        println!("calling {}", url);
+        let res: reqwest::Response = r.make_request(url).await?;
+        println!("{:#?}", res);
+        // res.headers;
+        Ok(())
     }
 }

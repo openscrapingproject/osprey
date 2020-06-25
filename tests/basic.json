@@ -1,0 +1,50 @@
+{
+    "name": "collection_name",
+    "initial_urls": [
+        "/product/:ID1",
+        "/product/:ID2",
+        "each URL generates a new Job",
+        "with an ID of collection_name_0 ... collection_name_N"
+    ],
+    "requestor": {
+        "plugin": "builtin",
+        "config": {
+            "browser": [
+                "Firefox",
+                "random"
+            ],
+            "template": "default"
+        }
+    },
+    "pages": {
+        "<page_set_ID>": {
+            "matcher": {
+                "plugin": "regex",
+                "config": {
+                    "url": "/product/*/",
+                    "headers": {
+                        "Content-Type": "text/html"
+                    }
+                }
+            },
+            "extractor": {
+                "plugin": "extractorID",
+                "config": {
+                    "extra": "config"
+                },
+                "definition": {
+                    "scraping": "definition",
+                    "can include": "hardcoded values",
+                    "or use of": "XPATH, css or similar"
+                }
+            }
+        }
+    },
+    "data": {
+        "plugin": "output",
+        "config": {
+            "serialize": "json",
+            "out": "stdout"
+        }
+    }
+}

@@ -17,7 +17,7 @@ pub struct Config {
 impl crate::plugin::Extractor for HTMLExtractor {
     type Input = reqwest::Response;
     type Relevant = bool;
-    fn extract(self, input: Self::Input) -> AResult<bool> {
+    fn extract(&self, input: Self::Input) -> AResult<bool> {
         Ok(false)
     }
 }

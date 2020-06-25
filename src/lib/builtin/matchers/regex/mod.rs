@@ -24,8 +24,10 @@ pub struct MatchData {
 
 impl crate::plugin::Matcher for RegexMatcher {
     type MatchInput = MatchData;
-    fn run_match(self, data: Self::MatchInput) -> crate::plugin::AResult<bool> {
-        let re = Regex::new(&self.c.ok_or(Error::msg("no configuration provided"))?.url)?;
+    fn run_match(&self, data: Self::MatchInput) -> crate::plugin::AResult<bool> {
+        let config = self.c.as_ref().ok_or(Error::msg("no configuration provided"))?;
+        let re = Regex::new(config.url.as_str())?;
+        
         let res = re.is_match(&data.url.to_string());
         info!("Match for URL {} is {}", data.url, res);
         // TODO match against the headers as well
