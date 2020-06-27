@@ -3,7 +3,7 @@ use log::info;
 use reqwest;
 use serde::{Deserialize, Serialize};
 
-use anyhow::Error;
+use anyhow::{Error,anyhow};
 use reqwest::Response;
 
 use async_trait::async_trait;
@@ -38,6 +38,10 @@ impl crate::plugin::BasicPlugin for Requestor {
         Config {
             version: "".to_string(),
         }
+    }
+    
+    fn parse_config(input: serde_json::Value) -> AResult<Self::Config> {
+        serde_json::from_value(input.clone()).with_context(|| format!("failed to parse configuration {}", input))
     }
 }
 

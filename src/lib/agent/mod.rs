@@ -16,15 +16,15 @@ use crate::builtin::extractors::html::HTMLExtractor;
 use crate::builtin::matchers::regex::RegexMatcher;
 use crate::builtin::requestor::Requestor as Reqr;
 
-pub struct LocalAgent {
+pub struct LocalAgent<R, M, E> where R: Requestor, M: Matcher, E: Extractor {
     c: Option<Config>,
-    r: Reqr,
-    m: RegexMatcher,
-    e: HTMLExtractor,
+    r: R,
+    m: M,
+    e: E,
 }
 
-impl LocalAgent {
-    fn new() -> LocalAgent {
+impl LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
+    fn new() -> LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
         LocalAgent {
             c: None,
             r: Reqr,
@@ -32,14 +32,21 @@ impl LocalAgent {
             e: HTMLExtractor { c: None },
         }
     }
+    // Reqr, RegexMatcher, HTMLExtractor
+
+    // r: Reqr,
+    // m: RegexMatcher { c: None },
+    // e: HTMLExtractor { c: None },
 }
 
 use url::Url;
 
 #[async_trait]
-impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent {
+impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
     fn configure(&mut self, config: Config) -> AResult<()> {
-        self.c = Some(config);
+        self.c = Some(config.clone());
+        
+        <Reqr as BasicPlugin>::parse_config(config.requestor.config)?;
         Ok(())
     }
 

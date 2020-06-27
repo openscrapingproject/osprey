@@ -1,4 +1,5 @@
-use anyhow::Error;
+
+use anyhow::{Error, Context};
 use log::info;
 use serde::{Deserialize, Serialize};
 use crate::plugin::AResult;
@@ -46,5 +47,9 @@ impl crate::plugin::BasicPlugin for RegexMatcher {
             url: "".to_string(),
             headers: HashMap::new(),
         }
+    }
+    
+    fn parse_config(input: serde_json::Value) -> AResult<Self::Config> {
+        serde_json::from_value(input.clone()).with_context(|| format!("failed to parse configuration {}", input))
     }
 }

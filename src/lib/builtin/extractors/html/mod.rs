@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use log::info;
-use anyhow::Error;
+use anyhow::{Error, Context};
 use crate::plugin::AResult;
 
 use regex::Regex;
@@ -30,5 +30,9 @@ impl crate::plugin::BasicPlugin for HTMLExtractor {
     }
     fn get_default_config() -> Config {
         Config {}
+    }
+    
+    fn parse_config(input: serde_json::Value) -> AResult<Self::Config> {
+        serde_json::from_value(input.clone()).with_context(|| format!("failed to parse configuration {}", input))
     }
 }
