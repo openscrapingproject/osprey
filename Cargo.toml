@@ -22,7 +22,7 @@ path = "src/plugins/requestor/main.rs"
 clap = { version = "3.0.0-beta.1", features = ["yaml"] }
 fs_extra = "1.1.0"
 serde = { version = "1.0.110", features = ["derive"] }
-serde_json = { version = "1.0.53", features = ["raw_value"] }
+serde_json = { version = "1.0.55", features = ["raw_value"] }
 config = "0.10.1"
 Inflector = "*"
 log = "0.4.8"
