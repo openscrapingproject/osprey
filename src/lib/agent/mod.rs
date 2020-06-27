@@ -34,6 +34,8 @@ impl LocalAgent {
     }
 }
 
+use url::Url;
+
 #[async_trait]
 impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent {
     fn configure(&mut self, config: Config) -> AResult<()> {
@@ -43,8 +45,17 @@ impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent {
 
     async fn run(self) -> Result<(), Error> {
         let c: Config = self.c.ok_or(Error::msg("no config provided"))?;
-        for url in c.initial_urls {
-            let resp = self.r.make_request(url.as_str()).await?;
+        for url in &c.initial_urls {
+            // If the config provides a base_url, set the request URL to the concatenation of the two
+            let req_url = if c.base_url.is_some() {
+                info!("base_url provided");
+                let base = Url::parse(c.base_url.as_ref().unwrap().as_str())?;
+                base.join(url.as_str())?
+            } else {
+                // otherwise just use url provided
+                Url::parse(url.as_str())?
+            };
+            let resp = self.r.make_request(req_url.as_str()).await?;
             info!(
                 "made request to {} and got response code {}",
                 url,
@@ -65,16 +76,17 @@ mod tests {
     fn init() {
         let _ = env_logger::builder().is_test(true).try_init();
     }
-    
+
     #[tokio::test]
     async fn configure() -> AResult<()> {
         init();
-        
+
         let mut a = LocalAgent::new();
 
         let data = include_str!("../../../tests/basic.json");
 
         let conf: Config = serde_json::from_str(data)?;
+        info!("configuration: {:#?}", conf);
         a.configure(conf)?;
 
         Ok(())
@@ -83,12 +95,13 @@ mod tests {
     #[tokio::test]
     async fn run() -> AResult<()> {
         init();
-        
+
         let mut a = LocalAgent::new();
 
         let data = include_str!("../../../tests/basic.json");
-        
+
         let conf: Config = serde_json::from_str(data)?;
+        info!("configuration: {:#?}", conf);
         a.configure(conf)?;
 
         a.run().await?;

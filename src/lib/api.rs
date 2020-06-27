@@ -7,6 +7,7 @@ use std::collections::HashMap;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JobCollection {
     pub name: String,
+    pub base_url: Option<String>,
     pub initial_urls: Vec<String>,
     pub requestor: PluginWithConfig,
     pub pages: HashMap<PageSetID, PageSet>,
