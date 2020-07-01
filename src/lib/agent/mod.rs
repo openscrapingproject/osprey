@@ -1,5 +1,5 @@
 use super::plugin::*;
-use anyhow::Error;
+use anyhow::{Error, Context};
 
 use crate::api::JobCollection as Config;
 use async_trait::async_trait;
@@ -27,7 +27,7 @@ impl LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
     fn new() -> LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
         LocalAgent {
             c: None,
-            r: Reqr,
+            r: Reqr::new(),
             m: RegexMatcher { c: None },
             e: HTMLExtractor { c: None },
         }
@@ -44,14 +44,16 @@ use url::Url;
 #[async_trait]
 impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent<Reqr, RegexMatcher, HTMLExtractor> {
     fn configure(&mut self, config: Config) -> AResult<()> {
+        info!("configuration: {:#?}", config);
         self.c = Some(config.clone());
         
-        <Reqr as BasicPlugin>::parse_config(config.requestor.config)?;
-        Ok(())
+        <Reqr as BasicPlugin>::configure(&mut self.r, <Reqr as BasicPlugin>::parse_config(config.requestor.config)?)
+        // Ok(())
     }
 
     async fn run(self) -> Result<(), Error> {
         let c: Config = self.c.ok_or(Error::msg("no config provided"))?;
+        // self.r.
         for url in &c.initial_urls {
             // If the config provides a base_url, set the request URL to the concatenation of the two
             let req_url = if c.base_url.is_some() {
@@ -84,16 +86,16 @@ mod tests {
         let _ = env_logger::builder().is_test(true).try_init();
     }
 
-    #[tokio::test]
-    async fn configure() -> AResult<()> {
+    #[test]
+    fn configure() -> AResult<()> {
         init();
 
         let mut a = LocalAgent::new();
 
         let data = include_str!("../../../tests/basic.json");
 
-        let conf: Config = serde_json::from_str(data)?;
-        info!("configuration: {:#?}", conf);
+        let conf: Config = serde_json::from_str(data).context("failed to deserialize configuration")?;
+        // info!("configuration: {:#?}", conf);
         a.configure(conf)?;
 
         Ok(())
@@ -108,7 +110,7 @@ mod tests {
         let data = include_str!("../../../tests/basic.json");
 
         let conf: Config = serde_json::from_str(data)?;
-        info!("configuration: {:#?}", conf);
+        // info!("configuration: {:#?}", conf);
         a.configure(conf)?;
 
         a.run().await?;

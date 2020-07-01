@@ -10,4 +10,4 @@ pub mod agent;
 
 pub mod builtin;
 
-// mod utils;
+pub mod utils;

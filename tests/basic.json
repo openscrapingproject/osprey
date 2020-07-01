@@ -8,6 +8,13 @@
     "requestor": {
         "plugin": "builtin",
         "config": {
+            "timeout": {
+                "secs": 3,
+                "nanos": 0
+            },
+            "headers": {
+                "User-Agent": "openscraping 1.0"
+            },
             "browser": [
                 "Firefox",
                 "random"
