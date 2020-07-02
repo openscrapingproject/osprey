@@ -12,4 +12,5 @@ pub mod agent;
 
 pub mod builtin;
 
+#[macro_use]
 pub mod utils;

@@ -24,23 +24,24 @@ pub fn hash2headers(
     Ok(h)
 }
 
+
+#[macro_export]
+macro_rules! map {
+    ($($key: expr => $value:expr);*) => {{
+        let mut hm = std::collections::HashMap::new();
+        $( hm.insert($key, $value); )*
+        hm
+    }};
+    (String, $($key: expr => $value:expr);*) => {{
+        let mut hm = std::collections::HashMap::new();
+        $( hm.insert($key.to_string(), $value.to_string()); )*
+        hm
+    }};
+}
+
 #[cfg(test)]
 mod tests {
     use super::HashMap;
-    // use super::map;
-
-    macro_rules! map {
-        ($($key: expr => $value:expr);*) => {{
-            let mut hm = std::collections::HashMap::new();
-            $( hm.insert($key, $value); )*
-            hm
-        }};
-        (String, $($key: expr => $value:expr);*) => {{
-            let mut hm = std::collections::HashMap::new();
-            $( hm.insert($key.to_string(), $value.to_string()); )*
-            hm
-        }};
-    }
 
     #[test]
     fn hash2headers() {
