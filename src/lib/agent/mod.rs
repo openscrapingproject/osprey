@@ -1,10 +1,10 @@
 use super::plugin::*;
-use anyhow::{Context, Error, Result};
+use anyhow::{Error, Result};
 
 use crate::api::JobCollection as Config;
 use async_trait::async_trait;
 
-use log::{info, debug};
+use log::{debug, info};
 
 #[async_trait]
 pub trait Agent<R: Requestor, M: Matcher, E: Extractor> {
@@ -38,7 +38,7 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
     for LocalAgent<Reqr, RegexMatcher, ScraperRs>
 {
     fn configure(&mut self, config: Config) -> Result<()> {
-        info!("configuration: {:#?}", config);
+        debug!("configuration: {:#?}", config);
         self.c = Some(config.clone());
 
         self.r
@@ -96,7 +96,15 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
                 let data = resp.text().await?;
 
                 let out = self.e.extract(data)?;
-                println!("Extracted: {:#?}", out);
+                debug!("Extracted: {:#?}", out);
+
+                if out.contains_key("text") {
+                    println!(
+                        "Output: {}\n\n",
+                        // TODO: when to wrap?
+                        textwrap::fill(out.get("text").unwrap(), 50)
+                    )
+                }
             }
         }
         Ok(())
@@ -106,6 +114,8 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use anyhow::Context;
 
     fn init() {
         let _ = env_logger::builder().is_test(true).try_init();

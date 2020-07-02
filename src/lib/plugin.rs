@@ -1,7 +1,7 @@
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 
-use anyhow::{Error, Result};
+use anyhow::Result;
 
 use async_trait::async_trait;
 

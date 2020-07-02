@@ -1,4 +1,4 @@
-use log::{info, debug};
+use log::{debug, info};
 
 use serde::{Deserialize, Serialize};
 
@@ -28,6 +28,7 @@ pub struct Config {
 impl crate::plugin::Requestor for Requestor {
     type Response = Response;
     async fn make_request(&self, url: &str) -> Result<Response> {
+        info!("in make_request");
         // TODO: reuse clients, think about pooling?
         let config = self
             .c

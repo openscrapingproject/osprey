@@ -7,7 +7,6 @@ use config::Config;
 
 use inflector::Inflector;
 use std::env;
-use std::mem::drop;
 
 use log::info;
 
@@ -21,8 +20,8 @@ impl Plugin {
         Plugin { name }
     }
 
-    // Sets up reading configuration from files and environment variables. Logs
-    // and returns retreived configuration
+    // Sets up reading configuration from files and environment variables.
+    // Logs and returns retreived configuration
     pub fn initialize(self) -> super::Settings {
         let mut s = Config::default();
         let file_name = &format!("osprey-{}", self.name.to_kebab_case());

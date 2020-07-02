@@ -1,5 +1,5 @@
 use anyhow::{Context, Error, Result};
-use log::{info, debug};
+use log::{debug, info};
 use serde::{Deserialize, Serialize};
 
 use std::collections::HashMap;
@@ -32,7 +32,8 @@ pub enum ElemOptions {
     Attr(String),
     // Attributes
 }
-// The above has some commented out because they represent multiple values. However, the output for a given key needs to be one string.
+// The above has some commented out because they represent multiple values.
+// However, the output for a given key needs to be one string.
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Config {
@@ -44,7 +45,8 @@ pub type Output = HashMap<Key, OutItem>;
 pub type OutItem = String;
 // TODO: figure out Multiple Extraction stuff
 // 1. a selector gets multiple elements
-// 2. a user wants to access multiple items from an element (e.g. text + an attribute)
+// 2. a user wants to access multiple items from an element (e.g. text + an
+// attribute)
 
 // In that case, OutItem could be a variety of types
 // pub enum OutItem {
@@ -85,7 +87,7 @@ fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
 impl crate::plugin::Extractor for ScraperRs {
     type Input = String;
     type Relevant = Output;
-    
+
     // TODO: maybe think about streaming/batching if supported by extraction
     fn extract(&self, input: Self::Input) -> Result<Self::Relevant> {
         info!("extracting");
@@ -103,7 +105,7 @@ impl crate::plugin::Extractor for ScraperRs {
             let s = Selector::parse(val.selector.as_str())
                 // .context("failed")?;
                 // TODO: figure out this weird error handling
-                .or_else(|e| Err(Error::msg("failed to parse selector")))?;
+                .or_else(|_| Err(Error::msg("failed to parse selector")))?;
 
             let elem = doc.select(&s).next().ok_or_else(|| {
                 Error::msg("failed to parse get first element")
@@ -164,12 +166,11 @@ mod tests {
                     selector:"meta[charset]".to_string(),
                     val: ElemOptions::HTML
                 }
-            )
+            ),
         })?;
 
         Ok(())
     }
-
 
     #[test]
     fn run_extract() -> Result<()> {
@@ -207,13 +208,11 @@ mod tests {
                     selector:".foo>i".to_string(),
                     val: ElemOptions::Text
                 }
-            )
+            ),
         })?;
 
         e.extract(html.to_string())?;
 
         Ok(())
     }
-
-
 }

@@ -45,3 +45,4 @@ tokio = { version = "0.2.21", features= ["macros", "rt-threaded" ] }
 url = "2.1.1"
 humantime-serde = "1.0.0"
 scraper = "0.12.0"
+textwrap = "0.12.0"

@@ -24,7 +24,6 @@ pub fn hash2headers(
     Ok(h)
 }
 
-
 #[macro_export]
 macro_rules! map {
     ($($key: expr => $value:expr);*) => {{
