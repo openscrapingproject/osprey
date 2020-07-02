@@ -16,7 +16,8 @@ use crate::builtin::extractors::scraper_rs::ScraperRs;
 use crate::builtin::matchers::regex::RegexMatcher;
 use crate::builtin::requestor::Requestor as Reqr;
 
-// This means that the generics need to be bounded by the Default trait, which BasicPlugins are
+// This means that the generics need to be bounded by the Default trait, which
+// BasicPlugins are
 #[derive(Default)]
 pub struct LocalAgent<R, M, E>
 where

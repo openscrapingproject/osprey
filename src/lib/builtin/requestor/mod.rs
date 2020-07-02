@@ -29,8 +29,10 @@ impl crate::plugin::Requestor for Requestor {
     type Response = Response;
     async fn make_request(&self, url: &str) -> Result<Response> {
         // TODO: reuse clients, think about pooling?
-        let config =
-            self.c.as_ref().ok_or_else(|| Error::msg("failed to get config"))?;
+        let config = self
+            .c
+            .as_ref()
+            .ok_or_else(|| Error::msg("failed to get config"))?;
         let builder = reqwest::ClientBuilder::new()
             .timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 

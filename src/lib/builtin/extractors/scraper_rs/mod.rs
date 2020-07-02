@@ -19,7 +19,6 @@ impl crate::plugin::Extractor for ScraperRs {
     type Relevant = bool;
 
     // TODO: maybe think about streaming/batching if supported by extraction
-    // lib. for now, we don't want this to be async if possible lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
     fn extract(&self, input: Self::Input) -> Result<bool> {
         info!("extracting");
         // let body = input.text().await?;
