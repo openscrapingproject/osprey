@@ -16,6 +16,8 @@ use crate::builtin::extractors::scraper_rs::ScraperRs;
 use crate::builtin::matchers::regex::RegexMatcher;
 use crate::builtin::requestor::Requestor as Reqr;
 
+// This means that the generics need to be bounded by the Default trait, which BasicPlugins are
+#[derive(Default)]
 pub struct LocalAgent<R, M, E>
 where
     R: Requestor,
@@ -26,22 +28,6 @@ where
     r: R,
     m: M,
     e: E,
-}
-
-impl LocalAgent<Reqr, RegexMatcher, ScraperRs> {
-    fn new() -> LocalAgent<Reqr, RegexMatcher, ScraperRs> {
-        LocalAgent {
-            c: None,
-            r: Reqr::new(),
-            m: RegexMatcher { c: None },
-            e: ScraperRs { c: None },
-        }
-    }
-    // Reqr, RegexMatcher, HTMLExtractor
-
-    // r: Reqr,
-    // m: RegexMatcher { c: None },
-    // e: HTMLExtractor { c: None },
 }
 
 use url::Url;
@@ -77,7 +63,8 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
     }
 
     async fn run(self) -> Result<(), Error> {
-        let c: Config = self.c.ok_or(Error::msg("no config provided"))?;
+        let c: Config =
+            self.c.ok_or_else(|| Error::msg("no config provided"))?;
         for url in &c.initial_urls {
             // If the config provides a base_url, set the request URL to the
             // concatenation of the two
@@ -118,7 +105,7 @@ mod tests {
     fn configure() -> Result<()> {
         init();
 
-        let mut a = LocalAgent::new();
+        let mut a = LocalAgent::default();
 
         let data = include_str!("../../../tests/basic.json");
 
@@ -133,7 +120,7 @@ mod tests {
     async fn run() -> Result<()> {
         init();
 
-        let mut a = LocalAgent::new();
+        let mut a = LocalAgent::default();
 
         let data = include_str!("../../../tests/basic.json");
 

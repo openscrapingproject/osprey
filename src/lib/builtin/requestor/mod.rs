@@ -1,5 +1,5 @@
 use log::info;
-use reqwest;
+
 use serde::{Deserialize, Serialize};
 
 use crate::utils;
@@ -11,14 +11,9 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 
+#[derive(Default)]
 pub struct Requestor {
     c: Option<Config>,
-}
-
-impl Requestor {
-    pub fn new() -> Requestor {
-        Requestor { c: None }
-    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -35,7 +30,7 @@ impl crate::plugin::Requestor for Requestor {
     async fn make_request(&self, url: &str) -> Result<Response> {
         // TODO: reuse clients, think about pooling?
         let config =
-            self.c.as_ref().ok_or(Error::msg("failed to get config"))?;
+            self.c.as_ref().ok_or_else(|| Error::msg("failed to get config"))?;
         let builder = reqwest::ClientBuilder::new()
             .timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 
@@ -93,7 +88,7 @@ mod tests {
     async fn invalid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor::new();
+        let mut r = BasicRequestor::default();
         r.configure(r.get_default_config())?;
 
         let urls = vec![
@@ -118,7 +113,7 @@ mod tests {
     async fn valid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor::new();
+        let mut r = BasicRequestor::default();
         r.configure(r.get_default_config())?;
 
         let urls = vec![

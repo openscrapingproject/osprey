@@ -1,3 +1,5 @@
+#![warn(clippy::all)]
+
 pub mod api;
 
 // pub use api::{Agent};

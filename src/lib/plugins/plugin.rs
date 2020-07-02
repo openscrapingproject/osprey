@@ -18,7 +18,7 @@ use log::info;
 
 impl Plugin {
     pub fn new(name: &'static str) -> Plugin {
-        Plugin { name: name }
+        Plugin { name }
     }
 
     // Sets up reading configuration from files and environment variables. Logs
@@ -34,7 +34,9 @@ impl Plugin {
 
         let key = "PORT";
         match env::var(key) {
-            Ok(val) => drop(s.set("port", val).unwrap()),
+            Ok(val) => {
+                s.set("port", val).unwrap();
+            }
             Err(_e) => {}
         }
 

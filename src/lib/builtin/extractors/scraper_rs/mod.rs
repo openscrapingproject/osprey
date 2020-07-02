@@ -2,6 +2,7 @@ use anyhow::{Context, Error, Result};
 use log::info;
 use serde::{Deserialize, Serialize};
 
+#[derive(Default)]
 pub struct ScraperRs {
     pub c: Option<Config>,
 }

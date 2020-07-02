@@ -13,7 +13,7 @@ pub struct Plugin<Config> {
     pub config: Config,
 }
 
-pub trait BasicPlugin {
+pub trait BasicPlugin: Default {
     type Config: Serialize + DeserializeOwned;
 
     // associated functions: not a good idea right here

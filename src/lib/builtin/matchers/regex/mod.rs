@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use regex::Regex;
 use std::collections::HashMap;
 
+#[derive(Default)]
 pub struct RegexMatcher {
     // TODO: refactor so the option is not there
     pub c: Option<Config>,
@@ -22,7 +23,7 @@ impl crate::plugin::Matcher for RegexMatcher {
         let config = self
             .c
             .as_ref()
-            .ok_or(Error::msg("no configuration provided"))?;
+            .ok_or_else(|| Error::msg("no configuration provided"))?;
         let reg = config.url.as_str();
         info!("Trying to match with regex {}", reg);
 
