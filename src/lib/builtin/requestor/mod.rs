@@ -1,4 +1,4 @@
-use log::info;
+use log::{info, debug};
 
 use serde::{Deserialize, Serialize};
 
@@ -43,10 +43,10 @@ impl crate::plugin::Requestor for Requestor {
             .headers(utils::hash2headers(&config.headers)?)
             .build()?;
 
-        info!("req = {:#?}", req);
+        debug!("Request = {:#?}", req);
 
         let resp = client.execute(req).await?;
-        info!("resp = {:#?}", resp);
+        debug!("Response = {:#?}", resp);
         Ok(resp)
     }
 }

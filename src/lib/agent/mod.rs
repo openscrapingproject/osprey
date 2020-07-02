@@ -4,7 +4,7 @@ use anyhow::{Context, Error, Result};
 use crate::api::JobCollection as Config;
 use async_trait::async_trait;
 
-use log::info;
+use log::{info, debug};
 
 #[async_trait]
 pub trait Agent<R: Requestor, M: Matcher, E: Extractor> {
@@ -79,7 +79,7 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
             };
             let resp = self.r.make_request(req_url.as_str()).await?;
             info!(
-                "made request to {} and got response code {}",
+                "Made request to {} and got response code {}",
                 url,
                 resp.status()
             );
@@ -89,6 +89,15 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
             };
             let matched = self.m.run_match(mdata)?;
             info!("The matcher plugin resulted in {}", matched);
+
+            if matched {
+                info!("Starting extractor");
+
+                let data = resp.text().await?;
+
+                let out = self.e.extract(data)?;
+                println!("Extracted: {:#?}", out);
+            }
         }
         Ok(())
     }

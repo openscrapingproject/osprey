@@ -31,9 +31,14 @@
                 }
             },
             "extractor": {
-                "plugin": "extractorID",
+                "plugin": "scraper_rs",
                 "config": {
-                    "extra": "config"
+                    "definitions": {
+                        "text": {
+                            "selector": "#body-text",
+                            "val": "Text"
+                        }
+                    }
                 },
                 "definition": {
                     "scraping": "definition",

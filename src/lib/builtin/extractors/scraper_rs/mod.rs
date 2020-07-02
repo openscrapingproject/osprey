@@ -1,5 +1,5 @@
 use anyhow::{Context, Error, Result};
-use log::info;
+use log::{info, debug};
 use serde::{Deserialize, Serialize};
 
 use std::collections::HashMap;
@@ -65,7 +65,7 @@ fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
         // TODO: figure out what this separator should be
         // TODO: when we implement Multiple Extraction,
         // this could just be a list
-        Text => Ok(em.text().fold(String::new(), |a, b| a + b + "\n")),
+        Text => Ok(em.text().fold(String::new(), |a, b| a + b + " ")),
         Attr(name) => em
             .value()
             .attr(name.as_str()) //Option
@@ -109,13 +109,13 @@ impl crate::plugin::Extractor for ScraperRs {
                 Error::msg("failed to parse get first element")
             })?;
 
-            info!("got elem {:#?}", elem);
+            debug!("got elem {:#?}", elem);
 
             let o = elem_to_out_item(elem, &val.val)?;
 
             let n = key.clone();
 
-            info!("key \"{}\", value (output) \"{}\"", n, o);
+            debug!("key \"{}\", value (output) \"{}\"", n, o);
 
             out.insert(n, o);
         }
