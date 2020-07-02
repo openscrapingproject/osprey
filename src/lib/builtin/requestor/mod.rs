@@ -34,9 +34,10 @@ impl crate::plugin::Requestor for Requestor {
     type Response = Response;
     async fn make_request(&self, url: &str) -> Result<Response> {
         // TODO: reuse clients, think about pooling?
-        let config = self.c.as_ref().ok_or(Error::msg("failed to get config"))?;
-        let builder =
-            reqwest::ClientBuilder::new().timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
+        let config =
+            self.c.as_ref().ok_or(Error::msg("failed to get config"))?;
+        let builder = reqwest::ClientBuilder::new()
+            .timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 
         let client = builder.build()?;
 
@@ -48,9 +49,6 @@ impl crate::plugin::Requestor for Requestor {
         info!("req = {:#?}", req);
 
         let resp = client.execute(req).await?;
-        // let resp = reqwest::get(url)
-        //     .await
-        //     .with_context(|| format!("failed to parse or fetch URL from {}", url))?;
         info!("resp = {:#?}", resp);
         Ok(resp)
     }
@@ -64,15 +62,17 @@ impl crate::plugin::BasicPlugin for Requestor {
     }
     fn get_default_config(&self) -> Config {
         Config {
-            // version: "".to_string(),
+            // TODO: think about using http-serde library to not have to have
+            // the utils conversion code
             timeout: None,
             headers: HashMap::new(),
         }
     }
 
     fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone())
-            .with_context(|| format!("failed to parse configuration {}", input))
+        serde_json::from_value(input.clone()).with_context(|| {
+            format!("failed to parse configuration {}", input)
+        })
     }
 }
 

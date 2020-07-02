@@ -1,0 +1,7 @@
+max_width = 79
+
+# Need unstable options for comment wrapping
+# unstable_options = true
+
+wrap_comments = true
+comment_width = 79

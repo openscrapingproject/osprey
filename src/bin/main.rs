@@ -1,7 +1,8 @@
 // (Full example with detailed comments in examples/17_yaml.rs)
 //
-// This example demonstrates clap's building from YAML style of creating arguments which is far
-// more clean, but takes a very small performance hit compared to the other two methods.
+// This example demonstrates clap's building from YAML style of creating
+// arguments which is far more clean, but takes a very small performance hit
+// compared to the other two methods.
 use clap::{load_yaml, App};
 
 // use fs_extra::file::read_to_string;
@@ -18,7 +19,8 @@ use osprey::api::JobCollection;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
 
-    // The YAML file is found relative to the current file, similar to how modules are found
+    // The YAML file is found relative to the current file, similar to how
+    // modules are found
     let yaml = load_yaml!("cli.yaml");
     let matches = App::from(yaml).get_matches();
 

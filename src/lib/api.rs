@@ -14,7 +14,8 @@ pub struct JobCollection {
     pub data: PluginWithConfig,
 }
 
-// PluginConfig represents generic plugin configuration read from JSON. It could then be converted to a specific plugin's configuration type
+// PluginConfig represents generic plugin configuration read from JSON. It
+// could then be converted to a specific plugin's configuration type
 pub type PluginWithConfig = Plugin<Value>;
 
 pub type PageSetID = String;

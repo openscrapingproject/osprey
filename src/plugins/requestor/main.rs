@@ -12,8 +12,10 @@ async fn main() -> std::io::Result<()> {
     let addr: Ipv4Addr = settings.address;
     let bindaddr = SocketAddrV4::new(addr, settings.port);
 
-    HttpServer::new(|| App::new().route("/", web::get().to(|| HttpResponse::Ok())))
-        .bind(bindaddr)?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new().route("/", web::get().to(|| HttpResponse::Ok()))
+    })
+    .bind(bindaddr)?
+    .run()
+    .await
 }

@@ -49,7 +49,8 @@ impl crate::plugin::BasicPlugin for RegexMatcher {
     }
 
     fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone())
-            .with_context(|| format!("failed to parse configuration {}", input))
+        serde_json::from_value(input.clone()).with_context(|| {
+            format!("failed to parse configuration {}", input)
+        })
     }
 }

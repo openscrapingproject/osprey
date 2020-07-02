@@ -21,7 +21,8 @@ impl Plugin {
         Plugin { name: name }
     }
 
-    // Sets up reading configuration from files and environment variables. Logs and returns retreived configuration
+    // Sets up reading configuration from files and environment variables. Logs
+    // and returns retreived configuration
     pub fn initialize(self) -> super::Settings {
         let mut s = Config::default();
         let file_name = &format!("osprey-{}", self.name.to_kebab_case());
@@ -42,8 +43,8 @@ impl Plugin {
         out
     }
 
-    // pub fn bind_server(self) -> Result<HttpServer<dyn std::any::Any, _, _, _>> {
-    //     HttpServer::new(|| {
+    // pub fn bind_server(self) -> Result<HttpServer<dyn std::any::Any, _, _,
+    // _>> {     HttpServer::new(|| {
     //         App::new().route("/", web::get().to(|| HttpResponse::Ok()))
     //     })
     //     .bind("127.0.0.1:8088")

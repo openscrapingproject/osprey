@@ -40,6 +40,7 @@ pub trait Extractor: BasicPlugin {
     type Relevant: Serialize;
 
     fn extract(&self, input: Self::Input) -> Result<Self::Relevant>;
-    // TODO: in the future, as we think about standardizing Scraping Definitions, we might modify this signature
-    // However, for now, they can go directly into the plugin's Config
+    // TODO: in the future, as we think about standardizing Scraping
+    // Definitions, we might modify this signature However, for now, they
+    // can go directly into the plugin's Config
 }

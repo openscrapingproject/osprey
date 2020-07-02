@@ -2,7 +2,9 @@ use anyhow::Result;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use std::collections::HashMap;
 
-pub fn headers2hash(headers: &HeaderMap<HeaderValue>) -> HashMap<String, Vec<String>> {
+pub fn headers2hash(
+    headers: &HeaderMap<HeaderValue>,
+) -> HashMap<String, Vec<String>> {
     let mut header_hashmap = HashMap::new();
     for (k, v) in headers {
         let k = k.as_str().to_owned();
@@ -12,7 +14,9 @@ pub fn headers2hash(headers: &HeaderMap<HeaderValue>) -> HashMap<String, Vec<Str
     header_hashmap
 }
 
-pub fn hash2headers(hashmap: &HashMap<String, String>) -> Result<HeaderMap<HeaderValue>> {
+pub fn hash2headers(
+    hashmap: &HashMap<String, String>,
+) -> Result<HeaderMap<HeaderValue>> {
     let mut h = HeaderMap::new();
     for (k, v) in hashmap {
         h.insert(HeaderName::from_bytes(k.as_bytes())?, v.parse().unwrap());
@@ -45,12 +49,12 @@ mod tests {
             map!(String, "Content-Type" => "text/html"; "Content-Length" => "12"),
             // Note: looks like they don't actually validate HeaderNames
             map!(String, "Content-zz" => "text/html"; "Content-Length" => "12"),
-            // TODO: make more generic?
-            // {
-            //     let mut hm = std::collections::HashMap::new();
-            //     hm.insert("heelo".to_string, 12);
-            //     hm
-            // },
+            /* TODO: make more generic?
+             * {
+             *     let mut hm = std::collections::HashMap::new();
+             *     hm.insert("heelo".to_string, 12);
+             *     hm
+             * }, */
         ];
         for test in tests {
             let headers = super::hash2headers(&test);
