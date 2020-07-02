@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use super::plugin::Plugin;
+use serde::{Deserialize, Serialize};
 
 use serde_json::Value;
 use std::collections::HashMap;

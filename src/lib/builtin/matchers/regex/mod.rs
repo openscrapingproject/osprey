@@ -1,8 +1,6 @@
-
-use anyhow::{Error, Context};
+use anyhow::{Context, Error, Result};
 use log::info;
 use serde::{Deserialize, Serialize};
-use crate::plugin::AResult;
 
 use regex::Regex;
 use std::collections::HashMap;
@@ -20,13 +18,16 @@ pub struct Config {
 
 impl crate::plugin::Matcher for RegexMatcher {
     type MatchInput = super::MatchData;
-    fn run_match(&self, data: Self::MatchInput) -> crate::plugin::AResult<bool> {
-        let config = self.c.as_ref().ok_or(Error::msg("no configuration provided"))?;
+    fn run_match(&self, data: Self::MatchInput) -> Result<bool> {
+        let config = self
+            .c
+            .as_ref()
+            .ok_or(Error::msg("no configuration provided"))?;
         let reg = config.url.as_str();
         info!("Trying to match with regex {}", reg);
 
         let re = Regex::new(reg)?;
-        
+
         let res = re.is_match(&data.url.to_string());
         info!("Match for URL {} is {}", data.url, res);
         // TODO match against the headers as well
@@ -36,7 +37,7 @@ impl crate::plugin::Matcher for RegexMatcher {
 
 impl crate::plugin::BasicPlugin for RegexMatcher {
     type Config = Config;
-    fn configure(&mut self, c: Config) -> AResult<()> {
+    fn configure(&mut self, c: Config) -> Result<()> {
         self.c = Some(c);
         Ok(())
     }
@@ -46,8 +47,9 @@ impl crate::plugin::BasicPlugin for RegexMatcher {
             headers: HashMap::new(),
         }
     }
-    
-    fn parse_config(&self, input: serde_json::Value) -> AResult<Self::Config> {
-        serde_json::from_value(input.clone()).with_context(|| format!("failed to parse configuration {}", input))
+
+    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
+        serde_json::from_value(input.clone())
+            .with_context(|| format!("failed to parse configuration {}", input))
     }
 }

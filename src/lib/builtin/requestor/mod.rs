@@ -1,13 +1,12 @@
-use crate::plugin::AResult;
 use log::info;
 use reqwest;
 use serde::{Deserialize, Serialize};
 
 use crate::utils;
-use anyhow::{anyhow, Context, Error};
+use anyhow::{Context, Error, Result};
 use reqwest::Response;
 use std::collections::HashMap;
-use std::convert::TryFrom;
+
 use std::time::Duration;
 
 use async_trait::async_trait;
@@ -25,7 +24,6 @@ impl Requestor {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     // version: String,
-
     #[serde(with = "humantime_serde")]
     timeout: Option<Duration>,
     headers: HashMap<String, String>,
@@ -34,14 +32,11 @@ pub struct Config {
 #[async_trait]
 impl crate::plugin::Requestor for Requestor {
     type Response = Response;
-    async fn make_request(&self, url: &str) -> AResult<Response> {
+    async fn make_request(&self, url: &str) -> Result<Response> {
         // TODO: reuse clients, think about pooling?
         let config = self.c.as_ref().ok_or(Error::msg("failed to get config"))?;
-        let builder = reqwest::ClientBuilder::new().timeout(
-            config
-                .timeout
-                .unwrap_or(Duration::from_secs(5)),
-        );
+        let builder =
+            reqwest::ClientBuilder::new().timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 
         let client = builder.build()?;
 
@@ -63,7 +58,7 @@ impl crate::plugin::Requestor for Requestor {
 
 impl crate::plugin::BasicPlugin for Requestor {
     type Config = Config;
-    fn configure(&mut self, config: Config) -> AResult<()> {
+    fn configure(&mut self, config: Config) -> Result<()> {
         self.c = Some(config);
         Ok(())
     }
@@ -75,7 +70,7 @@ impl crate::plugin::BasicPlugin for Requestor {
         }
     }
 
-    fn parse_config(&self, input: serde_json::Value) -> AResult<Self::Config> {
+    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
         serde_json::from_value(input.clone())
             .with_context(|| format!("failed to parse configuration {}", input))
     }
@@ -88,12 +83,14 @@ mod tests {
     use super::Requestor as BasicRequestor;
     use crate::plugin::*;
 
+    use anyhow::Result;
+
     fn init() {
         let _ = env_logger::builder().is_test(true).try_init();
     }
 
     #[tokio::test]
-    async fn invalid_urls() -> AResult<()> {
+    async fn invalid_urls() -> Result<()> {
         init();
 
         let mut r = BasicRequestor::new();
@@ -118,7 +115,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn valid_urls() -> AResult<()> {
+    async fn valid_urls() -> Result<()> {
         init();
 
         let mut r = BasicRequestor::new();

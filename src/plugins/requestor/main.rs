@@ -1,7 +1,7 @@
 use osprey::plugins::Plugin;
 
 use actix_web::{web, App, HttpResponse, HttpServer};
-use std::net::{SocketAddrV4, Ipv4Addr};
+use std::net::{Ipv4Addr, SocketAddrV4};
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
