@@ -18,16 +18,14 @@ pub struct Config {
     headers: HashMap<String, String>,
 }
 
-pub struct MatchData {
-    url: http::Uri,
-    headers: http::HeaderMap,
-}
-
 impl crate::plugin::Matcher for RegexMatcher {
-    type MatchInput = MatchData;
+    type MatchInput = super::MatchData;
     fn run_match(&self, data: Self::MatchInput) -> crate::plugin::AResult<bool> {
         let config = self.c.as_ref().ok_or(Error::msg("no configuration provided"))?;
-        let re = Regex::new(config.url.as_str())?;
+        let reg = config.url.as_str();
+        info!("Trying to match with regex {}", reg);
+
+        let re = Regex::new(reg)?;
         
         let res = re.is_match(&data.url.to_string());
         info!("Match for URL {} is {}", data.url, res);
@@ -42,14 +40,14 @@ impl crate::plugin::BasicPlugin for RegexMatcher {
         self.c = Some(c);
         Ok(())
     }
-    fn get_default_config() -> Config {
+    fn get_default_config(&self) -> Config {
         Config {
             url: "".to_string(),
             headers: HashMap::new(),
         }
     }
     
-    fn parse_config(input: serde_json::Value) -> AResult<Self::Config> {
+    fn parse_config(&self, input: serde_json::Value) -> AResult<Self::Config> {
         serde_json::from_value(input.clone()).with_context(|| format!("failed to parse configuration {}", input))
     }
 }

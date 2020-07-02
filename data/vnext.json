@@ -8,23 +8,18 @@
     "requestor": {
         "plugin": "builtin",
         "config": {
-            "timeout": "3s",
-            "headers": {
-                "User-Agent": "openscraping 1.0"
-            },
-            "browser": [
-                "Firefox",
-                "random"
-            ],
-            "template": "default"
-        }
+            "gzip etc": "proxy blabla"
+        },
+        "jobs": [
+            {"url":"a", "method":"b", "headers":"c"}
+        ]
     },
     "pages": {
-        "cnn_articles": {
+        "<page_set_ID>": {
             "matcher": {
                 "plugin": "regex",
                 "config": {
-                    "url": "(.*)cnn.com\/\\d{4}\/(\\d{2}\/){2}",
+                    "url": "/product/*/",
                     "headers": {
                         "Content-Type": "text/html"
                     }

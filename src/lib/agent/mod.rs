@@ -47,8 +47,20 @@ impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent<Reqr, RegexMatcher,
         info!("configuration: {:#?}", config);
         self.c = Some(config.clone());
         
-        <Reqr as BasicPlugin>::configure(&mut self.r, <Reqr as BasicPlugin>::parse_config(config.requestor.config)?)
-        // Ok(())
+        self.r.configure(self.r.parse_config(config.requestor.config)?)?;
+
+        // TODO: think about where to run matcher config.
+        // Should it be here, thus requiring additional state, and maybe a matcher per page set
+        // or should it be in run where config errors shouldn't be caught
+
+        // HACK: the primary purpose of this is to validate the config
+        // Its true effect will be to overwrite the matchers config with that of the last page set
+        for (pageID, page) in config.pages {
+            self.m.configure(self.m.parse_config(page.matcher.config)?)?;
+        }
+
+
+        Ok(())
     }
 
     async fn run(self) -> Result<(), Error> {
@@ -70,6 +82,18 @@ impl Agent<Reqr, RegexMatcher, HTMLExtractor> for LocalAgent<Reqr, RegexMatcher,
                 url,
                 resp.status()
             );
+            let mdata = crate::builtin::matchers::MatchData {
+                url: resp.url().clone(),
+                headers: resp.headers().clone()
+            };
+            let matched = self.m.run_match(mdata)?;
+            // let mm: &'a str = {if m == true {"Matched"} else {"Didn't match"}};
+            info!("The matcher plugin resulted in {}", matched);
+
+            if matched {
+                info!("Starting extractor");
+                
+            }
         }
         // self.m.
         Ok(())

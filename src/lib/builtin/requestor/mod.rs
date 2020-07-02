@@ -25,6 +25,8 @@ impl Requestor {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     // version: String,
+
+    #[serde(with = "humantime_serde")]
     timeout: Option<Duration>,
     headers: HashMap<String, String>,
 }
@@ -65,7 +67,7 @@ impl crate::plugin::BasicPlugin for Requestor {
         self.c = Some(config);
         Ok(())
     }
-    fn get_default_config() -> Config {
+    fn get_default_config(&self) -> Config {
         Config {
             // version: "".to_string(),
             timeout: None,
@@ -73,7 +75,7 @@ impl crate::plugin::BasicPlugin for Requestor {
         }
     }
 
-    fn parse_config(input: serde_json::Value) -> AResult<Self::Config> {
+    fn parse_config(&self, input: serde_json::Value) -> AResult<Self::Config> {
         serde_json::from_value(input.clone())
             .with_context(|| format!("failed to parse configuration {}", input))
     }
@@ -95,7 +97,7 @@ mod tests {
         init();
 
         let mut r = BasicRequestor::new();
-        r.configure(BasicRequestor::get_default_config())?;
+        r.configure(r.get_default_config())?;
 
         let urls = vec![
             "/product/:ID1",
@@ -120,7 +122,7 @@ mod tests {
         init();
 
         let mut r = BasicRequestor::new();
-        r.configure(BasicRequestor::get_default_config())?;
+        r.configure(r.get_default_config())?;
 
         let urls = vec![
             "https://google.com",
