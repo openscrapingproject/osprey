@@ -21,7 +21,7 @@ struct C2 {
     papaya: String,
 }
 
-trait Plugin {
+trait Plugin: Any {
     type Config;
     fn print(&self, c: Self::Config) -> bool;
 }
@@ -70,16 +70,16 @@ fn main() -> anyhow::Result<()> {
     // The following fails:
     // It appears there is no fix without dyn
 
-    let got = u.plugin.as_str();
-    let p = if got == "foo" {
-        let c1: C1 = serde_json::from_value(u.config).unwrap();
-        Foo {}
-    // true
-    } else if got == "bar" {
-        Bar {}
-    } else {
-        return Err(Error::msg("unknown plugin"));
-    };
+    // let got = u.plugin.as_str();
+    // let p: Any = if got == "foo" {
+    //     let c1: C1 = serde_json::from_value(u.config).unwrap();
+    //     &Foo {}
+    // // true
+    // } else if got == "bar" {
+    //     &Bar {}
+    // } else {
+    //     return Err(Error::msg("unknown plugin"));
+    // };
 
     // let p: dyn Plugin;
 
