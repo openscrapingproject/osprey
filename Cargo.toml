@@ -22,6 +22,9 @@ path = "src/plugins/requestor/main.rs"
 # name = "ogcli"
 # path = "src/random/opengraph.rs"
 
+[build]
+rustc-wrapper = "/home/alex/bin/sccache"
+
 [dependencies]
 clap = { version = "3.0.0-beta.1", features = ["yaml"] }
 fs_extra = "1.1.0"
@@ -46,3 +49,4 @@ url = "2.1.1"
 humantime-serde = "1.0.0"
 scraper = "0.12.0"
 textwrap = "0.12.0"
+serde_any = "0.5.0"

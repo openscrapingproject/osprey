@@ -51,8 +51,8 @@
     "data": {
         "plugin": "output",
         "config": {
-            "serialize": "json",
-            "out": "stdout"
+            "format": "json",
+            "location": "stdout"
         }
     }
 }

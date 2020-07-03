@@ -44,3 +44,11 @@ pub trait Extractor: BasicPlugin {
     // Definitions, we might modify this signature However, for now, they
     // can go directly into the plugin's Config
 }
+
+
+pub trait DataSink: BasicPlugin {
+    type Input: Serialize;
+
+    fn consume(&self, input: Self::Input) -> Result<()>;
+}
+

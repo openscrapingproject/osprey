@@ -7,7 +7,12 @@ use async_trait::async_trait;
 use log::{debug, info};
 
 #[async_trait]
-pub trait Agent<R: Requestor, M: Matcher, E: Extractor> {
+pub trait Agent<R, M, E, S>
+where
+    R: Requestor,
+    M: Matcher,
+    E: Extractor,
+    S: DataSink {
     async fn run(self) -> Result<()>;
     fn configure(&mut self, config: Config) -> Result<()>;
 }
@@ -16,26 +21,30 @@ use crate::builtin::extractors::scraper_rs::ScraperRs;
 use crate::builtin::matchers::regex::RegexMatcher;
 use crate::builtin::requestor::Requestor as Reqr;
 
+use crate::builtin::data_sinks::basic::BasicSink;
+
 // This means that the generics need to be bounded by the Default trait, which
 // BasicPlugins are
 #[derive(Default)]
-pub struct LocalAgent<R, M, E>
+pub struct LocalAgent<R, M, E, S>
 where
     R: Requestor,
     M: Matcher,
     E: Extractor,
+    S: DataSink
 {
     c: Option<Config>,
     r: R,
     m: M,
     e: E,
+    s: S,
 }
 
 use url::Url;
 
 #[async_trait]
-impl Agent<Reqr, RegexMatcher, ScraperRs>
-    for LocalAgent<Reqr, RegexMatcher, ScraperRs>
+impl Agent<Reqr, RegexMatcher, ScraperRs, BasicSink>
+    for LocalAgent<Reqr, RegexMatcher, ScraperRs, BasicSink>
 {
     fn configure(&mut self, config: Config) -> Result<()> {
         debug!("configuration: {:#?}", config);
@@ -59,6 +68,8 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
             self.e
                 .configure(self.e.parse_config(page.extractor.config)?)?;
         }
+
+        self.s.configure(self.s.parse_config(config.data.config)?)?;
 
         Ok(())
     }
@@ -98,13 +109,16 @@ impl Agent<Reqr, RegexMatcher, ScraperRs>
                 let out = self.e.extract(data)?;
                 debug!("Extracted: {:#?}", out);
 
-                if out.contains_key("text") {
-                    println!(
-                        "Output: {}\n\n",
-                        // TODO: when to wrap?
-                        textwrap::fill(out.get("text").unwrap(), 50)
-                    )
-                }
+                self.s.consume(out)?;
+
+                info!("Completed");
+                // if out.contains_key("text") {
+                //     println!(
+                //         "Output: {}\n\n",
+                //         // TODO: when to wrap?
+                //         textwrap::fill(out.get("text").unwrap(), 50)
+                //     )
+                // }
             }
         }
         Ok(())
