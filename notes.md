@@ -20,3 +20,48 @@ Validation should happen at the last possible steo when configuration is already
 
 
 A future version of programming: Semantic APIs, where we define standards that can be interoperated across languages and frameworks. But this requires a heavily interface, component, and serialized data view of programming.
+
+On plugin architecture and registry.
+
+- Most appealing option: Have en Executor or higher level object read the configuration and create an Agent with a static mapping from strings to trait type implementation types. However, might not be possible, build POC
+  - With POC, seems limit is at the Config type
+- Might need for flexibilty: Full `dyn` types. Won't work with associated types, generic params, self return. However, we could simplify the API surface of the Plugin traits.
+  - This could be done by making Config a serde RawValue that then gets parsed manually by the plugin.
+- typetag could be simple solution, at least for in-tree plugins
+
+Remote plugins: wrappers that call HTTP or gRPC or DBUS or some MPI to access external plugins
+
+```json
+"metadata": {
+    "remote_pl_name": {
+        "config": "etc"
+    }
+}
+```
+
+Basically they are just a trait like
+```rust
+pub trait Remote {
+    configure(pluginSpecificConfig: T) -> Result
+    get_requestor() -> dyn Requestor // (or T: Requestor)
+    get_other_plugin() -> Plugin
+}
+```
+
+They get configured at beginning of file with connection information. Then they are called with `pluginID`??
+
+Or
+
+
+```json
+"plugins": {
+    "<id>": {
+        "connection":"builtin", //or http, grpc, etc
+        "connection_config": "blbla", // path for http, etc
+        "config": "etc" // JSON config to send over
+    }
+}
+```
+
+In this case, we have a plugin map, which is used if there are no builtin plugins???
+It allows for plugin-level connections, not just for all plugins from one remote.

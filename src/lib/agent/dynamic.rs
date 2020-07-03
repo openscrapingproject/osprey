@@ -12,28 +12,24 @@ use crate::builtin::requestor::Requestor as Reqr;
 
 use crate::builtin::data_sinks::basic::BasicSink;
 
+type C<T> = Box<T>;
+
 // This means that the generics need to be bounded by the Default trait, which
 // BasicPlugins are
 #[derive(Default)]
-pub struct LocalAgent<R, M, E, S>
-where
-    R: Requestor,
-    M: Matcher,
-    E: Extractor,
-    S: DataSink,
-{
+pub struct DynamicAgent {
     c: Option<Config>,
-    r: R,
-    m: M,
-    e: E,
-    s: S,
+    r: C<dyn Requestor<>>,
+    m: C<dyn Matcher>,
+    e: C<dyn Extractor>,
+    s: C<dyn DataSink>,
 }
 
 use url::Url;
 
 #[async_trait]
 impl super::Agent<Reqr, RegexMatcher, ScraperRs, BasicSink>
-    for LocalAgent<Reqr, RegexMatcher, ScraperRs, BasicSink>
+    for DynamicAgent<Reqr, RegexMatcher, ScraperRs, BasicSink>
 {
     fn configure(&mut self, config: Config) -> Result<()> {
         debug!("configuration: {:#?}", config);
@@ -122,7 +118,7 @@ mod tests {
     fn configure() -> Result<()> {
         init();
 
-        let mut a = LocalAgent::default();
+        let mut a = DynamicAgent::default();
 
         let data = include_str!("../../../tests/basic.json");
 
@@ -137,7 +133,7 @@ mod tests {
     async fn run() -> Result<()> {
         init();
 
-        let mut a = LocalAgent::default();
+        let mut a = DynamicAgent::default();
 
         let data = include_str!("../../../tests/basic.json");
 
