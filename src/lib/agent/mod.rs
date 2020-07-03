@@ -12,7 +12,8 @@ where
     R: Requestor,
     M: Matcher,
     E: Extractor,
-    S: DataSink {
+    S: DataSink,
+{
     async fn run(self) -> Result<()>;
     fn configure(&mut self, config: Config) -> Result<()>;
 }
@@ -31,7 +32,7 @@ where
     R: Requestor,
     M: Matcher,
     E: Extractor,
-    S: DataSink
+    S: DataSink,
 {
     c: Option<Config>,
     r: R,

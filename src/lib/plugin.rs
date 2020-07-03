@@ -45,10 +45,8 @@ pub trait Extractor: BasicPlugin {
     // can go directly into the plugin's Config
 }
 
-
 pub trait DataSink: BasicPlugin {
     type Input: Serialize;
 
     fn consume(&self, input: Self::Input) -> Result<()>;
 }
-

@@ -28,7 +28,7 @@ impl From<Format> for Fmt {
             Format::Yaml => Fmt::Yaml,
             Format::Ron => Fmt::Ron,
             Format::Xml => Fmt::Xml,
-            Format::Url => Fmt::Url
+            Format::Url => Fmt::Url,
         }
     }
 }
