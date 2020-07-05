@@ -11,6 +11,16 @@ Then run
 git config --local core.hooksPath .githooks/
 ```
 
+## Build docs
+```sh
+cargo +nightly doc --open --no-deps
+```
+
+## Format
+```
+cargo +nightly fmt
+```
+
 ## Code stats/complexity
 
 Install https://github.com/boyter/scc.

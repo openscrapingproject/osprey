@@ -1,17 +1,27 @@
 use anyhow::Result;
+use log::warn;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use std::collections::HashMap;
 
 pub fn headers2hash(
     headers: &HeaderMap<HeaderValue>,
-) -> HashMap<String, Vec<String>> {
+) -> HashMap<String, String> {
     let mut header_hashmap = HashMap::new();
     for (k, v) in headers {
         let k = k.as_str().to_owned();
         let v = String::from_utf8_lossy(v.as_bytes()).into_owned();
         header_hashmap.entry(k).or_insert_with(Vec::new).push(v)
     }
-    header_hashmap
+    // TODO: can we remove the Vec<String> intermediary? Are there cases where
+    // this actually happens?
+    let mut hm = HashMap::new();
+    for (k, v) in header_hashmap {
+        if v.len() > 1 {
+            warn!("Your headers have more than one chunk. That's weird")
+        }
+        hm.insert(k, v.join(""));
+    }
+    hm
 }
 
 pub fn hash2headers(

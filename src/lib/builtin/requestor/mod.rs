@@ -33,8 +33,8 @@ async fn convert_response(input: reqwest::Response) -> Result<Response> {
 pub struct BasicRequestor {
     // version: String,
     #[serde(with = "humantime_serde")]
-    timeout: Option<Duration>,
-    headers: HashMap<String, String>,
+    pub timeout: Option<Duration>,
+    pub headers: HashMap<String, String>,
 }
 
 #[async_trait]
