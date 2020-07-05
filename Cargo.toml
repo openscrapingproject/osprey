@@ -1,52 +1,63 @@
 [package]
-name = "osprey"
-version = "0.1.0"
 authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
 edition = "2018"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[lib]
 name = "osprey"
-path = "src/lib/main.rs"
-
+version = "0.1.0"
 [[bin]]
 name = "osprey-cli"
 path = "src/bin/main.rs"
-
 
 [[bin]]
 name = "osprey-requestor"
 path = "src/plugins/requestor/main.rs"
 
-# [[bin]]
-# name = "ogcli"
-# path = "src/random/opengraph.rs"
-
 [build]
 rustc-wrapper = "/home/alex/bin/sccache"
 
 [dependencies]
-clap = { version = "3.0.0-beta.1", features = ["yaml"] }
-fs_extra = "1.1.0"
-serde = { version = "1.0.110", features = ["derive"] }
-serde_json = { version = "1.0.53", features = ["raw_value"] }
-config = "0.10.1"
 Inflector = "*"
-log = "0.4.8"
-env_logger = "*"
-actix-web = "2"
 actix-rt = "1"
-http = "0.2.1"
-simple-error = "0.2.1"
-reqwest = "0.10.4"
-async-trait = "0.1.31"
+actix-web = "2"
 anyhow = "1.0.31"
-regex = "1.3.9"
-futures-await-test = "0.3.0"
+async-trait = "0.1.31"
+config = "0.10.1"
+env_logger = "*"
+fs_extra = "1.1.0"
 futures = "0.3.5"
-tokio = { version = "0.2.21", features= ["macros", "rt-threaded" ] }
-url = "2.1.1"
+futures-await-test = "0.3.0"
+http = "0.2.1"
 humantime-serde = "1.0.0"
+log = "0.4.8"
+regex = "1.3.9"
+reqwest = "0.10.4"
 scraper = "0.12.0"
-textwrap = "0.12.0"
 serde_any = "0.5.0"
+simple-error = "0.2.1"
+textwrap = "0.12.0"
+typetag = "*"
+url = "2.1.1"
+
+[dependencies.clap]
+features = ["yaml"]
+version = "3.0.0-beta.1"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0.110"
+
+[dependencies.serde_json]
+features = ["raw_value"]
+version = "1.0.53"
+
+[dependencies.tokio]
+features = ["macros", "rt-threaded"]
+version = "0.2.21"
+
+[lib]
+humantime-serde = "1.0.0"
+name = "osprey"
+path = "src/lib/main.rs"
+scraper = "0.12.0"
+serde_any = "0.5.0"
+textwrap = "0.12.0"
+url = "2.1.1"

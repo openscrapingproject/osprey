@@ -13,40 +13,55 @@ pub struct Plugin<Config> {
     pub config: Config,
 }
 
-pub trait BasicPlugin: Default {
-    type Config: Serialize + DeserializeOwned;
+// pub trait BasicPlugin: Default {
+//     // We used to manually configure stuff here, but now we're trying
+// typetag     // fn configure(&mut self, config: serde_json::value::RawValue)
+// -> Result<()>; }
 
-    // associated functions: not a good idea right here
-    // Let's go with non modifying object funcs
-    fn get_default_config(&self) -> Self::Config;
-    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config>;
+// TODO: figure out what to do about default?
+// Actually NVM b/c they have to be instantiated directly with their config!!
 
-    fn configure(&mut self, config: Self::Config) -> Result<()>;
-}
+// pub trait BasicPlugin: std::fmt::Debug + std::clone::Clone + ?Sized {}
 
+#[typetag::serde(tag = "plugin", content = "config")]
 #[async_trait]
-pub trait Requestor: BasicPlugin {
-    type Response;
-    async fn make_request(&self, url: &str) -> Result<Self::Response>;
+pub trait Requestor: std::fmt::Debug {
+    async fn make_request(&self, url: &str) -> Result<crate::api::Response>;
 }
 
-pub trait Matcher: BasicPlugin {
-    type MatchInput;
-    fn run_match(&self, data: Self::MatchInput) -> Result<bool>;
+#[typetag::serde(tag = "plugin", content = "config")]
+pub trait Matcher: std::fmt::Debug {
+    fn run_match(&self, data: crate::api::MatchData) -> Result<bool>;
 }
 
-pub trait Extractor: BasicPlugin {
-    type Input;
-    type Relevant: Serialize;
+use std::any::Any;
 
-    fn extract(&self, input: Self::Input) -> Result<Self::Relevant>;
+#[typetag::serde(tag = "plugin", content = "config")]
+pub trait Extractor: std::fmt::Debug {
+    fn extract(&self, input: crate::api::Response) -> Result<Box<dyn Any>>;
     // TODO: in the future, as we think about standardizing Scraping
     // Definitions, we might modify this signature However, for now, they
     // can go directly into the plugin's Config
 }
 
-pub trait DataSink: BasicPlugin {
-    type Input: Serialize;
+#[typetag::serde(tag = "plugin", content = "config")]
+pub trait DataSink: std::fmt::Debug {
+    fn consume(&self, input: Box<dyn Any>) -> Result<()>;
+}
 
-    fn consume(&self, input: Self::Input) -> Result<()>;
+#[cfg(test)]
+mod tests {
+    // use super::Requestor;
+    use super::*;
+
+    #[test]
+    fn test_dyn_requestor() -> Result<()> {
+        let data = include_str!("../../tests/basic.json");
+
+        let parsed: crate::api::JobCollection = serde_json::from_str(data)?;
+
+        println!("{:#?}", parsed.requestor);
+
+        Ok(())
+    }
 }

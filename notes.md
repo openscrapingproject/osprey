@@ -65,3 +65,5 @@ Or
 
 In this case, we have a plugin map, which is used if there are no builtin plugins???
 It allows for plugin-level connections, not just for all plugins from one remote.
+
+We used to be able to use any format with `serde_any`. Now we rely on `serde_json`s `RawValue` type.

@@ -67,6 +67,8 @@ fn main() -> anyhow::Result<()> {
 
     println!("{:#?}", u);
 
+    // let res = Result::Err("");
+    // res?;
     // The following fails:
     // It appears there is no fix without dyn
 

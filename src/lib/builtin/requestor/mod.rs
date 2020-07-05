@@ -4,20 +4,36 @@ use serde::{Deserialize, Serialize};
 
 use crate::utils;
 use anyhow::{Context, Error, Result};
-use reqwest::Response;
+// use reqwest::Response;
+
+use crate::api::Response;
+
 use std::collections::HashMap;
 
 use std::time::Duration;
 
 use async_trait::async_trait;
 
-#[derive(Default)]
-pub struct Requestor {
-    c: Option<Config>,
+use std::convert::TryFrom;
+// use std::fmt::Debug;
+
+async fn convert_response(input: reqwest::Response) -> Result<Response> {
+    Ok(Response {
+        status: i32::try_from(input.status().as_u16()).unwrap(),
+        version: format!("{:#?}", input.version()),
+        headers: {
+            let mut hm = HashMap::new();
+            for (k, v) in input.headers() {
+                hm.insert(k.to_string(), v.to_str()?.to_string());
+            }
+            hm
+        },
+        body: input.text().await?,
+    })
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Config {
+#[derive(Serialize, Deserialize, Debug, Default)]
+pub struct BasicRequestor {
     // version: String,
     #[serde(with = "humantime_serde")]
     timeout: Option<Duration>,
@@ -25,15 +41,16 @@ pub struct Config {
 }
 
 #[async_trait]
-impl crate::plugin::Requestor for Requestor {
-    type Response = Response;
+#[typetag::serde(name = "basic")]
+impl crate::plugin::Requestor for BasicRequestor {
+    // type Response = Response;
     async fn make_request(&self, url: &str) -> Result<Response> {
         info!("in make_request");
         // TODO: reuse clients, think about pooling?
-        let config = self
-            .c
-            .as_ref()
-            .ok_or_else(|| Error::msg("failed to get config"))?;
+        let config = self;
+        // .c
+        // .as_ref()
+        // .ok_or_else(|| Error::msg("failed to get config"))?;
         let builder = reqwest::ClientBuilder::new()
             .timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 
@@ -48,29 +65,7 @@ impl crate::plugin::Requestor for Requestor {
 
         let resp = client.execute(req).await?;
         debug!("Response = {:#?}", resp);
-        Ok(resp)
-    }
-}
-
-impl crate::plugin::BasicPlugin for Requestor {
-    type Config = Config;
-    fn configure(&mut self, config: Config) -> Result<()> {
-        self.c = Some(config);
-        Ok(())
-    }
-    fn get_default_config(&self) -> Config {
-        Config {
-            // TODO: think about using http-serde library to not have to have
-            // the utils conversion code
-            timeout: None,
-            headers: HashMap::new(),
-        }
-    }
-
-    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone()).with_context(|| {
-            format!("failed to parse configuration {}", input)
-        })
+        convert_response(resp).await
     }
 }
 
@@ -78,8 +73,24 @@ impl crate::plugin::BasicPlugin for Requestor {
 mod tests {
     use super::Error;
 
-    use super::Requestor as BasicRequestor;
+    use super::BasicRequestor;
     use crate::plugin::*;
+    // use crate::utils::map;
+    use super::Duration;
+    // use super::map;
+
+    macro_rules! map {
+        ($($key: expr => $value:expr);*) => {{
+            let mut hm = std::collections::HashMap::new();
+            $( hm.insert($key, $value); )*
+            hm
+        }};
+        (String, $($key: expr => $value:expr);*) => {{
+            let mut hm = std::collections::HashMap::new();
+            $( hm.insert($key.to_string(), $value.to_string()); )*
+            hm
+        }};
+    }
 
     use anyhow::Result;
 
@@ -91,8 +102,11 @@ mod tests {
     async fn invalid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor::default();
-        r.configure(r.get_default_config())?;
+        let mut r = BasicRequestor {
+            timeout: Some(Duration::from_secs(5)),
+            headers: map!(String, "Accept" => "text/html"),
+        };
+        // r.configure(r.get_default_config())?;
 
         let urls = vec![
             "/product/:ID1",
@@ -116,8 +130,10 @@ mod tests {
     async fn valid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor::default();
-        r.configure(r.get_default_config())?;
+        let mut r = BasicRequestor {
+            timeout: Some(Duration::from_secs(5)),
+            headers: map!(String, "Accept" => "text/html"),
+        };
 
         let urls = vec![
             "https://google.com",
