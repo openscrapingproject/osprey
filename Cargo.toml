@@ -47,7 +47,7 @@ version = "1.0.110"
 
 [dependencies.serde_json]
 features = ["raw_value"]
-version = "1.0.53"
+version = "1.0.56"
 
 [dependencies.tokio]
 features = ["macros", "rt-threaded"]
