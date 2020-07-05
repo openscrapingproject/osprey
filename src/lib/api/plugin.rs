@@ -7,6 +7,10 @@ pub type PluginID = String;
 #[typetag::serde(tag = "plugin", content = "config")]
 #[async_trait]
 pub trait Requestor: std::fmt::Debug {
+    /// Makes an HTTP get request to the given URL
+    /// using any configuration the plugin was created with.
+    /// TODO: add another function for a HEAD request?
+    /// TODO: think about user interaction sequences
     async fn make_request(&self, url: &str) -> Result<crate::api::Response>;
 }
 
@@ -19,15 +23,15 @@ use std::any::Any;
 
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait Extractor: std::fmt::Debug {
-    fn extract(&self, input: crate::api::Response) -> Result<Box<dyn Any>>;
-    // TODO: in the future, as we think about standardizing Scraping
-    // Definitions, we might modify this signature However, for now, they
-    // can go directly into the plugin's Config
+    /// TODO: in the future, as we think about standardizing Scraping
+    /// Definitions, we might modify this signature. However, for now, they
+    /// can go directly into the plugin's Config.
+    fn extract(&self, input: &crate::api::Response) -> Result<Box<dyn Any>>;
 }
 
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait DataSink: std::fmt::Debug {
-    fn consume(&self, input: Box<dyn Any>) -> Result<()>;
+    fn consume(&self, input: Box<dyn erased_serde::Serialize>) -> Result<()>;
 }
 
 #[cfg(test)]

@@ -1,67 +1,35 @@
 use anyhow::{Error, Result};
 use log::{debug, info};
 
-use async_trait::async_trait;
+// use async_trait::async_trait;
 
 use crate::api::JobCollection as Config;
-use crate::plugin::*;
-
-use crate::builtin::extractors::scraper_rs::ScraperRs;
-use crate::builtin::matchers::regex::RegexMatcher;
-use crate::builtin::requestor::Requestor as Reqr;
-
-use crate::builtin::data_sinks::basic::BasicSink;
-
-type C<T> = Box<T>;
+// use crate::api::*;
 
 // This means that the generics need to be bounded by the Default trait, which
 // BasicPlugins are
-#[derive(Default)]
+// #[derive(Default)]
 pub struct DynamicAgent {
-    c: Option<Config>,
-    r: C<dyn Requestor<>>,
-    m: C<dyn Matcher>,
-    e: C<dyn Extractor>,
-    s: C<dyn DataSink>,
+    c: Config,
+    /* Why duplicate when it's all already contained there
+     * r: C<dyn Requestor>,
+     * m: C<dyn Matcher>,
+     * e: C<dyn Extractor>,
+     * s: C<dyn DataSink>, */
 }
 
 use url::Url;
 
-#[async_trait]
-impl super::Agent<Reqr, RegexMatcher, ScraperRs, BasicSink>
-    for DynamicAgent<Reqr, RegexMatcher, ScraperRs, BasicSink>
-{
-    fn configure(&mut self, config: Config) -> Result<()> {
-        debug!("configuration: {:#?}", config);
-        self.c = Some(config.clone());
-
-        self.r
-            .configure(self.r.parse_config(config.requestor.config)?)?;
-
-        // TODO: think about where to run matcher config.
-        // Should it be here, thus requiring additional state, and maybe a
-        // matcher per page set or should it be in run where config
-        // errors shouldn't be caught
-
-        // HACK: the primary purpose of this is to validate the config
-        // Its true effect will be to overwrite the matchers config with that
-        // of the last page set
-        for (page_id, page) in config.pages {
-            info!("Running pipeline for {}", page_id);
-            self.m
-                .configure(self.m.parse_config(page.matcher.config)?)?;
-            self.e
-                .configure(self.e.parse_config(page.extractor.config)?)?;
-        }
-
-        self.s.configure(self.s.parse_config(config.data.config)?)?;
-
-        Ok(())
+impl DynamicAgent {
+    fn create_from_config(config: Config) -> Self {
+        DynamicAgent { c: config }
     }
 
     async fn run(self) -> Result<(), Error> {
-        let c: Config =
-            self.c.ok_or_else(|| Error::msg("no config provided"))?;
+        let c: Config = self.c;
+        let data_sink = c
+            .data
+            .ok_or_else(|| Error::msg("failed to get data plugin"))?;
         for url in &c.initial_urls {
             // If the config provides a base_url, set the request URL to the
             // concatenation of the two
@@ -73,30 +41,37 @@ impl super::Agent<Reqr, RegexMatcher, ScraperRs, BasicSink>
                 // otherwise just use url provided
                 Url::parse(url.as_str())?
             };
-            let resp = self.r.make_request(req_url.as_str()).await?;
+            let resp = c.requestor.make_request(req_url.as_str()).await?;
             info!(
                 "Made request to {} and got response code {}",
-                url,
-                resp.status()
+                url, resp.status
             );
-            let mdata = crate::builtin::matchers::MatchData {
-                url: resp.url().clone(),
-                headers: resp.headers().clone(),
-            };
-            let matched = self.m.run_match(mdata)?;
-            info!("The matcher plugin resulted in {}", matched);
 
-            if matched {
-                info!("Starting extractor");
+            for (page_id, page_set) in &c.pages {
+                info!("Runnning pipeline on {}", page_id);
+                // TODO: optimize this?
+                // Nah, shouldn't be a bottleneck for now
+                let mdata = crate::api::MatchData {
+                    url: resp.url.clone(),
+                    status: resp.status,
+                    version: resp.version.clone(),
+                    headers: resp.headers.clone(),
+                };
+                let matched = page_set.matcher.run_match(mdata)?;
+                info!("The matcher plugin resulted in {}", matched);
 
-                let data = resp.text().await?;
+                if matched {
+                    info!("Starting extractor");
 
-                let out = self.e.extract(data)?;
-                debug!("Extracted: {:#?}", out);
+                    // let data = resp.body;
 
-                self.s.consume(out)?;
+                    let out = page_set.extractor.extract(&resp)?;
+                    debug!("Extracted: {:#?}", out);
 
-                info!("Completed");
+                    data_sink.consume(out)?;
+
+                    info!("Completed");
+                }
             }
         }
         Ok(())
@@ -106,7 +81,6 @@ impl super::Agent<Reqr, RegexMatcher, ScraperRs, BasicSink>
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::agent::Agent;
 
     use anyhow::Context;
 
@@ -118,13 +92,11 @@ mod tests {
     fn configure() -> Result<()> {
         init();
 
-        let mut a = DynamicAgent::default();
-
         let data = include_str!("../../../tests/basic.json");
-
         let conf: Config = serde_json::from_str(data)
             .context("failed to deserialize configuration")?;
-        a.configure(conf)?;
+
+        let _ = DynamicAgent::create_from_config(conf);
 
         Ok(())
     }
@@ -133,15 +105,12 @@ mod tests {
     async fn run() -> Result<()> {
         init();
 
-        let mut a = DynamicAgent::default();
-
         let data = include_str!("../../../tests/basic.json");
+        let conf: Config = serde_json::from_str(data)
+            .context("failed to deserialize configuration")?;
 
-        let conf: Config = serde_json::from_str(data)?;
-        a.configure(conf)?;
+        let a = DynamicAgent::create_from_config(conf);
 
-        a.run().await?;
-
-        Ok(())
+        a.run().await
     }
 }

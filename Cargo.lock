@@ -1524,6 +1524,7 @@ dependencies = [
  "clap",
  "config",
  "env_logger",
+ "erased-serde",
  "fs_extra",
  "futures",
  "futures-await-test",

@@ -1,7 +1,7 @@
 mod api;
-mod local;
+mod dynamic;
 // mod dynamic;
 
 pub use api::*;
 
-pub use local::*;
+pub use dynamic::*;

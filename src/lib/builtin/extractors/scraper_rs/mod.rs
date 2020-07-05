@@ -84,7 +84,7 @@ impl crate::api::Extractor for ScraperRs {
     // TODO: maybe think about streaming/batching if supported by extraction
     fn extract(
         &self,
-        input: crate::api::Response,
+        input: &crate::api::Response,
     ) -> Result<Box<dyn std::any::Any>> {
         info!("extracting");
         // TODO: think about using fragment instead of Document here
@@ -183,11 +183,12 @@ mod tests {
             ),
         };
 
-        e.extract(crate::api::Response {
+        e.extract(&crate::api::Response {
+            url: "localhost:8080/hello".to_string(),
             status: 200,
             version: "HTTP/1.1".to_string(),
-            body: html.to_string(),
             headers: HashMap::new(),
+            body: html.to_string(),
         })?;
 
         Ok(())

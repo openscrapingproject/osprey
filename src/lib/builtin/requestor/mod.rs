@@ -16,9 +16,11 @@ use std::convert::TryFrom;
 
 async fn convert_response(input: reqwest::Response) -> Result<Response> {
     Ok(Response {
+        url: input.url().to_string(),
         status: i32::try_from(input.status().as_u16()).unwrap(),
         version: format!("{:#?}", input.version()),
         headers: {
+            // TODO: use version of this in utils.
             let mut hm = HashMap::new();
             for (k, v) in input.headers() {
                 hm.insert(k.to_string(), v.to_str()?.to_string());

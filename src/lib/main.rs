@@ -18,5 +18,7 @@ pub mod builtin;
 
 pub mod remote_plugins;
 
+pub mod agent;
+
 #[macro_use]
 pub mod utils;

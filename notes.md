@@ -67,3 +67,15 @@ In this case, we have a plugin map, which is used if there are no builtin plugin
 It allows for plugin-level connections, not just for all plugins from one remote.
 
 We used to be able to use any format with `serde_any`. Now we rely on `serde_json`s `RawValue` type.
+
+### Move to typetag
+
+So far has been awesome.
+
+Since serde is recursive, and JobCollection contains each trait, and Serde propagates type bounds, needed to make sure that Traits implement Debug, etc.
+
+Also, during API redesign - allowed extractor to output `Box<dyn Any>` and data sink to consume same.
+
+This theoretically means implementations could use any intermediate representations.
+
+OK - realizing need to work on this.
