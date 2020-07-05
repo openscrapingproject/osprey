@@ -1,7 +1,9 @@
-// ## remote_plugins
-// This module defines various shared utilities that allow for users
-// to build uniform remote plugins. So far it only supports HTTP as
-// the transport
+/*!
+A bootstrapping library so users can build consistent remote plugins.
+
+So far it only supports HTTP as the transport. It allows for
+registration of environment variables for configuration.
+*/
 
 pub mod plugin;
 

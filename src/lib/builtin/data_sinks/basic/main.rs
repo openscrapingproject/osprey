@@ -4,21 +4,15 @@ use serde::{Deserialize, Serialize};
 
 use super::format::Format;
 
-#[derive(Default)]
-pub struct BasicSink {
-    // TODO: refactor so the option is not there
-    pub c: Option<Config>,
-}
-
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Config {
+pub struct BasicSink {
     format: Format,
     location: OutputLocation,
 }
 
-impl Default for Config {
+impl Default for BasicSink {
     fn default() -> Self {
-        Config {
+        BasicSink {
             format: Format::Json,
             location: OutputLocation::StdOut,
         }
@@ -35,16 +29,12 @@ pub enum OutputLocation {
 
 use std::io::Write;
 use std::path::PathBuf;
-use std::{fs::File, io};
+use std::{any::Any, fs::File, io};
 
 impl BasicSink {
     // TODO: make more DRY, could put this inline the consume function
     fn get_output(&self) -> Result<Box<dyn Write>, Error> {
-        let loc = &self
-            .c
-            .as_ref()
-            .ok_or_else(|| Error::msg("no config"))?
-            .location;
+        let loc = &self.location;
         match loc {
             OutputLocation::StdOut => Ok(Box::new(io::stdout())),
             OutputLocation::StdErr => Ok(Box::new(io::stderr())),
@@ -55,24 +45,31 @@ impl BasicSink {
     }
 }
 
-impl crate::plugin::DataSink for BasicSink {
-    type Input = crate::builtin::extractors::scraper_rs::Output;
+type Input = crate::builtin::extractors::scraper_rs::Output;
 
-    fn consume(&self, input: Self::Input) -> Result<()> {
+#[typetag::serde(name = "output")]
+impl crate::api::DataSink for BasicSink {
+    fn consume(&self, input: Box<dyn Any>) -> Result<()> {
         info!("Running basic data sink");
 
-        let ff = self
-            .c
-            .as_ref()
-            .ok_or_else(|| Error::msg("no config"))?
-            .format;
+        // let ff = self
+        //     .c
+        //     .as_ref()
+        //     .ok_or_else(|| Error::msg("no config"))?
+        //     .format;
 
-        let s = serde_any::to_string(&input, ff.into()).or_else(|_| {
-            Err(Error::msg(format!(
-                "failed to serialize input into {:?}",
-                ff
-            )))
-        })?;
+        let output = input
+            .downcast::<crate::api::Response>()
+            .or_else(|_| Err(Error::msg("failed to downcast")))?;
+
+        let s = serde_any::to_string(&output, self.format.into()).or_else(
+            |_| {
+                Err(Error::msg(format!(
+                    "failed to serialize input into {:?}",
+                    self.format
+                )))
+            },
+        )?;
 
         let mut sink = self.get_output()?;
 
@@ -81,22 +78,5 @@ impl crate::plugin::DataSink for BasicSink {
         info!("Wrote {} bytes to sink", nbytes);
 
         Ok(())
-    }
-}
-
-impl crate::plugin::BasicPlugin for BasicSink {
-    type Config = Config;
-    fn configure(&mut self, c: Config) -> Result<()> {
-        self.c = Some(c);
-        Ok(())
-    }
-    fn get_default_config(&self) -> Config {
-        Config::default()
-    }
-
-    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone()).with_context(|| {
-            format!("failed to parse configuration {}", input)
-        })
     }
 }

@@ -5,25 +5,17 @@ use serde::{Deserialize, Serialize};
 use regex::Regex;
 use std::collections::HashMap;
 
-#[derive(Default)]
-pub struct RegexMatcher {
-    // TODO: refactor so the option is not there
-    pub c: Option<Config>,
-}
-
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Config {
+pub struct RegexMatcher {
     url: String,
     headers: HashMap<String, String>,
 }
 
-impl crate::plugin::Matcher for RegexMatcher {
-    type MatchInput = super::MatchData;
-    fn run_match(&self, data: Self::MatchInput) -> Result<bool> {
-        let config = self
-            .c
-            .as_ref()
-            .ok_or_else(|| Error::msg("no configuration provided"))?;
+#[typetag::serde(name = "regex")]
+impl crate::api::Matcher for RegexMatcher {
+    fn run_match(&self, data: crate::api::MatchData) -> Result<bool> {
+        let config = self;
+
         let reg = config.url.as_str();
         info!("Trying to match with regex {}", reg);
 
@@ -33,25 +25,5 @@ impl crate::plugin::Matcher for RegexMatcher {
         info!("Match for URL {} is {}", data.url, res);
         // TODO match against the headers as well
         Ok(res)
-    }
-}
-
-impl crate::plugin::BasicPlugin for RegexMatcher {
-    type Config = Config;
-    fn configure(&mut self, c: Config) -> Result<()> {
-        self.c = Some(c);
-        Ok(())
-    }
-    fn get_default_config(&self) -> Config {
-        Config {
-            url: "".to_string(),
-            headers: HashMap::new(),
-        }
-    }
-
-    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone()).with_context(|| {
-            format!("failed to parse configuration {}", input)
-        })
     }
 }

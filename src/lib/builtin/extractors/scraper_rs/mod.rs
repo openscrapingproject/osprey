@@ -4,11 +4,6 @@ use serde::{Deserialize, Serialize};
 
 use std::collections::HashMap;
 
-#[derive(Default)]
-pub struct ScraperRs {
-    pub c: Option<Config>,
-}
-
 pub type Key = String;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -36,7 +31,7 @@ pub enum ElemOptions {
 // However, the output for a given key needs to be one string.
 
 #[derive(Serialize, Deserialize, Debug, Default)]
-pub struct Config {
+pub struct ScraperRs {
     definitions: HashMap<Key, Value>,
 }
 
@@ -84,23 +79,20 @@ fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
     }
 }
 
-impl crate::plugin::Extractor for ScraperRs {
-    type Input = String;
-    type Relevant = Output;
-
+#[typetag::serde(name = "scraper_rs")]
+impl crate::api::Extractor for ScraperRs {
     // TODO: maybe think about streaming/batching if supported by extraction
-    fn extract(&self, input: Self::Input) -> Result<Self::Relevant> {
+    fn extract(
+        &self,
+        input: crate::api::Response,
+    ) -> Result<Box<dyn std::any::Any>> {
         info!("extracting");
         // TODO: think about using fragment instead of Document here
-        let doc = Html::parse_document(input.as_str());
+        let doc = Html::parse_document(input.body.as_str());
 
         let mut out: Output = HashMap::new();
 
-        let defs = &self
-            .c
-            .as_ref()
-            .ok_or_else(|| Error::msg("failed to get defs"))?
-            .definitions;
+        let defs = &self.definitions;
         for (key, val) in defs {
             let s = Selector::parse(val.selector.as_str())
                 // .context("failed")?;
@@ -121,31 +113,14 @@ impl crate::plugin::Extractor for ScraperRs {
 
             out.insert(n, o);
         }
-        Ok(out)
+        Ok(Box::new(out))
     }
 }
 
-impl crate::plugin::BasicPlugin for ScraperRs {
-    type Config = Config;
-    fn configure(&mut self, c: Config) -> Result<()> {
-        self.c = Some(c);
-        Ok(())
-    }
-    fn get_default_config(&self) -> Config {
-        Config::default()
-    }
-
-    fn parse_config(&self, input: serde_json::Value) -> Result<Self::Config> {
-        serde_json::from_value(input.clone()).with_context(|| {
-            format!("failed to parse configuration {}", input)
-        })
-    }
-}
 #[cfg(test)]
 mod tests {
 
     use super::*;
-    use crate::plugin::*;
     use anyhow::Result;
 
     use crate::map;
@@ -158,20 +133,19 @@ mod tests {
     #[test]
     fn configure_extract() -> Result<()> {
         init();
-        let mut e = ScraperRs::default();
-
-        e.configure(Config {
+        let e = ScraperRs {
             definitions: map!(
                 "charset".to_string() => Value {
                     selector:"meta[charset]".to_string(),
                     val: ElemOptions::HTML
                 }
             ),
-        })?;
+        };
 
         Ok(())
     }
 
+    use crate::api::plugin::Extractor;
     #[test]
     fn run_extract() -> Result<()> {
         init();
@@ -183,10 +157,8 @@ mod tests {
         <h1 class="foo">Hello, <i>world!</i></h1>
         "#;
 
-        let mut e = ScraperRs::default();
-
         // TODO: maybe have this map include the expected values
-        e.configure(Config {
+        let mut e = ScraperRs {
             definitions: map!(
                 "charset".to_string() => Value {
                     selector:"meta[charset]".to_string(),
@@ -209,9 +181,14 @@ mod tests {
                     val: ElemOptions::Text
                 }
             ),
-        })?;
+        };
 
-        e.extract(html.to_string())?;
+        e.extract(crate::api::Response {
+            status: 200,
+            version: "HTTP/1.1".to_string(),
+            body: html.to_string(),
+            headers: HashMap::new(),
+        })?;
 
         Ok(())
     }

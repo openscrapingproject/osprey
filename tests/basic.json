@@ -20,5 +20,39 @@
         }
     },
     "pages": {
+        "cnn_articles": {
+            "matcher": {
+                "plugin": "regex",
+                "config": {
+                    "url": "(.*)cnn.com\/\\d{4}\/(\\d{2}\/){2}",
+                    "headers": {
+                        "Content-Type": "text/html"
+                    }
+                }
+            },
+            "extractor": {
+                "plugin": "scraper_rs",
+                "config": {
+                    "definitions": {
+                        "text": {
+                            "selector": "#body-text",
+                            "val": "Text"
+                        }
+                    }
+                },
+                "definition": {
+                    "scraping": "definition",
+                    "can include": "hardcoded values",
+                    "or use of": "XPATH, css or similar"
+                }
+            }
+        }
+    },
+    "data": {
+        "plugin": "output",
+        "config": {
+            "format": "json",
+            "location": "stdout"
+        }
     }
 }
