@@ -1,4 +1,4 @@
-use osprey::plugins::Plugin;
+use osprey::remote_plugins::Plugin;
 
 use actix_web::{web, App, HttpResponse, HttpServer};
 use std::net::{Ipv4Addr, SocketAddrV4};

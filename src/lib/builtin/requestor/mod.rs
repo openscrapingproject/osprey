@@ -2,11 +2,9 @@ use log::{debug, info};
 
 use serde::{Deserialize, Serialize};
 
-use crate::utils;
-use anyhow::{Context, Error, Result};
-// use reqwest::Response;
-
 use crate::api::Response;
+use crate::utils;
+use anyhow::Result;
 
 use std::collections::HashMap;
 
@@ -15,7 +13,6 @@ use std::time::Duration;
 use async_trait::async_trait;
 
 use std::convert::TryFrom;
-// use std::fmt::Debug;
 
 async fn convert_response(input: reqwest::Response) -> Result<Response> {
     Ok(Response {
@@ -42,15 +39,13 @@ pub struct BasicRequestor {
 
 #[async_trait]
 #[typetag::serde(name = "basic")]
-impl crate::plugin::Requestor for BasicRequestor {
+impl crate::api::Requestor for BasicRequestor {
     // type Response = Response;
     async fn make_request(&self, url: &str) -> Result<Response> {
-        info!("in make_request");
         // TODO: reuse clients, think about pooling?
+        info!("in make_request");
         let config = self;
-        // .c
-        // .as_ref()
-        // .ok_or_else(|| Error::msg("failed to get config"))?;
+
         let builder = reqwest::ClientBuilder::new()
             .timeout(config.timeout.unwrap_or(Duration::from_secs(5)));
 
@@ -71,12 +66,14 @@ impl crate::plugin::Requestor for BasicRequestor {
 
 #[cfg(test)]
 mod tests {
-    use super::Error;
+    use anyhow::Error;
 
     use super::BasicRequestor;
-    use crate::plugin::*;
-    // use crate::utils::map;
     use super::Duration;
+    use crate::api::Requestor;
+
+    // TODO: fix this, so we don't have to copy our utils::map macro
+    // in every test
     // use super::map;
 
     macro_rules! map {
@@ -102,7 +99,7 @@ mod tests {
     async fn invalid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor {
+        let r = BasicRequestor {
             timeout: Some(Duration::from_secs(5)),
             headers: map!(String, "Accept" => "text/html"),
         };
@@ -130,7 +127,7 @@ mod tests {
     async fn valid_urls() -> Result<()> {
         init();
 
-        let mut r = BasicRequestor {
+        let r = BasicRequestor {
             timeout: Some(Duration::from_secs(5)),
             headers: map!(String, "Accept" => "text/html"),
         };

@@ -48,7 +48,7 @@ impl Plugin for Bar {
 
 use std::fs::File;
 use std::io::BufReader;
-use std::path::Path;
+// use std::path::Path;
 
 fn main() -> anyhow::Result<()> {
     println!("Starting static dynamic test");

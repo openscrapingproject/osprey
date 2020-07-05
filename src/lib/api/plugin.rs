@@ -1,27 +1,8 @@
-use serde::de::DeserializeOwned;
-use serde::{Deserialize, Serialize};
-
 use anyhow::Result;
 
 use async_trait::async_trait;
 
 pub type PluginID = String;
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Plugin<Config> {
-    pub plugin: PluginID,
-    pub config: Config,
-}
-
-// pub trait BasicPlugin: Default {
-//     // We used to manually configure stuff here, but now we're trying
-// typetag     // fn configure(&mut self, config: serde_json::value::RawValue)
-// -> Result<()>; }
-
-// TODO: figure out what to do about default?
-// Actually NVM b/c they have to be instantiated directly with their config!!
-
-// pub trait BasicPlugin: std::fmt::Debug + std::clone::Clone + ?Sized {}
 
 #[typetag::serde(tag = "plugin", content = "config")]
 #[async_trait]
@@ -56,7 +37,7 @@ mod tests {
 
     #[test]
     fn test_dyn_requestor() -> Result<()> {
-        let data = include_str!("../../tests/basic.json");
+        let data = include_str!("../../../tests/basic.json");
 
         let parsed: crate::api::JobCollection = serde_json::from_str(data)?;
 
