@@ -85,7 +85,7 @@ impl crate::api::Extractor for ScraperRs {
     fn extract(
         &self,
         input: &crate::api::Response,
-    ) -> Result<Box<dyn std::any::Any>> {
+    ) -> Result<crate::api::Intermediate> {
         info!("extracting");
         // TODO: think about using fragment instead of Document here
         let doc = Html::parse_document(input.body.as_str());

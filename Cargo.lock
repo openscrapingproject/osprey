@@ -1540,6 +1540,7 @@ dependencies = [
  "simple-error",
  "textwrap 0.12.0",
  "tokio",
+ "toml 0.4.10",
  "typetag",
  "url 2.1.1",
 ]

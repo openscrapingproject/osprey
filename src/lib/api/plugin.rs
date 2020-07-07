@@ -21,17 +21,22 @@ pub trait Matcher: std::fmt::Debug {
 
 use std::any::Any;
 
+pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug {}
+impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug {}
+
+pub type Intermediate = Box<dyn SerDebug>;
+
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait Extractor: std::fmt::Debug {
     /// TODO: in the future, as we think about standardizing Scraping
     /// Definitions, we might modify this signature. However, for now, they
     /// can go directly into the plugin's Config.
-    fn extract(&self, input: &crate::api::Response) -> Result<Box<dyn Any>>;
+    fn extract(&self, input: &crate::api::Response) -> Result<Intermediate>;
 }
 
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait DataSink: std::fmt::Debug {
-    fn consume(&self, input: Box<dyn erased_serde::Serialize>) -> Result<()>;
+    fn consume(&self, input: Intermediate) -> Result<()>;
 }
 
 #[cfg(test)]
