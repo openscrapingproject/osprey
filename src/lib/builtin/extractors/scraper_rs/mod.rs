@@ -1,6 +1,4 @@
-use anyhow::{Context, Error, Result};
-use log::{debug, info};
-use serde::{Deserialize, Serialize};
+use crate::prelude::*;
 
 use std::collections::HashMap;
 
@@ -133,7 +131,7 @@ mod tests {
     #[test]
     fn configure_extract() -> Result<()> {
         init();
-        let e = ScraperRs {
+        let _ = ScraperRs {
             definitions: map!(
                 "charset".to_string() => Value {
                     selector:"meta[charset]".to_string(),
@@ -158,7 +156,7 @@ mod tests {
         "#;
 
         // TODO: maybe have this map include the expected values
-        let mut e = ScraperRs {
+        let e = ScraperRs {
             definitions: map!(
                 "charset".to_string() => Value {
                     selector:"meta[charset]".to_string(),

@@ -20,5 +20,7 @@ pub mod remote_plugins;
 
 pub mod agent;
 
+pub mod prelude;
+
 #[macro_use]
 pub mod utils;

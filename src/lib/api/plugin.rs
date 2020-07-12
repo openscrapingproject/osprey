@@ -19,8 +19,6 @@ pub trait Matcher: std::fmt::Debug {
     fn run_match(&self, data: crate::api::MatchData) -> Result<bool>;
 }
 
-use std::any::Any;
-
 pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug {}
 impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug {}
 

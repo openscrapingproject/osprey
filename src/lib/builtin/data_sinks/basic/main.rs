@@ -1,6 +1,4 @@
-use anyhow::{Context, Error, Result};
-use log::{info, warn};
-use serde::{Deserialize, Serialize};
+use crate::prelude::*;
 
 use super::format::Format;
 
@@ -40,7 +38,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::{any::Any, fs::File, io};
 
-use erased_serde::Serialize as ESerialize;
+// use erased_serde::Serialize as ESerialize;
 use erased_serde::Serializer as ESerializer;
 
 impl BasicSink {
