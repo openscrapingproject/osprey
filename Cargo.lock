@@ -1358,6 +1358,7 @@ dependencies = [
 name = "osprey"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "clap",
  "env_logger",
  "fs_extra",
@@ -1365,6 +1366,7 @@ dependencies = [
  "osplib",
  "serde 1.0.114",
  "serde_json",
+ "tokio 0.2.21",
 ]
 
 [[package]]

@@ -21,11 +21,11 @@ pub struct DynamicAgent {
 use url::Url;
 
 impl DynamicAgent {
-    fn create_from_config(config: Config) -> Self {
+    pub fn new(config: Config) -> Self {
         DynamicAgent { c: config }
     }
 
-    async fn run(self) -> Result<(), Error> {
+    pub async fn run(self) -> Result<(), Error> {
         let c: Config = self.c;
         let data_sink = c
             .data
@@ -96,7 +96,7 @@ mod tests {
         let conf: Config = serde_json::from_str(data)
             .context("failed to deserialize configuration")?;
 
-        let _ = DynamicAgent::create_from_config(conf);
+        let _ = DynamicAgent::new(conf);
 
         Ok(())
     }
@@ -109,7 +109,7 @@ mod tests {
         let conf: Config = serde_json::from_str(data)
             .context("failed to deserialize configuration")?;
 
-        let a = DynamicAgent::create_from_config(conf);
+        let a = DynamicAgent::new(conf);
 
         a.run().await
     }

@@ -10,6 +10,7 @@ edition = "2018"
 fs_extra = "1.1.0"
 log = "0.4.8"
 env_logger = "0.7.1"
+anyhow = "1.0.31"
 osplib = { path = "../osplib" }
 
 [dependencies.clap]
@@ -23,3 +24,7 @@ version = "1.0.110"
 [dependencies.serde_json]
 features = ["raw_value"]
 version = "1.0.53"
+
+[dependencies.tokio]
+features = ["macros", "rt-threaded"]
+version = "0.2.21"
