@@ -28,7 +28,7 @@ impl Default for BasicSink {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum OutputLocation {
     StdOut,
@@ -41,23 +41,8 @@ use std::path::PathBuf;
 use std::{any::Any, fs::File, io};
 
 use erased_serde::Serialize as ESerialize;
-use erased_serde::Serializer;
-use std::ops::DerefMut;
+use erased_serde::Serializer as ESerializer;
 
-/// The biggest issue with the system right now is that erased_serde
-/// requires us to only serialize to a Serializer, and some output
-/// formats support serializers that go directly to writers, but others
-/// don't. This means we either have to serialize them all to in-memory
-/// or implement logic that determines whether it was already written to
-/// the writer, or needs to be written from in-memory state.
-///
-/// For now, it seems the best option is to serialize everything to
-/// a string and dump that out on our own.
-///
-/// Ok, never mind. Right now there are too many inconsistencies between
-/// the different serialization format libraries.
-/// Some allow creating Serializer with a Writer, some have custom
-/// to_writer functions
 impl BasicSink {
     // TODO: make more DRY, could put this inline the consume function
     fn get_output(&self) -> Result<Box<dyn Write>> {
@@ -70,42 +55,22 @@ impl BasicSink {
             }
         }
     }
-    // fn get_serializer(&self) -> Result<Box<dyn Serializer>> {
-    //     let sr = &mut serde_json::Serializer::new(self.get_output()?);
-    //     let r = Box::new(Serializer::erase(sr));
-    //     Ok(r)
-    // Ok(match self.format {
-    //     Format::Json => {
-    //         sr
-    //     },
-    //     _ => {
-    //         warn!("right now the other serialization formats are
-    // unimplemented");
-
-    //         sr
-
-    //         // let sr = &mut toml::Serializer::new(self.tmpOut.deref_mut());
-    //         // Ok(Box::new(Serializer::erase(sr)))
-    //     }
-    // })
-    // Ok(Box::new(Serializer::erase(sr)))
-    // }
 }
 
-type Input = crate::builtin::extractors::scraper_rs::Output;
-
-#[feature(type_name_of_val)]
 #[typetag::serde(name = "output")]
 impl crate::api::DataSink for BasicSink {
     // TODO: figure this out: dyn Any + Serialize
     fn consume(&self, input: crate::api::Intermediate) -> Result<()> {
         info!("Running basic data sink");
 
-        // let output =
-        // input.erased_serialize(self.get_serializer()?.deref_mut())?;
+        // TODO: make this dynamic
+        let ser = &mut serde_json::Serializer::pretty(self.get_output()?);
 
-        // info!("{:#?}", output.type_id());
-        // info!("{}", std::any::type_name_of_val(&output));
+        input.erased_serialize(&mut ESerializer::erase(ser))?;
+
+        if self.location == OutputLocation::StdOut {
+            println!()
+        }
 
         info!("Wrote to sink");
 
