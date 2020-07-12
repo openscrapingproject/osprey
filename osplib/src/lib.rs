@@ -16,7 +16,7 @@ pub mod api;
 // Builtin provides all builtin plugin implementations
 pub mod builtin;
 
-pub mod remote_plugins;
+// pub mod remote_plugins;
 
 pub mod agent;
 

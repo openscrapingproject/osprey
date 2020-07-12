@@ -11,6 +11,12 @@ Then run
 git config --local core.hooksPath .githooks/
 ```
 
+## Project Structure
+
+We recently moved to using Cargo workspaces to separate the libraries and CLI into separate crates.
+
+`osplib` is the library. `osprey` is the CLI.
+
 ## Build docs
 ```sh
 cargo +nightly doc --open --no-deps

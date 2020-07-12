@@ -1,0 +1,40 @@
+[package]
+name = "osplib"
+version = "0.1.0"
+authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.31"
+async-trait = "0.1.31"
+erased-serde = "*"
+http = "0.2.1"
+humantime-serde = "1.0.0"
+log = "0.4.8"
+regex = "1.3.9"
+reqwest = "0.10.4"
+scraper = "0.12.0"
+serde_any = "0.5.0"
+simple-error = "0.2.1"
+textwrap = "0.12.0"
+typetag = "0.1.5"
+url = "2.1.1"
+# toml = "0.5.6"
+
+[dev-dependencies]
+opengraph = "*"
+env_logger = "0.7.1"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0.110"
+
+[dependencies.serde_json]
+features = ["raw_value"]
+version = "1.0.53"
+
+[dependencies.tokio]
+features = ["macros", "rt-threaded"]
+version = "0.2.21"

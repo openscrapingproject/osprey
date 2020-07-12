@@ -14,7 +14,7 @@ use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
 
-use osprey::api::JobCollection;
+use osplib::api::JobCollection;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();

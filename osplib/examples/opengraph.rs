@@ -13,10 +13,11 @@ fn main() {
 </head>
 </html>
              "#;
-    match opengraph::extract(&mut x.to_string().as_bytes(), Default::default()) {
+    match opengraph::extract(&mut x.to_string().as_bytes(), Default::default())
+    {
         Ok(object) => {
             println!("{:?}", object);
-        },
+        }
         Err(_) => println!("error occured"),
     }
 }
