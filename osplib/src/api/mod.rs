@@ -9,9 +9,9 @@ output, and the agent passes to each other
 */
 
 // TODO: think about making these public
-mod http;
-mod job_collection;
-mod plugin_types;
+pub mod http;
+pub mod job_collection;
+pub mod plugin_types;
 
 pub mod plugin;
 

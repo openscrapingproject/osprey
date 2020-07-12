@@ -1,3 +1,4 @@
+#![warn(clippy::all)]
 use clap::{load_yaml, App};
 
 // use fs_extra::file::read_to_string;
@@ -29,18 +30,11 @@ async fn main() -> Result<()> {
             .value_of("INPUT")
             .ok_or_else(|| Error::msg("Failed to get file"))?;
 
-        // let mut rt = Runtime::new().unwrap();
-
-        // Spawn the server task
-        // rt.spawn(async {
-        // we got an error here when trying to start runtime
-        // manually that the traits are not Sync
         let input: JobCollection = read_json_from_file(filename).unwrap();
         info!("Got input: {:#?}", input);
 
         let a = DynamicAgent::new(input);
         a.run().await?
-        // });
     }
     println!("Try running a subcommand, or adding --help to see the options");
     return Ok(());
@@ -55,9 +49,8 @@ where
     let file = File::open(path)?;
     let reader = BufReader::new(file);
 
-    // Read the JSON contents of the file as an instance of `User`.
+    // TODO: think about if this is a different format
     let u = serde_json::from_reader(reader)?;
 
-    // Return the `User`.
     Ok(u)
 }

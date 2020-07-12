@@ -5,7 +5,7 @@ use std::collections::HashMap;
 pub type HeaderMap = HashMap<String, String>;
 
 /// Represents an HTTP response in a somewhat standard format
-/// that can be serialized.
+/// that can be serialized between Components.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Response {
     pub url: http::URL,
@@ -15,7 +15,8 @@ pub struct Response {
     pub body: String,
 }
 
-/// Exactly the same as [Response], without the body.
+/// For now, exactly the same as [Response], without the body.
+///
 /// This could allow for an optimization: do a HEAD request first,
 /// then run matcher. However, we assume that most URLs
 /// that the user provides to us will match at least one matcher.

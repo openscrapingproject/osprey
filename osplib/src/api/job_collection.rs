@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use std::collections::HashMap;
 
+/// Represents a format that creates several jobs from one representation
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JobCollection {
     pub name: String,

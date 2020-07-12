@@ -4,15 +4,8 @@ use super::format::Format;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BasicSink {
-    format: Format,
-    location: OutputLocation,
-
-    // when trying to add this, we get: deserialization of generic impls is
-    // not supported yet; use #[typetag::serialize] to generate serialization
-    // only #[serde(skip)]
-    // tmpOut: std::cell::RefCell<String>,
-    #[serde(skip)]
-    sr: Option<Box<dyn Any>>,
+    pub format: Format,
+    pub location: OutputLocation,
 }
 
 impl Default for BasicSink {
@@ -20,8 +13,6 @@ impl Default for BasicSink {
         BasicSink {
             format: Format::Json,
             location: OutputLocation::StdOut,
-            // tmpOut: Box::new("".to_string())
-            sr: None,
         }
     }
 }
@@ -36,7 +27,7 @@ pub enum OutputLocation {
 
 use std::io::Write;
 use std::path::PathBuf;
-use std::{any::Any, fs::File, io};
+use std::{fs::File, io};
 
 // use erased_serde::Serialize as ESerialize;
 use erased_serde::Serializer as ESerializer;

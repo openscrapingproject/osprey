@@ -5,8 +5,8 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RegexMatcher {
-    url: String,
-    headers: HashMap<String, String>,
+    pub url: String,
+    pub headers: HashMap<String, String>,
 }
 
 #[typetag::serde(name = "regex")]

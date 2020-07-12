@@ -1,36 +1,51 @@
+/*!
+This crate implements a basic extractor using CSS selectors.
+
+It uses the [scraper] library.
+!*/
+// TODO: why are the docs rendering differently here?
 use crate::prelude::*;
 
 use std::collections::HashMap;
 
 pub type Key = String;
 
+use scraper;
+use scraper::{ElementRef, Html, Selector};
+use ElemOptions::*;
+
+/// Value represents one property extracted from one HTML element
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Value {
-    selector: String,
-    val: ElemOptions,
+    /// Selector is a CSS string to select an element
+    pub selector: String,
+
+    /// Val is which property of the HTML element to extract
+    pub val: ElemOptions,
 }
 
 // pub type Attr(String);
 
+/// This enum represents which property of an HTML element to extract
+///
+/// First 3: Representation: these correspond to [`ElementRef`]
+/// Next 2: Logical: these correspond to [`scraper::node::Element`]
 #[derive(Serialize, Deserialize, Debug)]
 pub enum ElemOptions {
-    // Representation: these correspond to scraper::element_ref::ElementRef
     HTML,
     InnerHTML,
     Text,
 
-    // Logical: these correspond to scraper::node::Element
     ID,
-    // Classes,
     Attr(String),
-    // Attributes
+    // TODO: Classes,
 }
 // The above has some commented out because they represent multiple values.
 // However, the output for a given key needs to be one string.
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct ScraperRs {
-    definitions: HashMap<Key, Value>,
+    pub definitions: HashMap<Key, Value>,
 }
 
 pub type Output = HashMap<Key, OutItem>;
@@ -46,12 +61,6 @@ pub type OutItem = String;
 //     String,
 //     Vec<String>
 // }
-
-use scraper::{ElementRef, Html, Selector};
-// use quick_error::ResultExt;
-
-// use itertools::Itertools;
-use ElemOptions::*;
 
 fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
     match opts {

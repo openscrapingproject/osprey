@@ -1,21 +1,12 @@
 use anyhow::{Error, Result};
 use log::{debug, info};
 
+// TODO: maybe reintroduce the basic functionality of Agents as a trait
 // use async_trait::async_trait;
 
 use crate::api::JobCollection as Config;
-// use crate::api::*;
-
-// This means that the generics need to be bounded by the Default trait, which
-// BasicPlugins are
-// #[derive(Default)]
 pub struct DynamicAgent {
     c: Config,
-    /* Why duplicate when it's all already contained there
-     * r: C<dyn Requestor>,
-     * m: C<dyn Matcher>,
-     * e: C<dyn Extractor>,
-     * s: C<dyn DataSink>, */
 }
 
 use url::Url;

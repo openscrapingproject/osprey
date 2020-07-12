@@ -1,3 +1,9 @@
+/*!
+Provides utilities for converting HTTP types, along with creating String HashMaps
+
+- Converting HTTP [HeaderMap]s to [HashMap]s
+*/
+
 use anyhow::Result;
 use log::warn;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
