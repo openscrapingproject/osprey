@@ -28,3 +28,11 @@ Install https://github.com/boyter/scc.
 ```bash
 scc -i rs,json,md
 ```
+
+## Useful cargo addons
+
+- cargo-add
+- cargo-geiger
+- cargo-expand
+- cargo-modules
+- cargo-outdated

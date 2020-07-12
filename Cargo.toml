@@ -3,19 +3,24 @@ authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
 edition = "2018"
 name = "osprey"
 version = "0.1.0"
+
+[lib]
+name = "osprey"
+path = "src/lib/main.rs"
+
 [[bin]]
-name = "osprey-cli"
+name = "osprey"
 path = "src/bin/main.rs"
 
 [[bin]]
 name = "osprey-requestor"
 path = "src/plugins/requestor/main.rs"
 
-[build]
-rustc-wrapper = "/home/alex/bin/sccache"
+# [build]
+# rustc-wrapper = "/home/alex/bin/sccache"
 
 [dependencies]
-Inflector = "*"
+Inflector = "0.11.4"
 actix-rt = "1"
 actix-web = "2"
 anyhow = "1.0.31"
@@ -35,8 +40,8 @@ scraper = "0.12.0"
 serde_any = "0.5.0"
 simple-error = "0.2.1"
 textwrap = "0.12.0"
-toml = "*"
-typetag = "*"
+toml = "0.5.6"
+typetag = "0.1.5"
 url = "2.1.1"
 
 [dependencies.clap]
@@ -54,12 +59,3 @@ version = "1.0.53"
 [dependencies.tokio]
 features = ["macros", "rt-threaded"]
 version = "0.2.21"
-
-[lib]
-humantime-serde = "1.0.0"
-name = "osprey"
-path = "src/lib/main.rs"
-scraper = "0.12.0"
-serde_any = "0.5.0"
-textwrap = "0.12.0"
-url = "2.1.1"
