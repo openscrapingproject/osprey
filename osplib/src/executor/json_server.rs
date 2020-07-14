@@ -50,12 +50,21 @@ pub enum State {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Job {
-    pub state: State,
-    pub url: String,
+    /// Human readable name for job. Often generated from collection_name
     pub name: String,
+
+    /// Internal ID
+    pub id: String,
+
+    /// Current state of Job
+    pub state: State,
+
+    /// URL to request
+    pub url: String,
 
     // TODO: since we know the structure of this API, we can just make
     // a string?
+    /// Configuration to provide to components during request
     pub config: RemoteConfig,
 }
 
@@ -104,13 +113,43 @@ async fn into_job(url: Url, j: Job) -> Result<crate::api::Job> {
 
 use crate::agent::Agent;
 
+async fn do_state_update(
+    url: Url,
+    update: &'static str,
+    jobID: &String,
+) -> Result<()> {
+    let c = reqwest::Client::new();
+
+    info!("Sending: {}", update);
+    let u = url.clone().join(jobs)?.join(jobID.as_str())?;
+    let res = c
+        .patch(u.clone())
+        .body(update)
+        .header(reqwest::header::CONTENT_TYPE, "application/json")
+        .send()
+        .await?;
+
+    info!("Got response for state update to {}: {:?}", u.clone(), res);
+    Ok(())
+}
+
 async fn do_run(url: Url, j: Job) -> Result<()> {
+    let update = "{
+    \"state\": \"Running\"
+}";
+    let id = j.id.clone();
+    do_state_update(url.clone(), update, &id).await?;
+
     DynamicAgent::run(&into_job(url.clone(), j).await?).await?;
+    let update = "{
+        \"state\": \"Done\"
+    }";
+    do_state_update(url.clone(), update, &id).await?;
 
     Ok(())
 }
 
-async fn run_poll(url: &url::Url, interval: Duration, n: i32) -> Result<()> {
+async fn run_poll(url: url::Url, interval: Duration, n: i32) -> Result<()> {
     // let mut handler = Box::pin(tokio::signal::ctrl_c());
     // let mut h = handler.as_mut();
     // h.poll(tokio);
@@ -124,8 +163,9 @@ async fn run_poll(url: &url::Url, interval: Duration, n: i32) -> Result<()> {
             info!("Got job: {}", job.name);
             match job.state {
                 State::Waiting => {
+                    info!("Job {} is waiting", job.name);
                     let handle = tokio::task::spawn(do_run(url.clone(), job));
-                    tokio::join!(handle).0?;
+                    tokio::join!(handle).0??;
                 }
                 State::Running => {
                     info!("Job {} is still running", job.name);
