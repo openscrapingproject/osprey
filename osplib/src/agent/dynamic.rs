@@ -1,32 +1,36 @@
-use anyhow::{Error, Result};
-use log::{debug, info};
+use crate::prelude::*;
+
+use super::api::Agent;
+use async_trait::async_trait;
 
 // TODO: maybe reintroduce the basic functionality of Agents as a trait
 // use async_trait::async_trait;
 
-use crate::api::JobCollection as Config;
-pub struct DynamicAgent {
-    c: Config,
-}
+use crate::api::{Config, JobCollection};
+pub struct DynamicAgent {}
 
 use url::Url;
 
-impl DynamicAgent {
-    pub fn new(config: Config) -> Self {
-        DynamicAgent { c: config }
-    }
+#[async_trait]
+impl Agent for DynamicAgent {
+    // pub async fn run(jo)
 
-    pub async fn run(self) -> Result<(), Error> {
-        let c: Config = self.c;
+    async fn run_job_collection(
+        collection: &JobCollection,
+    ) -> Result<(), Error> {
+        let c: &Config = &collection.config;
         let data_sink = c
             .data
+            .as_ref()
             .ok_or_else(|| Error::msg("failed to get data plugin"))?;
-        for url in &c.initial_urls {
+        for url in &collection.initial_urls {
             // If the config provides a base_url, set the request URL to the
             // concatenation of the two
-            let req_url = if c.base_url.is_some() {
+            let req_url = if collection.base_url.is_some() {
                 info!("base_url provided");
-                let base = Url::parse(c.base_url.as_ref().unwrap().as_str())?;
+                let base = Url::parse(
+                    collection.base_url.as_ref().unwrap().as_str(),
+                )?;
                 base.join(url.as_str())?
             } else {
                 // otherwise just use url provided
@@ -67,6 +71,9 @@ impl DynamicAgent {
         }
         Ok(())
     }
+    async fn run(job: &crate::api::Job) -> Result<()> {
+        todo!()
+    }
 }
 
 #[cfg(test)]
@@ -83,11 +90,11 @@ mod tests {
     fn configure() -> Result<()> {
         init();
 
-        let data = include_str!("../../../tests/basic.json");
-        let conf: Config = serde_json::from_str(data)
-            .context("failed to deserialize configuration")?;
+        // let data = include_str!("../../../tests/basic.json");
+        // let conf: Config = serde_json::from_str(data)
+        //     .context("failed to deserialize configuration")?;
 
-        let _ = DynamicAgent::new(conf);
+        // let _ = DynamicAgent::new(conf);
 
         Ok(())
     }
@@ -97,11 +104,9 @@ mod tests {
         init();
 
         let data = include_str!("../../../tests/basic.json");
-        let conf: Config = serde_json::from_str(data)
+        let conf: JobCollection = serde_json::from_str(data)
             .context("failed to deserialize configuration")?;
 
-        let a = DynamicAgent::new(conf);
-
-        a.run().await
+        DynamicAgent::run_job_collection(&conf).await
     }
 }

@@ -11,7 +11,10 @@ use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
 
-use osplib::{agent::DynamicAgent, api::JobCollection};
+use osplib::{
+    agent::{Agent, DynamicAgent},
+    api::JobCollection,
+};
 
 // TODO: think about separating the launching of the Tokio runtime
 // from potential CLI commands like verify the config file
@@ -33,8 +36,8 @@ async fn main() -> Result<()> {
         let input: JobCollection = read_json_from_file(filename).unwrap();
         info!("Got input: {:#?}", input);
 
-        let a = DynamicAgent::new(input);
-        a.run().await?
+        // DynamicAgent::into()
+        DynamicAgent::run_job_collection(&input).await?
     }
     println!("Try running a subcommand, or adding --help to see the options");
     return Ok(());

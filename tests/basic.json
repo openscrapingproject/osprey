@@ -5,54 +5,56 @@
         "/2020/06/27/us/woodrow-wilson-princeton-university-trnd/index.html",
         "/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/"
     ],
-    "requestor": {
-        "plugin": "basic",
-        "config": {
-            "timeout": "3s",
-            "headers": {
-                "User-Agent": "openscraping 1.0"
-            },
-            "browser": [
-                "Firefox",
-                "random"
-            ],
-            "template": "default"
-        }
-    },
-    "pages": {
-        "cnn_articles": {
-            "matcher": {
-                "plugin": "regex",
-                "config": {
-                    "url": "(.*)cnn.com\/\\d{4}\/(\\d{2}\/){2}",
-                    "headers": {
-                        "Content-Type": "text/html"
-                    }
-                }
-            },
-            "extractor": {
-                "plugin": "scraper_rs",
-                "config": {
-                    "definitions": {
-                        "text": {
-                            "selector": "#body-text",
-                            "val": "Text"
+    "config": {
+        "requestor": {
+            "plugin": "basic",
+            "config": {
+                "timeout": "3s",
+                "headers": {
+                    "User-Agent": "openscraping 1.0"
+                },
+                "browser": [
+                    "Firefox",
+                    "random"
+                ],
+                "template": "default"
+            }
+        },
+        "pages": {
+            "cnn_articles": {
+                "matcher": {
+                    "plugin": "regex",
+                    "config": {
+                        "url": "(.*)cnn.com\/\\d{4}\/(\\d{2}\/){2}",
+                        "headers": {
+                            "Content-Type": "text/html"
                         }
                     }
                 },
-                "definition": {
-                    "scraping": "definition",
-                    "can include": "hardcoded values",
-                    "or use of": "XPATH, css or similar"
+                "extractor": {
+                    "plugin": "scraper_rs",
+                    "config": {
+                        "definitions": {
+                            "text": {
+                                "selector": "#body-text",
+                                "val": "Text"
+                            }
+                        }
+                    },
+                    "definition": {
+                        "scraping": "definition",
+                        "can include": "hardcoded values",
+                        "or use of": "XPATH, css or similar"
+                    }
                 }
             }
-        }
-    },
-    "data": {
-        "plugin": "output",
-        "config": {
-            "format": "json",
-            "location": "stdout"
+        },
+        "data": {
+            "plugin": "output",
+            "config": {
+                "format": "json",
+                "location": "stdout"
+            }
         }
     }
 }

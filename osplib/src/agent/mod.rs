@@ -6,6 +6,8 @@ for the basic component types. Now the Dynamic agent uses polymorphism
 and trait objects to be able to use any components specified.
 */
 
+mod api;
 mod dynamic;
 
+pub use api::*;
 pub use dynamic::*;

@@ -2,10 +2,18 @@ use anyhow::Result;
 
 use async_trait::async_trait;
 
+/// The Super trait represents shared bounds on all of the component traits
+/// Right now, since all component traits get a readonly immutable reference
+/// to self, components can be both Send and Sync. An Agent calling
+/// make_request(url1) and make_request(url2) from different threads
+/// will work because they only need immutable access to self.
+pub trait Super: std::fmt::Debug + Send + Sync {}
+impl<T> Super for T where T: std::fmt::Debug + Send + Sync {}
+
 /// Fetches pages or other data
 #[typetag::serde(tag = "plugin", content = "config")]
 #[async_trait]
-pub trait Requestor: std::fmt::Debug {
+pub trait Requestor: Super {
     /// Makes an HTTP get request to the given URL
     /// using any configuration the plugin was created with.
     // TODO: add another function for a HEAD request?
@@ -16,7 +24,7 @@ pub trait Requestor: std::fmt::Debug {
 /// Determines if responses match a given configuration.
 /// Used for distinguishing [super::job_collection::PageSet]s.
 #[typetag::serde(tag = "plugin", content = "config")]
-pub trait Matcher: std::fmt::Debug {
+pub trait Matcher: Super {
     fn run_match(&self, data: crate::api::MatchData) -> Result<bool>;
 }
 
@@ -29,7 +37,7 @@ pub type Intermediate = Box<dyn SerDebug>;
 
 /// Extracts relevant data from the page
 #[typetag::serde(tag = "plugin", content = "config")]
-pub trait Extractor: std::fmt::Debug {
+pub trait Extractor: Super {
     /// TODO: in the future, as we think about standardizing Scraping
     /// Definitions, we might modify this signature. However, for now, they
     /// can go directly into the plugin's Config.
@@ -38,7 +46,7 @@ pub trait Extractor: std::fmt::Debug {
 
 /// Outputs relevant data to a data sink
 #[typetag::serde(tag = "plugin", content = "config")]
-pub trait DataSink: std::fmt::Debug {
+pub trait DataSink: Super {
     fn consume(&self, input: Intermediate) -> Result<()>;
 }
 
@@ -53,7 +61,7 @@ mod tests {
 
         let parsed: crate::api::JobCollection = serde_json::from_str(data)?;
 
-        println!("{:#?}", parsed.requestor);
+        println!("{:#?}", parsed.config.requestor);
 
         Ok(())
     }

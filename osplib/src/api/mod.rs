@@ -10,11 +10,11 @@ output, and the agent passes to each other
 
 // TODO: think about making these public
 pub mod http;
-pub mod job_collection;
+pub mod jobs;
 pub mod plugin_types;
 
 pub mod plugin;
 
-pub use job_collection::*;
+pub use jobs::*;
 pub use plugin::*;
 pub use plugin_types::*;
