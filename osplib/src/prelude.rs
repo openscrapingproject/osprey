@@ -7,7 +7,7 @@ exports various log macros, and Serde derive macros.
 
 // Error handling and logging
 pub use anyhow::{Context, Error, Result};
-pub use log::{debug, info, warn};
+pub use log::{debug, error, info, warn};
 
 // Serde
 pub use serde::{Deserialize, Serialize};

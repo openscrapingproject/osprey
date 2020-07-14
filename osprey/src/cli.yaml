@@ -11,18 +11,16 @@ args:
         about: Sets the level of verbosity
 subcommands:
     - run:
-        about: runs a Job Collection from the input specification
+        about: Runs a Job Collection from the input specification
         args:
             - INPUT:
                 about: Sets the input file to use. Should be in JSON format.
                 required: true
                 index: 1
-            # - file:
-            #     short: f
-            #     about: Specifies an input file to use
-    - test:
-        about: controls testing features
+    - validate:
+        about: Validates a Job Collection input specification file
         args:
-            - debug:
-                short: d
-                about: print debug information
+            - INPUT:
+                about: Sets the input file to use. Should be in JSON format.
+                required: true
+                index: 1

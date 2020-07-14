@@ -42,3 +42,8 @@ scc -i rs,json,md
 - cargo-expand
 - cargo-modules
 - cargo-outdated
+
+## Testing
+```
+env RUST_LOG="osplib,osprey=debug" ./target/debug/osprey run ./tests/basic.json
+```

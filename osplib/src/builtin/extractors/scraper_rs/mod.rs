@@ -110,7 +110,7 @@ impl crate::api::Extractor for ScraperRs {
                 Error::msg("failed to parse get first element")
             })?;
 
-            debug!("got elem {:#?}", elem);
+            debug!("got elem {:#?}", elem.value().name());
 
             let o = elem_to_out_item(elem, &val.val)?;
 
