@@ -22,5 +22,7 @@ pub mod agent;
 
 pub mod prelude;
 
+pub mod executor;
+
 #[macro_use]
 pub mod utils;

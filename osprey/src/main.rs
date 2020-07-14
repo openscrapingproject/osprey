@@ -6,6 +6,7 @@ use clap::{load_yaml, App};
 use osplib::{
     agent::{Agent, DynamicAgent},
     api::JobCollection,
+    executor::Config as EConfig,
     utils::read_from_file,
 };
 
@@ -42,6 +43,18 @@ async fn main() -> Result<()> {
 
             println!("Done!\n\n");
             println!("Got input: {:#?}", input);
+        }
+        ("executor", Some(sub_m)) => {
+            let filename = sub_m
+                .value_of("CONFIG")
+                .ok_or_else(|| Error::msg("Failed to get config file"))?;
+
+            println!("Starting executor...");
+            let input: EConfig = read_from_file(filename)?;
+
+            input.executor.run().await?;
+
+            println!("Completed!");
         }
         _ => {
             println!("Try running a subcommand, or adding --help to see the options");

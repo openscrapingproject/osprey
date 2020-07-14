@@ -24,3 +24,10 @@ subcommands:
                 about: Sets the input file to use. Should be in JSON format.
                 required: true
                 index: 1
+    - executor:
+        about: Starts the Osprey Executor which starts running Jobs from the Jobs API
+        args:
+            - CONFIG:
+                about: Sets the configuration file to use. Should be in JSON format.
+                required: true
+                index: 1

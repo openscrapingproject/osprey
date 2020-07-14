@@ -26,5 +26,5 @@ features = ["raw_value"]
 version = "1.0.53"
 
 [dependencies.tokio]
-features = ["macros", "rt-threaded"]
+features = ["full"]
 version = "0.2.21"
