@@ -72,7 +72,45 @@ impl Agent for DynamicAgent {
         Ok(())
     }
     async fn run(job: &crate::api::Job) -> Result<()> {
-        todo!()
+        let c = &job.config;
+        let resp = c.requestor.make_request(job.url.as_str()).await?;
+        info!(
+            "Made request to {} and got response code {}",
+            job.url, resp.status
+        );
+
+        let data_sink = c
+            .data
+            .as_ref()
+            .ok_or_else(|| Error::msg("failed to get data plugin"))?;
+
+        for (page_id, page_set) in &c.pages {
+            info!("Runnning pipeline on {}", page_id);
+            // TODO: optimize this?
+            // Nah, shouldn't be a bottleneck for now
+            let mdata = crate::api::MatchData {
+                url: resp.url.clone(),
+                status: resp.status,
+                version: resp.version.clone(),
+                headers: resp.headers.clone(),
+            };
+            let matched = page_set.matcher.run_match(mdata)?;
+            info!("The matcher plugin resulted in {}", matched);
+
+            if matched {
+                info!("Starting extractor");
+
+                // let data = resp.body;
+
+                let out = page_set.extractor.extract(&resp)?;
+                debug!("Extracted: {:#?}", out);
+
+                data_sink.consume(out)?;
+
+                info!("Completed");
+            }
+        }
+        Ok(())
     }
 }
 

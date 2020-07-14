@@ -11,3 +11,7 @@ fmt:
 .PHONY: install-hooks
 install-hooks:
 	git config --local core.hooksPath .githooks/
+
+.PHONY: loc
+loc:
+	scc -i rs,json,md

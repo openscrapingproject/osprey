@@ -1,7 +1,7 @@
 {
     "configs": [
         {
-            "id": 1,
+            "id": "1",
             "requestor": {
                 "plugin": "basic",
                 "config": {
@@ -54,17 +54,13 @@
             }
         }
     ],
-    "job_collections": [
+    "jobs": [
         {
-            "id": 1,
-            "name": "collection_name",
-            "base_url": "https://www.cnn.com",
-            "initial_urls": [
-                "/2020/06/27/us/woodrow-wilson-princeton-university-trnd/index.html",
-                "/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/"
-            ],
-            "config": 1
+            "id": "1",
+            "name": "collection_name_0",
+            "state": "Waiting",
+            "url": "https://cnn.com/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/",
+            "config": "1"
         }
-    ],
-    "jobs": []
+    ]
 }

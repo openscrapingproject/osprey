@@ -14,6 +14,7 @@ use crate::prelude::*;
 
 use std::collections::HashMap;
 
+// TODO: make this private or depracate
 /// Represents a format that creates several jobs from one representation
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JobCollection {
@@ -23,13 +24,10 @@ pub struct JobCollection {
     pub config: Config,
 }
 
-// pub enum RemoteConfig {
-//     // TODO: should this be a data-service neutral URL
-//     // or a well-defined ID that requires knowledge of the
-//     // Server API
-//     Remote(String),
-//     Embedded(Config)
-// }
+/// This struct represents the minimal information needed
+/// to be passed to an Agent. However, often, Executor implementations
+/// will need a structure with much more metadata, such as the state
+/// of the job.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Job {
     pub url: String,

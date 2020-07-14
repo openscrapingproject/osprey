@@ -1,0 +1,9 @@
+{
+    "name": "collection_name",
+    "base_url": "https://www.cnn.com",
+    "initial_urls": [
+        "/2020/06/27/us/woodrow-wilson-princeton-university-trnd/index.html",
+        "/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/"
+    ],
+    "config": "1"
+}

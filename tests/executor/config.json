@@ -2,8 +2,9 @@
     "executor": {
         "id": "server",
         "config": {
-            "base_url": "http://0.0.0.0:3000/jobs",
-            "poll_interval": null
+            "base_url": "http://0.0.0.0:3000/",
+            "poll_interval": null,
+            "num_polls": 100
         }
     }
 }
