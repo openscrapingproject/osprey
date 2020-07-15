@@ -48,9 +48,12 @@ pub struct ScraperRs {
     pub definitions: HashMap<Key, Value>,
 }
 
-pub type Output = HashMap<Key, OutItem>;
+pub type Output = HashMap<Key, MultipleElements<OutItem>>;
+
+pub type MultipleElements<T> = Vec<T>;
 
 pub type OutItem = String;
+
 // TODO: figure out Multiple Extraction stuff
 // 1. a selector gets multiple elements
 // 2. a user wants to access multiple items from an element (e.g. text + an
@@ -104,21 +107,25 @@ impl crate::api::Extractor for ScraperRs {
             let s = Selector::parse(val.selector.as_str())
                 // .context("failed")?;
                 // TODO: figure out this weird error handling
+                // Selector library uses other error handling lib that
+                // is incompatible with anyhow Context
                 .or_else(|_| Err(Error::msg("failed to parse selector")))?;
 
-            let elem = doc.select(&s).next().ok_or_else(|| {
-                Error::msg("failed to parse get first element")
-            })?;
+            let sr = doc.select(&s);
 
-            debug!("got elem {:#?}", elem.value().name());
+            let mut multiple: Vec<OutItem> = Vec::new();
+            for elem in sr {
+                debug!("got elem {:#?}", elem.value().name());
 
-            let o = elem_to_out_item(elem, &val.val)?;
+                let o = elem_to_out_item(elem, &val.val)?;
+                multiple.push(o);
+            }
 
             let n = key.clone();
 
-            debug!("key \"{}\", value (output) \"{}\"", n, o);
+            debug!("key: {}, value (output): {:?}", n, multiple);
 
-            out.insert(n, o);
+            out.insert(n, multiple);
         }
         Ok(Box::new(out))
     }
