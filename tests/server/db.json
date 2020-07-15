@@ -56,10 +56,11 @@
   ],
   "jobs": [
     {
-      "id": "1",
       "name": "collection_name_0",
+      "id": "1",
       "state": "Waiting",
       "url": "https://cnn.com/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/",
+      "elapsed": null,
       "config": "1"
     }
   ]

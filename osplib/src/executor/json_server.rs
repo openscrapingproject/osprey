@@ -1,8 +1,10 @@
 use crate::prelude::*;
 use async_trait::async_trait;
-use std::time::Duration;
 
 use crate::agent::DynamicAgent;
+
+// TODO: have API server run a hash or checksum to make sure modified
+// version contains latest changes
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ServerExecutor {
@@ -48,6 +50,7 @@ pub enum State {
     Done,
 }
 
+use std::time::{Duration, Instant};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Job {
     /// Human readable name for job. Often generated from collection_name
@@ -61,6 +64,9 @@ pub struct Job {
 
     /// URL to request
     pub url: String,
+
+    #[serde(with = "humantime_serde")]
+    pub elapsed: Option<Duration>,
 
     // TODO: since we know the structure of this API, we can just make
     // a string?
@@ -99,9 +105,10 @@ async fn into_job(url: Url, j: Job) -> Result<crate::api::Job> {
         RemoteConfig::Remote(id) => {
             let u = url.join(config)?.join(id.as_str())?;
             info!("Making request to config url: {}", u);
-            let res = reqwest::get(u).await?.text().await?;
-            debug!("Got config for job {}: {}", j.name, res);
-            serde_json::from_str(res.as_str())?
+            let res = reqwest::get(u).await?.json().await?;
+            debug!("Got config for job {}: {:?}", j.name, res);
+            // serde_json::from_str(res.as_str())?
+            res
         }
     };
 
@@ -112,54 +119,64 @@ async fn into_job(url: Url, j: Job) -> Result<crate::api::Job> {
 }
 
 use crate::agent::Agent;
+use serde::de::DeserializeOwned;
 
-async fn do_state_update(
-    url: Url,
-    update: &'static str,
-    jobID: &String,
-) -> Result<()> {
+/// Updates the state of a given Job by doing a GET, executing a closure,
+/// then doing a PUT
+async fn do_update<F, T>(url: Url, job_id: &String, mut func: F) -> Result<()>
+where
+    F: Fn(T) -> T,
+    T: std::fmt::Debug + Serialize + DeserializeOwned,
+{
     let c = reqwest::Client::new();
+    let u = url.clone().join(jobs)?.join(job_id.as_str())?;
+    let res: T = c.get(u.clone()).send().await?.json().await?;
+    debug!("before update: {:?}", res);
+    let updated = func(res);
+    debug!("after update: {:?}", updated);
 
-    info!("Sending: {}", update);
-    let u = url.clone().join(jobs)?.join(jobID.as_str())?;
-    let res = c
-        .patch(u.clone())
-        .body(update)
-        .header(reqwest::header::CONTENT_TYPE, "application/json")
-        .send()
-        .await?;
+    let res = c.put(u).json(&updated).send().await?;
+    debug!("response from update: {:?}", res);
 
-    info!("Got response for state update to {}: {:?}", u.clone(), res);
     Ok(())
 }
 
+/// Runs the Agent on a Job configuration and updates the state of the Jobs API
 async fn do_run(url: Url, j: Job) -> Result<()> {
-    let update = "{
-    \"state\": \"Running\"
-}";
+    let start = Instant::now();
+
     let id = j.id.clone();
-    do_state_update(url.clone(), update, &id).await?;
+    do_update(url.clone(), &id, |mut j: Job| {
+        j.state = State::Running;
+        j
+    })
+    .await?;
 
     DynamicAgent::run(&into_job(url.clone(), j).await?).await?;
-    let update = "{
-        \"state\": \"Done\"
-    }";
-    do_state_update(url.clone(), update, &id).await?;
+
+    let duration = start.elapsed();
+
+    do_update(url.clone(), &id, |mut j: Job| {
+        j.state = State::Done;
+        j.elapsed = Some(duration);
+        j
+    })
+    .await?;
 
     Ok(())
 }
 
+/// Runs a loop that polls the Jobs API on the provided interval for a number
+/// of iterations
 async fn run_poll(url: url::Url, interval: Duration, n: i32) -> Result<()> {
     // let mut handler = Box::pin(tokio::signal::ctrl_c());
     // let mut h = handler.as_mut();
     // h.poll(tokio);
     for i in 0..n {
-        let res = reqwest::get(url.join(jobs)?).await?.text().await?;
-        debug!("Got response from polling iteration {}: {}", i, res);
+        let res: Jobs = reqwest::get(url.join(jobs)?).await?.json().await?;
+        debug!("Got response from polling iteration {}: {:?}", i, res);
 
-        let js: Jobs = serde_json::from_str(res.as_str())?;
-
-        for job in js {
+        for job in res {
             info!("Got job: {}", job.name);
             match job.state {
                 State::Waiting => {
