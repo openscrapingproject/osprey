@@ -1,0 +1,18 @@
+{
+    "titles": {
+      "sel": ".css-698um9 a h2",
+      "type": "css"
+    },
+    "desc": {
+      "sel": ".e1lfvv700",
+      "type": "css"
+    },
+    "auth": {
+      "sel": ".e18df3gd0",
+      "type": "css"
+    },
+    "sections": {
+      "sel": ".css-1wjnrbv",
+      "type": "css"
+    }
+  }
