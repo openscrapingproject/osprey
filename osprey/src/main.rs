@@ -33,6 +33,16 @@ async fn main() -> Result<()> {
 
             DynamicAgent::run_job_collection(&input).await?
         }
+        ("submit", Some(sub_m)) => {
+            let filename = sub_m
+                .value_of("INPUT")
+                .ok_or_else(|| Error::msg("Failed to get file"))?;
+
+            let input: JobCollection = read_from_file(filename)?;
+            info!("Got input: {:#?}", input);
+
+            DynamicAgent::run_job_collection(&input).await?
+        }
         ("validate", Some(sub_m)) => {
             let filename = sub_m
                 .value_of("INPUT")

@@ -11,7 +11,14 @@ args:
         about: Sets the level of verbosity
 subcommands:
     - run:
-        about: Runs a Job Collection from the input specification
+        about: Runs a Job Collection from the input specification. This should be for testing purposes and will be depracated.
+        args:
+            - INPUT:
+                about: Sets the input file to use. Should be in JSON format.
+                required: true
+                index: 1
+    - submit:
+        about: Takes a Job Collection and sends it as Config and Jobs to the Jobs API
         args:
             - INPUT:
                 about: Sets the input file to use. Should be in JSON format.

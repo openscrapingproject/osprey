@@ -2,6 +2,9 @@ use anyhow::Result;
 
 use async_trait::async_trait;
 
+#[allow(unused_imports)]
+use super::jobs::PageSet;
+
 /// The Super trait represents shared bounds on all of the component traits
 /// Right now, since all component traits get a readonly immutable reference
 /// to self, components can be both Send and Sync. An Agent calling
@@ -22,7 +25,7 @@ pub trait Requestor: Super {
 }
 
 /// Determines if responses match a given configuration.
-/// Used for distinguishing [super::job_collection::PageSet]s.
+/// Used for distinguishing [PageSet]s.
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait Matcher: Super {
     fn run_match(&self, data: crate::api::MatchData) -> Result<bool>;

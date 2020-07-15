@@ -1,5 +1,5 @@
 /*!
-Builtin plugin implementations for each of the component types.
+Modules that implement basic built-in plugins for each component type.
 
 Each sub-module corresponds to a component type and implements
 that component's trait.

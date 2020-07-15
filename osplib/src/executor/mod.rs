@@ -1,6 +1,11 @@
+/*!
+ * Executors listen for new Jobs via their internal
+ * Data Service and spawn Agents to run them.
+ */
+
 mod api;
 
-mod json_server;
+pub mod hja;
 
 pub use api::*;
-pub use json_server::*;
+pub use hja::ServerExecutor;

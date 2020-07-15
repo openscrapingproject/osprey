@@ -2,11 +2,13 @@
 docs:
 	cargo +nightly doc --no-deps
 
+.PHONY: odocs
+odocs:
+	cargo +nightly doc --no-deps --open
 
 .PHONY: fmt
 fmt:
-	cargo +nightly fmt
-
+	cargo +nightly fmt --all
 
 .PHONY: install-hooks
 install-hooks:
