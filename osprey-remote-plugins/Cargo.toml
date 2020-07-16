@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 Inflector = "0.11.4"
 config = "0.10.1"
-log = "0.4.8"
+log = "0.4.11"
 
 [dependencies.serde]
 features = ["derive"]
