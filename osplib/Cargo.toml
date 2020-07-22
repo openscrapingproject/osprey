@@ -37,4 +37,4 @@ version = "1.0.53"
 
 [dependencies.tokio]
 features = ["full"]
-version = "0.2.21"
+version = "0.2.22"
