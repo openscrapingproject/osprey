@@ -26,3 +26,5 @@ Initially, would do `h2`. Then, user puts a higher-precedence/order specifier in
 css-698um9
 
 //h2/ancestor::a
+
+//h2/ancestor::a/@href

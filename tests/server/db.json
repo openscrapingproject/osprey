@@ -62,6 +62,14 @@
       "url": "https://cnn.com/2020/06/24/politics/christopher-wray-fbi-protests-foreign-influence/",
       "elapsed": "337ms 938us 543ns",
       "config": "1"
+    },
+    {
+      "name": "collection_name_1",
+      "id": "2",
+      "state": "Waiting",
+      "url": "https://cnn.com/2020/06/27/us/woodrow-wilson-princeton-university-trnd/index.html",
+      "elapsed": "2s 5ms",
+      "config": "1"
     }
   ]
 }
