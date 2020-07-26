@@ -126,24 +126,27 @@ async fn run_poll(url: url::Url, interval: Duration, n: i32) -> Result<()> {
     // h.poll(tokio);
     for i in 0..n {
         let res: Jobs = reqwest::get(url.join(JOBS)?).await?.json().await?;
+        info!("Recieved response for iteration {}", i);
         debug!("Got response from polling iteration {}: {:?}", i, res);
 
+        let mut js = Vec::new();
         for job in res {
-            info!("Got job: {}", job.name);
+            js.push(job.name.clone());
             match job.state {
                 State::Waiting => {
-                    info!("Job {} is waiting", job.name);
+                    debug!("Job {} is waiting", job.name);
                     let handle = tokio::task::spawn(do_run(url.clone(), job));
                     tokio::join!(handle).0??;
                 }
                 State::Running => {
-                    info!("Job {} is still running", job.name);
+                    debug!("Job {} is still running", job.name);
                 }
                 State::Done => {
-                    info!("Job {} is done", job.name);
+                    debug!("Job {} is done", job.name);
                 }
             }
         }
+        info!("Got jobs {:#?}", js);
 
         tokio::time::delay_for(interval).await;
     }

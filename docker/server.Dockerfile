@@ -9,7 +9,9 @@ RUN \
     rm -rf /root/.npm                  \
            /usr/lib/node_modules/npm
 
-VOLUME [ "/data" ]
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
 WORKDIR /config
 
 COPY ./server/ /config

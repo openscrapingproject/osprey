@@ -15,6 +15,9 @@ spec:
       - name: osprey-executor
         image: alexkreidler/osprey
         imagePullPolicy: Always
+        env:
+          - name: RUST_LOG
+            value: info
         command:
           - "./osprey"
           - "executor"
