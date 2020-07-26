@@ -17,3 +17,15 @@ install-hooks:
 .PHONY: loc
 loc:
 	scc -i rs,json,md
+
+.PHONY: docker.release
+docker.release:
+	env DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build -t alexkreidler/osprey -f ./docker/release.Dockerfile .
+
+.PHONY: docker.server
+docker.server:
+	env DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build -t alexkreidler/osprey-server -f ./docker/server.Dockerfile .
+
+
+.PHONY: docker
+docker: docker.server docker.release

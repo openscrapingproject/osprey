@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osprey-executor
+spec:
+  selector:
+    matchLabels:
+      app: osprey-executor
+  template:
+    metadata:
+      labels:
+        app: osprey-executor
+    spec:
+      containers:
+      - name: osprey-executor
+        image: alexkreidler/osprey
+        imagePullPolicy: Always
+        command:
+          - "./osprey"
+          - "executor"
+          - "default-config.json"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000

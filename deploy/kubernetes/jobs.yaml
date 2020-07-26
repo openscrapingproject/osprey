@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: osprey-jobs
+spec:
+  selector:
+    app: osprey-jobs
+  ports:
+  - port: 9000
+    targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osprey-jobs
+spec:
+  selector:
+    matchLabels:
+      app: osprey-jobs
+  template:
+    metadata:
+      labels:
+        app: osprey-jobs
+    spec:
+      containers:
+      - name: osprey-jobs
+        image: alexkreidler/osprey-server
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000

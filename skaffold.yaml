@@ -1,0 +1,26 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: osprey
+build:
+  local:
+    useBuildkit: true
+    
+    # doesn't work for microk8s
+    # push: false
+  tagPolicy:
+    dateTime: {}
+  artifacts:
+  - image: alexkreidler/osprey
+    context: .
+    docker:
+      dockerfile: docker/release.Dockerfile
+  - image: alexkreidler/osprey-server
+    context: ./deploy/
+    docker:
+      dockerfile: docker/server.Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - deploy/kubernetes/executor.yaml
+    - deploy/kubernetes/jobs.yaml

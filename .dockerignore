@@ -1,0 +1,10 @@
+target/
+.github/
+.idea/
+.vscode/
+_templates/
+Dockerfile
+deploy/docker/
+*.md
+.gitignore
+.skaffold.yaml
