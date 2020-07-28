@@ -4,14 +4,14 @@ use async_trait::async_trait;
 
 #[allow(unused_imports)]
 use super::jobs::PageSet;
-
+use crate::prelude::*;
 /// The Super trait represents shared bounds on all of the component traits
 /// Right now, since all component traits get a readonly immutable reference
 /// to self, components can be both Send and Sync. An Agent calling
 /// make_request(url1) and make_request(url2) from different threads
 /// will work because they only need immutable access to self.
-pub trait Super: std::fmt::Debug + Send + Sync {}
-impl<T> Super for T where T: std::fmt::Debug + Send + Sync {}
+pub trait Super: std::fmt::Debug + Send + Sync + JsonSchema {}
+impl<T> Super for T where T: std::fmt::Debug + Send + Sync + JsonSchema {}
 
 /// Fetches pages or other data
 #[typetag::serde(tag = "plugin", content = "config")]

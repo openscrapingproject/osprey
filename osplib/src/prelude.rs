@@ -11,3 +11,4 @@ pub use log::{debug, error, info, warn};
 
 // Serde
 pub use serde::{Deserialize, Serialize};
+pub use schemars::JsonSchema;

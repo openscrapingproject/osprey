@@ -16,7 +16,7 @@ use std::collections::HashMap;
 
 // TODO: make this private or depracate
 /// Represents a format that creates several jobs from one representation
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, JsonSchema)]
 pub struct JobCollection {
     pub name: String,
     pub base_url: Option<String>,
@@ -28,13 +28,13 @@ pub struct JobCollection {
 /// to be passed to an Agent. However, often, Executor implementations
 /// will need a structure with much more metadata, such as the state
 /// of the job.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, JsonSchema)]
 pub struct Job {
     pub url: String,
     pub config: Config,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, JsonSchema)]
 pub struct Config {
     pub requestor: Box<dyn Requestor>,
     pub pages: HashMap<PageSetID, PageSet>,
@@ -43,7 +43,7 @@ pub struct Config {
 
 pub type PageSetID = String;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, JsonSchema)]
 pub struct PageSet {
     pub matcher: Box<dyn Matcher>,
     pub extractor: Box<dyn Extractor>,
