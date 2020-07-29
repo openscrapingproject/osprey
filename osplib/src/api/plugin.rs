@@ -31,8 +31,15 @@ pub trait Matcher: Super {
     fn run_match(&self, data: crate::api::MatchData) -> Result<bool>;
 }
 
-pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug {}
-impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug {}
+use mopa::{Any, mopafy};
+
+/// We use the mopa crate to allow using the Any trait in addition to our SerDebug trait.
+/// This allows code that knows the original concrete type of the trait to cast it back to that type
+/// The main use case for this is to run tests that validate the output of extractors.
+pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug + Any {}
+impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug + Any {}
+
+mopafy!(SerDebug);
 
 /// Any type that can be [std::fmt::Debug] ed and also serialized
 /// using erased_serde upon arrival.
