@@ -135,7 +135,7 @@ async fn run_poll(url: url::Url, interval: Duration, n: i32) -> Result<()> {
                 State::Waiting => {
                     debug!("Job {} is waiting", job.name);
                     let handle = tokio::task::spawn(do_run(url.clone(), job));
-                    tokio::join!(handle).0??;
+                    tokio::try_join!(handle)?.0?;
                 }
                 _ => {
                     debug!("Job {} is {:?}", job.name, job.state);
