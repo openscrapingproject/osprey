@@ -3,7 +3,7 @@
 cargo +nightly fmt
 
 # ignore any changes to this
-git reset --hard tests/server/db.json
+git reset HEAD tests/server/db.json
 
 # todo: think about this
 git add .
