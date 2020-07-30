@@ -16,7 +16,7 @@ pub enum RemoteConfig {
     Embedded(Config),
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum State {
     Waiting,
     Running,
