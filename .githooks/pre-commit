@@ -1,9 +1,8 @@
 #!/bin/sh
 
 cargo +nightly fmt
+# todo: think about this
+git add .
 
 # ignore any changes to this
 git reset HEAD tests/server/db.json
-
-# todo: think about this
-git add .
