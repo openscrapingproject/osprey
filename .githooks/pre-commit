@@ -6,3 +6,7 @@ git add .
 
 # ignore any changes to this
 git reset HEAD tests/server/db.json
+
+if [[ ! $(git diff --staged) ]]; then
+    exit 1
+fi
