@@ -37,6 +37,49 @@ pub type MultipleElements<T> = Vec<T>;
 
 pub type OutItem = String;
 
+use html5ever::serialize::{serialize, SerializeOpts};
+use html5ever::tendril::TendrilSink;
+use html5ever::tree_builder::TreeBuilderOpts;
+use html5ever::{parse_document, ParseOpts};
+use markup5ever_rcdom as rcdom;
+use rcdom::{RcDom, SerializableHandle};
+
+fn parse(input: String) -> sxd_document::Package {
+    let opts = ParseOpts {
+        tree_builder: TreeBuilderOpts {
+            drop_doctype: true,
+            ..Default::default()
+        },
+        ..Default::default()
+    };
+
+    let dom = parse_document(RcDom::default(), opts)
+        .from_utf8()
+        .read_from(&mut input.as_bytes())
+        .unwrap();
+
+    // let document = dom.document.borrow();
+    // let html = document.children[0].borrow();
+    // let body = html.children[1].borrow(); // Implicit head element at
+    // children[0].
+
+    // {
+    //     let mut a = body.children[0].borrow_mut();
+    //     if let Element(_, _, ref mut attributes) = a.node {
+    //         attributes[0].value.push_tendril(&From::from("#anchor"));
+    //     }
+    // }
+
+    let doc: SerializableHandle = dom.document.clone().into();
+    let mut bytes = vec![];
+    serialize(&mut bytes, &doc, SerializeOpts::default()).unwrap();
+    let result = String::from_utf8(bytes).unwrap();
+    info!("output: {}", result);
+
+    let package = parser::parse(result.as_str()).expect("failed to parse XML");
+    package
+}
+
 #[typetag::serde(name = "xpath")]
 impl crate::api::Extractor for XPathExtractor {
     // TODO: maybe think about streaming/batching if supported by extraction
@@ -47,11 +90,10 @@ impl crate::api::Extractor for XPathExtractor {
         info!("extracting");
 
         debug!("parsing");
-        let package =
-            parser::parse(input.body.as_str()).expect("failed to parse XML");
+        let package = parse(input.body.clone());
         let document = package.as_document();
 
-        debug!("doc: {:#?}", document.root().children());
+        info!("doc: {:#?}", document.root().children());
 
         let mut out: Output = HashMap::new();
 
@@ -62,8 +104,6 @@ impl crate::api::Extractor for XPathExtractor {
                 Err(Error::new(e)
                     .context(format!("Invalid XPath selector: {}", val)))
             })?;
-            let xpath =
-                xpath.ok_or_else(|| anyhow!("No XPath was compiled"))?;
 
             debug!("xpath: {:#?}", xpath);
 
@@ -77,7 +117,7 @@ impl crate::api::Extractor for XPathExtractor {
             debug!("val: {:#?}", value);
             let o = vec![value.string()];
 
-            debug!("key: {}, value (output): {:?}", n, o);
+            info!("key: {}, value (output): {:?}", n, o);
 
             out.insert(n, o);
         }
@@ -110,7 +150,14 @@ mod tests {
         Ok(())
     }
 
+    // Cargo runs tests in the workspace dir (e.g. osplib), so we do this
+    const HTML_PREFIX: &'static str = "../tests/html";
+
     use crate::api::plugin::Extractor;
+    use anyhow::Context;
+    use std::fs::read_to_string;
+    use std::path::Path;
+
     #[test]
     fn run_extract() -> Result<()> {
         init();
@@ -123,7 +170,12 @@ mod tests {
         // <title>Hello, world!</title>
         // <h1 class="foo">Hello, <i>world!</i></h1>
         // "#;
-        let html = include_str!("./example.html");
+        let p = Path::new(HTML_PREFIX).join("example.html");
+        let html = read_to_string(&p).context(format!(
+            "failed to open path {:?} from {:?}",
+            p,
+            std::env::current_dir()?
+        ))?;
 
         let italic = r#"//*[@class="foo"]/i"#;
 
@@ -132,7 +184,8 @@ mod tests {
             definitions: map!(
                 "charset".to_string() => "//meta/@charset".to_string();
                 "italicText".to_string() => italic.to_string();
-                "headers".to_string() => "//h1".to_string()
+                "headers".to_string() => "//h1".to_string();
+                "func".to_string() => "substring-after(//meta/@charset, \"-\")".to_string()
             ),
         };
 
@@ -150,9 +203,60 @@ mod tests {
             fin,
             &map!(
                 "charset".to_string() => vec!["UTF-8".to_string()];
-                "italicText".to_string() => vec!["world!".to_string()]
+                "italicText".to_string() => vec!["world!".to_string()];
+                "headers".to_string() => vec!["Heading".to_string()];
+                "func".to_string() => vec!["8".to_string()]
             )
         );
+
+        println!("{:#?}", r);
+
+        Ok(())
+    }
+
+    #[test]
+    fn run_complex_extract() -> Result<()> {
+        init();
+
+        // We get this: 'failed to parse XML: Error { location: 151, errors:
+        // {UnclosedElement} }' with the html
+        // let html = r#"
+        // <!DOCTYPE html>
+        // <meta charset="utf-8">
+        // <title>Hello, world!</title>
+        // <h1 class="foo">Hello, <i>world!</i></h1>
+        // "#;
+
+        let html = read_to_string(Path::new(HTML_PREFIX).join("race.html"))?;
+
+        let italic = r#"//*[@class="foo"]/i"#;
+
+        // TODO: maybe have this map include the expected values
+        let e = XPathExtractor {
+            definitions: map!(
+                "name".to_string() => "(//table[@class=\"infotable\"])[1]/tbody/tr[2]/text()".to_string()
+            ),
+        };
+
+        let r = e.extract(&crate::api::Response {
+            url: "localhost:8080/hello".to_string(),
+            status: 200,
+            version: "HTTP/1.1".to_string(),
+            headers: HashMap::new(),
+            body: html,
+        })?;
+
+        assert!(r.is::<Output>());
+        // let fin = r.downcast_ref::<Output>().unwrap();
+        // assert_eq!(
+        //     fin,
+        //     &map!(
+        //         "charset".to_string() => vec!["UTF-8".to_string()];
+        //         "italicText".to_string() => vec!["world!".to_string()];
+        //         "headers".to_string() => vec!["Heading".to_string()];
+        //         "func".to_string() => vec!["8".to_string()]
+        //     )
+        // );
 
         println!("{:#?}", r);
 
