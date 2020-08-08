@@ -14,14 +14,29 @@ use scraper;
 use scraper::{ElementRef, Html, Selector};
 use ElemOptions::*;
 
-/// Value represents one property extracted from one HTML element
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Value {
+/// SelectorValue represents one property extracted from one HTML element
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct SelectorValue {
     /// Selector is a CSS string to select an element
     pub selector: String,
 
     /// Val is which property of the HTML element to extract
     pub val: ElemOptions,
+
+    pub transform: Option<Transform>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum Transform {
+    TrimWhitespace,
+    RemoveNewlines,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(untagged)]
+pub enum Value {
+    Literal(String),
+    Selector(SelectorValue),
 }
 
 // pub type Attr(String);
@@ -30,7 +45,7 @@ pub struct Value {
 ///
 /// First 3: Representation: these correspond to [`ElementRef`]
 /// Next 2: Logical: these correspond to [`scraper::node::Element`]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum ElemOptions {
     HTML,
     InnerHTML,
@@ -43,12 +58,13 @@ pub enum ElemOptions {
 // The above has some commented out because they represent multiple values.
 // However, the output for a given key needs to be one string.
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+use serde_json::{Map, Value as SVal};
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct ScraperRs {
     pub definitions: HashMap<Key, Value>,
 }
 
-pub type Output = HashMap<Key, MultipleElements<OutItem>>;
+pub type Output = Map<Key, SVal>;
 
 pub type MultipleElements<T> = Vec<T>;
 
@@ -65,8 +81,8 @@ pub type OutItem = String;
 //     Vec<String>
 // }
 
-fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
-    match opts {
+fn elem_to_out_item(em: ElementRef, opts: &SelectorValue) -> Result<OutItem> {
+    let intermediate = match &opts.val {
         HTML => Ok(em.html()),
         InnerHTML => Ok(em.inner_html()),
         // TODO: figure out what this separator should be
@@ -86,6 +102,19 @@ fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
             .id()
             .map(|id| id.to_string())
             .ok_or_else(|| Error::msg("failed to get ID")),
+    }?;
+
+    // TODO: think about user-provided transforms
+    // Also think about using semantic information (e.g. xsd:DateTime) to parse
+    // certain inputs to normalize them Also maybe have an option that is
+    // original: boolean, which disables all transforms and outputs direct out
+    if let Some(t) = &opts.transform {
+        Ok(match t {
+            Transform::TrimWhitespace => intermediate.trim().to_string(),
+            Transform::RemoveNewlines => intermediate.replace('\n', ""),
+        })
+    } else {
+        Ok(intermediate)
     }
 }
 
@@ -100,32 +129,54 @@ impl crate::api::Extractor for ScraperRs {
         // TODO: think about using fragment instead of Document here
         let doc = Html::parse_document(input.body.as_str());
 
-        let mut out: Output = HashMap::new();
+        // debug!("document {:#?}", doc);
+
+        let mut out: Output = Map::new();
 
         let defs = &self.definitions;
         for (key, val) in defs {
-            let s = Selector::parse(val.selector.as_str())
-                // .context("failed")?;
-                // TODO: figure out this weird error handling
-                // Selector library uses other error handling lib that
-                // is incompatible with anyhow Context
-                .or_else(|_| Err(Error::msg("failed to parse selector")))?;
+            match val {
+                Value::Literal(l) => {
+                    out.insert(key.clone(), SVal::String(l.clone()));
+                    continue;
+                }
+                Value::Selector(sel) => {
+                    let mut slc = sel.clone();
+                    if slc.transform.is_none() {
+                        slc.transform = Some(Transform::TrimWhitespace)
+                    }
+                    let s = Selector::parse(slc.selector.as_str())
+                        // .context("failed")?;
+                        // TODO: figure out this weird error handling
+                        // Selector library uses other error handling lib that
+                        // is incompatible with anyhow Context
+                        .or_else(|_| {
+                            Err(Error::msg("failed to parse selector"))
+                        })?;
 
-            let sr = doc.select(&s);
+                    let sr = doc.select(&s);
 
-            let mut multiple: Vec<OutItem> = Vec::new();
-            for elem in sr {
-                debug!("got elem {:#?}", elem.value().name());
+                    let mut multiple: Vec<SVal> = Vec::new();
+                    for elem in sr {
+                        debug!("got elem {:#?}", elem.value().name());
 
-                let o = elem_to_out_item(elem, &val.val)?;
-                multiple.push(o);
+                        let o = elem_to_out_item(elem, &slc)?;
+                        multiple.push(SVal::String(o));
+                    }
+
+                    let n = key.clone();
+
+                    debug!("key: {}, value (output): {:?}", n, multiple);
+
+                    if multiple.len() == 1 {
+                        let s = &multiple[0];
+                        out.insert(n, s.clone());
+                        continue;
+                    }
+
+                    out.insert(n, SVal::Array(multiple));
+                }
             }
-
-            let n = key.clone();
-
-            debug!("key: {}, value (output): {:?}", n, multiple);
-
-            out.insert(n, multiple);
         }
         Ok(Box::new(out))
     }
@@ -144,15 +195,41 @@ mod tests {
         let _ = env_logger::builder().is_test(true).try_init();
     }
 
+    fn convert(hm: HashMap<String, SelectorValue>) -> HashMap<String, Value> {
+        let mut out = HashMap::new();
+        for (k, v) in hm.iter() {
+            out.insert(k.clone(), Value::Selector(v.to_owned()));
+        }
+        out
+    }
+
     #[test]
     fn configure_extract() -> Result<()> {
         init();
         let _ = ScraperRs {
             definitions: map!(
-                "charset".to_string() => Value {
+                "charset".to_string() => Value::Selector(SelectorValue {
                     selector:"meta[charset]".to_string(),
-                    val: ElemOptions::HTML
-                }
+                    val: ElemOptions::HTML,
+                    transform: None
+                })
+            ),
+        };
+
+        Ok(())
+    }
+
+    #[test]
+    fn configure_extract_literals() -> Result<()> {
+        init();
+        let _ = ScraperRs {
+            definitions: map!(
+                "charset".to_string() => Value::Selector(SelectorValue {
+                    selector:"meta[charset]".to_string(),
+                    val: ElemOptions::HTML,
+                    transform: None
+                });
+                "literal".to_string() => Value::Literal("an IRI".to_string())
             ),
         };
 
@@ -171,30 +248,37 @@ mod tests {
         <h1 class="foo">Hello, <i>world!</i></h1>
         "#;
 
+        let mut hm = map!(
+            "charset".to_string() => SelectorValue {
+                selector:"meta[charset]".to_string(),
+                val: ElemOptions::HTML,
+                transform: None
+            };
+            "charset2".to_string() => SelectorValue {
+                selector:"meta[charset]".to_string(),
+                val: ElemOptions::InnerHTML,
+                transform: None
+            };
+            "charset3".to_string() => SelectorValue {
+                selector:"meta[charset]".to_string(),
+                val: ElemOptions::Text,
+                transform: None
+            };
+            "headerText".to_string() => SelectorValue {
+                selector:"h1".to_string(),
+                val: ElemOptions::Text,
+                transform: None
+            };
+            "italicText".to_string() => SelectorValue {
+                selector:".foo>i".to_string(),
+                val: ElemOptions::Text,
+                transform: None
+            }
+        );
+
         // TODO: maybe have this map include the expected values
         let e = ScraperRs {
-            definitions: map!(
-                "charset".to_string() => Value {
-                    selector:"meta[charset]".to_string(),
-                    val: ElemOptions::HTML
-                };
-                "charset2".to_string() => Value {
-                    selector:"meta[charset]".to_string(),
-                    val: ElemOptions::InnerHTML
-                };
-                "charset3".to_string() => Value {
-                    selector:"meta[charset]".to_string(),
-                    val: ElemOptions::Text
-                };
-                "headerText".to_string() => Value {
-                    selector:"h1".to_string(),
-                    val: ElemOptions::Text
-                };
-                "italicText".to_string() => Value {
-                    selector:".foo>i".to_string(),
-                    val: ElemOptions::Text
-                }
-            ),
+            definitions: convert(hm),
         };
 
         e.extract(&crate::api::Response {
@@ -204,6 +288,53 @@ mod tests {
             headers: HashMap::new(),
             body: html.to_string(),
         })?;
+
+        Ok(())
+    }
+
+    use std::fs::read_to_string;
+    use std::path::Path;
+
+    // Cargo runs tests in the workspace dir (e.g. osplib), so we do this
+    const HTML_PREFIX: &'static str = "../tests/html";
+    const officeSelector: &'static str = "body:nth-child(2) td.Text1 td.Text1 td:nth-child(1) table.infotable:nth-child(1) tbody:nth-child(1) tr:nth-child(3) > td.Switch0";
+
+    #[test]
+    fn run_realistic_extract() -> Result<()> {
+        init();
+
+        let p = Path::new(HTML_PREFIX).join("race.html");
+        let html = read_to_string(&p).context(format!(
+            "failed to open path {:?} from {:?}",
+            p,
+            std::env::current_dir()?
+        ))?;
+
+        // TODO: maybe have this map include the expected values
+        let e = ScraperRs {
+            definitions: convert(map!(
+                "headerText".to_string() => SelectorValue {
+                    selector:".Headline1".to_string(),
+                    val: ElemOptions::Text,
+                    transform: None
+                };
+                "office".to_string() => SelectorValue {
+                    selector: officeSelector.to_string(),
+                    val: ElemOptions::Text,
+                    transform: None
+                }
+            )),
+        };
+
+        let result = e.extract(&crate::api::Response {
+            url: "localhost:8080/hello".to_string(),
+            status: 200,
+            version: "HTTP/1.1".to_string(),
+            headers: HashMap::new(),
+            body: html.to_string(),
+        })?;
+
+        println!("got result: {:#?}", result);
 
         Ok(())
     }

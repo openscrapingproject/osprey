@@ -1,0 +1,36 @@
+Arguments: 
+  /home/alex/.nvm/versions/node/v12.18.2/bin/node /tmp/fnm-shell-7871476/bin/yarn init
+
+PATH: 
+  /home/alex/.nvm/versions/node/v12.18.2/bin:/home/alex/.pyenv/libexec:/home/alex/.pyenv/plugins/python-build/bin:/home/alex/.pyenv/plugins/pyenv-virtualenv/bin:/home/alex/.pyenv/plugins/pyenv-update/bin:/home/alex/.pyenv/plugins/pyenv-installer/bin:/home/alex/.pyenv/plugins/pyenv-doctor/bin:/caches/cargo/bin:/home/alex/gems/bin:/home/alex/.pyenv/shims:/home/alex/.pyenv/shims:/home/alex/.yarn/bin:/tmp/fnm-shell-7871476/bin:/home/alex/.fnm:/home/alex/openrefine-3.2:/home/alex/.pyenv/bin:/home/alex/go/bin:/snap/bin:/home/alex/bin:/home/alex/miniconda/bin:/usr/local/cuda/bin:/home/alex/.nix-profile/bin:/caches/cargo/bin:/home/alex/gems/bin:/home/alex/.pyenv/shims:/home/alex/.pyenv/shims:/home/alex/.yarn/bin:/tmp/fnm-shell-6045225/bin:/home/alex/.fnm:/home/alex/openrefine-3.2:/home/alex/.pyenv/bin:/home/alex/go/bin:/snap/bin:/home/alex/bin:/home/alex/miniconda/bin:/usr/local/cuda/bin:/home/alex/miniconda/condabin:/home/alex/.nix-profile/bin:/c2/caches/cargo/bin:/home/alex/.local/bin:/home/alex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/alex/.krew/bin:/home/alex/.krew/bin
+
+Yarn version: 
+  1.22.0
+
+Node version: 
+  12.18.2
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/home/alex/.fnm/node-versions/v13.5.0/installation/lib/node_modules/yarn/lib/cli.js:136987:13)
+      at Interface.emit (events.js:315:20)
+      at Interface._ttyWrite (readline.js:866:16)
+      at ReadStream.onkeypress (readline.js:205:10)
+      at ReadStream.emit (events.js:315:20)
+      at emitKeys (internal/readline/utils.js:335:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1133:36)
+      at ReadStream.emit (events.js:315:20)
+      at addChunk (_stream_readable.js:295:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

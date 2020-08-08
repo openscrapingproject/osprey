@@ -1,5 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 cargo +nightly fmt
-
+# todo: think about this
 git add .
+
+# ignore any changes to this file
+# this only unstages it
+# git reset HEAD tests/server/db.json
+git checkout HEAD -- tests/server/db.json
+
+if [[ -z "$(git diff --staged)" ]]; then
+    echo "Was about to do empty commit. Exiting!"
+    exit 1
+fi

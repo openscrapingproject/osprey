@@ -46,10 +46,13 @@ impl BasicSink {
     }
 }
 
+use async_trait::async_trait;
+
 #[typetag::serde(name = "output")]
+#[async_trait]
 impl crate::api::DataSink for BasicSink {
     // TODO: figure this out: dyn Any + Serialize
-    fn consume(&self, input: crate::api::Intermediate) -> Result<()> {
+    async fn consume(&self, input: crate::api::Intermediate) -> Result<()> {
         info!("Running basic data sink");
 
         // TODO: make this dynamic
