@@ -100,6 +100,8 @@ impl crate::api::Extractor for ScraperRs {
         // TODO: think about using fragment instead of Document here
         let doc = Html::parse_document(input.body.as_str());
 
+        debug!("document {:#?}", doc);
+
         let mut out: Output = HashMap::new();
 
         let defs = &self.definitions;
@@ -204,6 +206,45 @@ mod tests {
             headers: HashMap::new(),
             body: html.to_string(),
         })?;
+
+        Ok(())
+    }
+
+    use std::fs::read_to_string;
+    use std::path::Path;
+
+    // Cargo runs tests in the workspace dir (e.g. osplib), so we do this
+    const HTML_PREFIX: &'static str = "../tests/html";
+    #[test]
+    fn run_realistic_extract() -> Result<()> {
+        init();
+
+        let p = Path::new(HTML_PREFIX).join("race.html");
+        let html = read_to_string(&p).context(format!(
+            "failed to open path {:?} from {:?}",
+            p,
+            std::env::current_dir()?
+        ))?;
+
+        // TODO: maybe have this map include the expected values
+        let e = ScraperRs {
+            definitions: map!(
+                "headerText".to_string() => Value {
+                    selector:".Headline1".to_string(),
+                    val: ElemOptions::Text
+                }
+            ),
+        };
+
+        let result = e.extract(&crate::api::Response {
+            url: "localhost:8080/hello".to_string(),
+            status: 200,
+            version: "HTTP/1.1".to_string(),
+            headers: HashMap::new(),
+            body: html.to_string(),
+        })?;
+
+        println!("got result: {:#?}", result);
 
         Ok(())
     }

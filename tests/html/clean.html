@@ -49,87 +49,10 @@ body { font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #33000
 <style>
 .endorsediv { max-height:80px;overflow-y:auto; }
 </style>
-
-<style type="text/css">
- body {
-  background-color: #6084C8;
- }
- td.c72 {background-color:#FF0000;}
- td.c71 {background-color:#0000FF;}
- td.c70 {background-color:#878787;}
- td.c69 {background-color:#333366;}
- div.c68 {display:inline;}
- div.c67 {display:none;position:absolute;background-color:white;border:2px solid red;padding:4px;width:100px;}
- div.c66 {display:none;position:absolute;background-color:white;border:2px solid red;padding:4px;width:100px;z-index:300;}
- div.c65 {width:100%;height:200px;overflow:auto;}
- td.c64 {width:10%;color:#444;}
- td.c63 {width:25%;}
- td.c62 {width:5%;}
- td.c61 {width:20%;}
- td.c60 {width:10%;}
- table.c59 {width:99%}
- th.c58 {width:25%;}
- th.c57 {width:5%;}
- th.c56 {width:10%;}
- th.c55 {width:20%;}
- th.c54 {width:10%}
- td.c53 {width:260px;}
- div.c52 {display:none;}
- td.c51 {background-color: #CC00CC}
- td.c50 {background-color: #333333}
- td.c49 {background-color: #FF3300}
- td.c48 {background-color: #00AAFF}
- td.c47 {background-color: #FF6699}
- td.c46 {background-color: #663300}
- td.c45 {background-color: #006666}
- td.c44 {background-color: #FF0064}
- td.c43 {background-color: #F400A1}
- td.c42 {background-color: #336699}
- td.c41 {background-color: #6677FF}
- td.c40 {background-color: #FF4B96}
- td.c39 {background-color: #88FF55}
- td.c38 {background-color: #EE8100}
- td.c37 {background-color: #EE5577}
- a.c36 {font-weight: bold}
- span.c35 {color:#FF0000;}
- span.c34 {color:#000000;}
- span.c33 {white-space:nowrap;}
- span.c32 {color:#00FF00;}
- span.c31 {font-size: 64%}
- span.c30 {color: yellow; font-weight: bold}
- td.c29 {background-color: #AA00BB}
- td.c28 {background-color: #878787}
- td.c27 {background-color: #337722}
- td.c26 {background-color: #CCAACC}
- td.c25 {background-color: #FFFF00}
- td.c24 {background-color: #FF0000}
- td.c23 {width:50%;}
- div.c22 {display:none}
- td.c21 {background-color: #7094D8}
- div.c20 {width:400px;height:120px;overflow-x:scroll;}
- tr.c19 {background-color: #333366}
- span.c18 {font-size: 80%}
- div.c17 {width:100%; height:300px;}
- td.c16 {text-transform:uppercase;}
- span.c15 {background-color:#FF0000}
- span.c14 {background-color:#337722}
- span.c13 {background-color:#FFFF00}
- tr.c12 {background-color: #6084C8}
- span.c11 {background-color:#61C8C2}
- tr.c10 {background-color: #7094D8}
- span.c9 {background-color:#0000FF}
- td.c8 {background-color: #0000FF}
- td.c7 {background-color: #993333}
- td.c6 {background-color: #333366}
- tr.c5 {background-color: #993333}
- span.c4 {font-size: 172%}
- div.c3 {position: absolute; top:63; right:8}
- div.c2 {position: absolute; top:35; right:8}
- div.c1 {position: absolute; top:4; right:8}
-</style>
 </head>
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
-onload="drawPollGraph();drawLeanGraph();pageLoaded();">
+<body bgcolor="#6084C8" leftmargin="0" topmargin="0" marginwidth=
+"0" marginheight="0" onload=
+"drawPollGraph();drawLeanGraph();pageLoaded();">
 <script language="JavaScript">
 <!--
 var dylasty=0; var isdy=false; var lastyr=0;
@@ -266,7 +189,7 @@ alt="Home">
 <td background="images/NewHeaderBack.gif" align="right" width=
 "100%" valign="top"><img src="images/spacer.gif" width="180"
 height="1"><br>
-<div class="c1">
+<div style="position: absolute; top:4; right:8">
 <form name="dateForm" method="post" action=
 "RaceDetail.html?SetNow=Y&amp;RaceID=830717"><select name=
 "NowDate_month" class="Text1">
@@ -321,13 +244,13 @@ maxlength="4" value="2020" onmousedown="DYDown(this,event)"
 onmouseup="DYUp(this,event)" onmousemove="DYMove(this,event)">
 <input type="submit" value="Set" class="Small1"></form>
 </div>
-<div class="c2">
+<div style="position: absolute; top:35; right:8">
 <form name="searchForm" method="post" action="SearchResults.html">
 <input type="text" name="SrchTxt" size="15" class=
 "Small1"><input type="submit" value="Search" class="Small1"></form>
 </div>
-<div class="c3"><a href="newaccountStep1.html" class="Text2">New
-User Account</a></div>
+<div style="position: absolute; top:63; right:8"><a href=
+"newaccountStep1.html" class="Text2">New User Account</a></div>
 </td>
 </tr>
 </table>
@@ -350,8 +273,8 @@ resource."&nbsp;</i><br></td>
 class="Text1"></form>
 </div>
 <br>
-<div class="Headline1" align="left"><span class="c4">&nbsp;&nbsp;US
-President - Popular Vote</span></div>
+<div class="Headline1" align="left"><font size="+3">&nbsp;&nbsp;US
+President - Popular Vote</font></div>
 <table border="0" width="90%">
 <tr>
 <td valign="top" class="Text1">
@@ -379,7 +302,7 @@ function showAllEndorse() {
 <td valign="top">
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="2">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -391,7 +314,7 @@ function showAllEndorse() {
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Parents</td>
+<td bgcolor="#333366" align="right" class="Headline1">Parents</td>
 <td class="Switch0">&gt; <a href=
 "ContainerDetail.html?ContainerID=1" class="Text1">United
 States</a> &gt; <a href="ContainerDetail.html?ContainerID=2094"
@@ -400,89 +323,97 @@ class="Text1">U.S. Executive</a> &gt; <a href=
 Vote</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Office</td>
+<td bgcolor="#333366" align="right" class="Headline1">Office</td>
 <td class="Switch0">U.S. President</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Type</td>
+<td bgcolor="#333366" align="right" class="Headline1">Type</td>
 <td class="Switch0">General Election</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Filing Deadline</td>
+<td bgcolor="#333366" align="right" class="Headline1">Filing
+Deadline</td>
 <td class="Switch0">June 01, 2020 - 12:00pm Central</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Polls Open</td>
+<td bgcolor="#333366" align="right" class="Headline1">Polls
+Open</td>
 <td class="Switch0">November 03, 2020 - 06:00am Central</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Polls Close</td>
+<td bgcolor="#333366" align="right" class="Headline1">Polls
+Close</td>
 <td class="Switch0">November 03, 2020 - 11:00pm Central</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Term Start</td>
+<td bgcolor="#333366" align="right" class="Headline1">Term
+Start</td>
 <td class="Switch0">January 20, 2021 - 12:00am</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Term End</td>
+<td bgcolor="#333366" align="right" class="Headline1">Term End</td>
 <td class="Switch0">January 20, 2025 - 12:00am</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Contributor</td>
+<td bgcolor="#333366" align="right" class="Headline1">
+Contributor</td>
 <td class="Switch0"><a href="UserDetail.html?UserID=8509" class=
 "Text1">DylanSH99</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Last Modified</td>
+<td bgcolor="#333366" align="right" class="Headline1">Last
+Modified</td>
 <td class="Switch0"><a href="UserDetail.html?UserID=1989" class=
 "Text1">RBH</a> July 28, 2020 04:16pm</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Data Sources</td>
+<td bgcolor="#333366" align="right" class="Headline1">Data
+Sources</td>
 <td class="Switch0"></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Description</td>
+<td bgcolor="#333366" align="right" class="Headline1">
+Description</td>
 <td class="Switch0"></td>
 </tr>
 </table>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
 <tr>
-<td align="center" class="Headline1 c7" colspan="5">LAST GENERAL
-ELECTION</td>
+<td bgcolor="#993333" align="center" class="Headline1" colspan="5">
+LAST GENERAL ELECTION</td>
 </tr>
 <tr>
 <td rowspan="3" class="Switch0" align="center">&nbsp;<img src=
 "../images/candidates/b0/C223D2016-01-01.jpg" height="75"></td>
-<td align="right" class="Headline1 c6">Party</td>
-<td class="c8"><a href="PartyDetail.html?PartyID=1" class=
+<td bgcolor="#333366" align="right" class="Headline1">Party</td>
+<td bgcolor="#0000FF"><a href="PartyDetail.html?PartyID=1" class=
 "Headline1">Democratic</a></td>
-<td align="right" class="Headline1 c6">Won</td>
+<td bgcolor="#333366" align="right" class="Headline1">Won</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=780309" class=
 "Text1">11/08/2016</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Name</td>
+<td bgcolor="#333366" align="right" class="Headline1">Name</td>
 <td class="Switch0"><a href="CandidateDetail.html?CandidateID=223"
 class="Text1">Hillary Clinton</a></td>
-<td align="right" class="Headline1 c6">Votes</td>
+<td bgcolor="#333366" align="right" class="Headline1">Votes</td>
 <td class="Switch0">65,853,516 (48.18%)</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Term</td>
+<td bgcolor="#333366" align="right" class="Headline1">Term</td>
 <td class="Switch0">01/20/2017&nbsp;- 01/20/2021</td>
-<td align="right" class="Headline1 c6">Margin</td>
+<td bgcolor="#333366" align="right" class="Headline1">Margin</td>
 <td class="Switch0">2,868,691 (+2.10%)</td>
 </tr>
 </table>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
 <tr>
-<td align="center" class="Headline1 c7" colspan="3">PRIMARY/OTHER
-SCHEDULE</td>
+<td bgcolor="#993333" align="center" class="Headline1" colspan="3">
+PRIMARY/OTHER SCHEDULE</td>
 </tr>
-<tr class="c10" valign="top">
+<tr bgcolor="#7094D8" valign="top">
 <td class="Switch0">Feb 04, 2020</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=825592" class=
 "Text1">US President - D Primaries</a></td>
@@ -492,12 +423,12 @@ SCHEDULE</td>
 <td>
 <table border="1">
 <tr>
-<td><span class="c9">D</span> 35,192,201</td>
+<td><span style="background-color:#0000FF">D</span> 35,192,201</td>
 </tr>
 </table>
 </td>
 </tr>
-<tr class="c12" valign="top">
+<tr bgcolor="#6084C8" valign="top">
 <td class="Switch0">Mar 10, 2020</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=889210" class=
 "Text1">US President - CST Primaries</a></td>
@@ -507,12 +438,12 @@ SCHEDULE</td>
 <td>
 <table border="1">
 <tr>
-<td><span class="c11">CST</span> 1,789</td>
+<td><span style="background-color:#61C8C2">CST</span> 1,789</td>
 </tr>
 </table>
 </td>
 </tr>
-<tr class="c10" valign="top">
+<tr bgcolor="#7094D8" valign="top">
 <td class="Switch0">Apr 01, 2020</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=835427" class=
 "Text1">US President - LBT Primary</a></td>
@@ -522,12 +453,12 @@ SCHEDULE</td>
 <td>
 <table border="1">
 <tr>
-<td><span class="c13">LBT</span> 43,065</td>
+<td><span style="background-color:#FFFF00">LBT</span> 43,065</td>
 </tr>
 </table>
 </td>
 </tr>
-<tr class="c12" valign="top">
+<tr bgcolor="#6084C8" valign="top">
 <td class="Switch0">Apr 01, 2020</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=856124" class=
 "Text1">US President - G Primaries</a></td>
@@ -537,12 +468,12 @@ SCHEDULE</td>
 <td>
 <table border="1">
 <tr>
-<td><span class="c14">G</span> 15,843</td>
+<td><span style="background-color:#337722">G</span> 15,843</td>
 </tr>
 </table>
 </td>
 </tr>
-<tr class="c10" valign="top">
+<tr bgcolor="#7094D8" valign="top">
 <td class="Switch0">Apr 07, 2020</td>
 <td class="Switch0"><a href="RaceDetail.html?RaceID=825593" class=
 "Text1">US President - R Primaries</a></td>
@@ -552,19 +483,19 @@ SCHEDULE</td>
 <td>
 <table border="1">
 <tr>
-<td><span class="c15">R</span> 11,655,157</td>
+<td><span style="background-color:#FF0000">R</span> 11,655,157</td>
 </tr>
 </table>
 </td>
 </tr>
 </table>
 </td>
-<td valign="top" align="right" class="Text1 c23">
+<td valign="top" align="right" class="Text1" style="width:50%;">
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
-<td class="Headline1 c16" align="center">World Countries Map
-MAP</td>
+<tr bgcolor="#993333">
+<td class="Headline1" align="center" style=
+"text-transform:uppercase;">World Countries Map MAP</td>
 </tr>
 <tr>
 <td class="Switch0">
@@ -751,7 +682,9 @@ function leafletMap() {
         
 }
 </script>
-<div class="c17" align="center" id="map_canvas"></div>
+<div align="center">
+<div id="map_canvas" style="width:100%; height:300px;"></div>
+</div>
 </td>
 </tr>
 </table>
@@ -1037,10 +970,10 @@ function drawLeanGraph(){
 <form method="post" action="RaceDetail.html?RaceID=830717">
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td class="Headline1" align="center" colspan="5">LEANING
 PREDICTIONS &nbsp;&nbsp;&nbsp;<a href="javascript:predwin()" class=
-"Headline1"><span class="c18">Detail</span></a></td>
+"Headline1"><font size="-1">Detail</font></a></td>
 </tr>
 <tr>
 <td class="Switch0" colspan="5" align="center">
@@ -1052,39 +985,39 @@ Graph</canvas>
 <td align="left" class="Switch0" colspan="2">04/07/2017</td>
 <td align="right" class="Switch0" colspan="3">07/30/2020</td>
 </tr>
-<tr class="c19" align="center">
+<tr bgcolor="#333366" align="center">
 <td class="Headline1">Candidate</td>
 <td class="Headline1">Slight</td>
 <td class="Headline1">Lean</td>
 <td class="Headline1">Strong</td>
 <td class="Headline1">Safe</td>
 </tr>
-<tr class="c12">
+<tr bgcolor="#6084C8">
 <td class="Switch0">Joe Biden</td>
 <td align="right" class="Switch0">11</td>
 <td align="right" class="Switch0">8</td>
 <td align="right" class="Switch0">1</td>
 <td align="right" class="Switch0">2</td>
 </tr>
-<tr class="c10">
+<tr bgcolor="#7094D8">
 <td class="Switch0">Donald Trump</td>
 <td align="right" class="Switch0">4</td>
 <td align="right" class="Switch0">1</td>
 <td align="right" class="Switch0">2</td>
 <td align="right" class="Switch0">--</td>
 </tr>
-<tr class="c12">
+<tr bgcolor="#6084C8">
 <td class="Switch0">Howard Schultz</td>
 <td align="right" class="Switch0">1</td>
 <td align="right" class="Switch0">--</td>
 <td align="right" class="Switch0">--</td>
 <td align="right" class="Switch0">--</td>
 </tr>
-<tr class="c19" align="center">
+<tr bgcolor="#333366" align="center">
 <td class="Headline1" colspan="5">Leaning Call: Joe Biden
 (74.51%)</td>
 </tr>
-<tr class="c19" align="center">
+<tr bgcolor="#333366" align="center">
 <td class="Headline1" colspan="5">Weighted Call: Joe Biden
 (94.13%)</td>
 </tr>
@@ -1092,7 +1025,7 @@ Graph</canvas>
 </form>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td class="Headline1" align="center" colspan="2"><a href=
 "javascript:toggleMPGPanel()" class="Headline1">MATCHUP POLL
 GRAPH</a></td>
@@ -1100,7 +1033,8 @@ GRAPH</a></td>
 <!-- <tr><td class="Text1" colspan="2" align="center"><a href="https://www.ourcampaigns.com/cgi-bin/pollgraph.cgi?RaceID=830717&Width=600&Height=400&NoGraphMOE=&NoPollsters=0&SPC379320=%23AA00BB&SPC365690=%23006666&SPC338958=%23663300&SPC59759=%23FF6699&SPC389602=%2300AAFF&SPC371486=%23FF3300&SPC45819=%23333333&SPC196648=%23FFBB99&SPC378504=%23009900&SPC391753=%23FF0000&SPC481399=%230000FF&SPC481398=&SPC199480=&SPC266861=&SPC443490=&SPC399707=" target="_blank"><img name="PollGraph" src="/cgi-bin/pollgraph.cgi?RaceID=830717&NoGraphMOE=&NoPollsters=0&SPC379320=%23AA00BB&SPC365690=%23006666&SPC338958=%23663300&SPC59759=%23FF6699&SPC389602=%2300AAFF&SPC371486=%23FF3300&SPC45819=%23333333&SPC196648=%23FFBB99&SPC378504=%23009900&SPC391753=%23FF0000&SPC481399=%230000FF&SPC481398=&SPC199480=&SPC266861=&SPC443490=&SPC399707=" width="200" height="100" border="0"></a><br> -->
 <tr>
 <td class="Switch0" colspan="2" align="center">
-<div id="PollGraphDiv" class="c20">
+<div id="PollGraphDiv" style=
+"width:400px;height:120px;overflow-x:scroll;">
 <canvas id="PollGraph" width="7326" height="100" border="0"
 onmousedown="PGMDown(event)" onmouseup="PGMUp(event)">Poll
 Graph</canvas>
@@ -1112,14 +1046,14 @@ Graph</canvas>
 <td align="right" class="Switch0">07/28/2020</td>
 </tr>
 </table>
-<div id="MPGPanel" class="c22">
+<div id="MPGPanel" style="display:none">
 <form name="PollGraphForm" method="post" action=
 "RaceDetailTest.html?RaceID=830717&amp;MPGPanel=Y">
 <table border="0" width="100%">
 <tr>
-<td valign="top" class="Text1 c21"><input type="checkbox" name=
-"NoGraphMOE" id="NoGraphMOE" onclick="drawPollGraph()" value=
-"Y">Graph Poll MoE/Time<br>
+<td valign="top" class="Text1" bgcolor="#7094D8"><input type=
+"checkbox" name="NoGraphMOE" id="NoGraphMOE" onclick=
+"drawPollGraph()" value="Y">Graph Poll MoE/Time<br>
 <input type="checkbox" name="NoInternalPoll" id="NoInternalPoll"
 onclick="drawPollGraph()" value="Y">Remove Internal Polls<br>
 <input type="checkbox" name="RemBias" id="RemBias" onclick=
@@ -1132,7 +1066,8 @@ size="4" value="1.3">Graph Falloff<br>
 size="4" value="1221">Graph Days<br>
 <input type="text" name="GDO" id="GDO" onblur="drawPollGraph()"
 size="4" value="0">Graph Day Offset<br></td>
-<td valign="top" class="Text1 c21">Ignore Pollsters:<br>
+<td valign="top" class="Text1" bgcolor="#7094D8">Ignore
+Pollsters:<br>
 <input type="checkbox" name="NoPollster1199" id="NoPollster1199"
 onclick="drawPollGraph()" value="Y">Abacus Data<br>
 <input type="checkbox" name="NoPollster979" id="NoPollster979"
@@ -3710,7 +3645,7 @@ function PGMDrag(e) {
 <br>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -3723,7 +3658,7 @@ function PGMDrag(e) {
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Photo</td>
+<td bgcolor="#333366" align="right" class="Headline1">Photo</td>
 <td class="Switch0" align="center" valign="bottom"><a href=
 "CandidateDetail.html?CandidateID=28" class="Headline1"><img src=
 "../images/candidates/b0/C28D2020-01-01.jpg" width="75" border=
@@ -3755,56 +3690,57 @@ border="0"></a></td>
 "Headline1"></a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Name</td>
-<td align="center" class="Headline1 c8"><a href=
+<td bgcolor="#333366" align="right" class="Headline1">Name</td>
+<td align="center" bgcolor="#0000FF" class="Headline1"><a href=
 "RaceDetail.html?RaceID=709782" class="Headline1">Vice
 President</a> <a href="CandidateDetail.html?CandidateID=28" class=
 "Headline1">Joe Biden</a></td>
-<td align="center" class="Headline1 c24">(I) <a href=
+<td align="center" bgcolor="#FF0000" class="Headline1">(I) <a href=
 "RaceDetail.html?RaceID=780310" class="Headline1">President</a>
 <a href="CandidateDetail.html?CandidateID=17830" class=
 "Headline1">Donald Trump</a></td>
-<td align="center" class="Text1 c25"><a href=
+<td align="center" bgcolor="#FFFF00" class="Text1"><a href=
 "RaceDetail.html?RaceID=780310" class="Text1"></a> <a href=
 "CandidateDetail.html?CandidateID=12690" class="Text1">Jo
 Jorgensen</a></td>
-<td align="center" class="Text1 c26"><a href=
+<td align="center" bgcolor="#CCAACC" class="Text1"><a href=
 "RaceDetail.html?RaceID=780310" class="Text1"></a> <a href=
 "CandidateDetail.html?CandidateID=391754" class="Text1">Kanye
 West</a></td>
-<td align="center" class="Headline1 c27"><a href=
+<td align="center" bgcolor="#337722" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=2049" class="Headline1">Howie
 Hawkins</a></td>
-<td align="center" class="Headline1 c28"><a href=
+<td align="center" bgcolor="#878787" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=362308" class="Headline1">Chomi
 Prag</a></td>
-<td align="center" class="Headline1 c29"><a href=
+<td align="center" bgcolor="#AA00BB" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=379320" class="Headline1">Claire
 Elisabeth Elliott</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Party</td>
-<td class="Text1 c8" align="center"><a href=
+<td bgcolor="#333366" align="right" class="Headline1">Party</td>
+<td class="Text1" align="center" bgcolor="#0000FF"><a href=
 "PartyDetail.html?PartyID=1" class="Headline1">Democratic</a></td>
-<td class="Text1 c24" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#FF0000"><a href=
 "PartyDetail.html?PartyID=2" class="Headline1">Republican</a></td>
-<td class="Text1 c25" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#FFFF00"><a href=
 "PartyDetail.html?PartyID=3" class="Text1">Libertarian</a></td>
-<td class="Text1 c26" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#CCAACC"><a href=
 "PartyDetail.html?PartyID=9789" class="Text1">Birthday</a></td>
-<td class="Text1 c27" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#337722"><a href=
 "PartyDetail.html?PartyID=4" class="Headline1">Green</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=1878" class="Headline1">No Party
 Affiliation</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Campaign Logo</td>
+<td bgcolor="#333366" align="right" class="Headline1">Campaign
+Logo</td>
 <td class="Switch0" align="center"><a href=
 "../images/campaignlogo/b0/FullC28R830717.jpg" target=
 "_blank"><img src="../images/campaignlogo/b0/C28R830717.jpg" width=
@@ -3832,7 +3768,7 @@ width="75" border="0"></a></td>
 <td class="Switch0" align="center"></td>
 </tr>
 <tr>
-<td class="c6" align="right"><a href=
+<td bgcolor="#333366" align="right"><a href=
 "RaceDetail.html?RaceID=830717&amp;ShowPD=Y" class=
 "Headline1">Predict Avg.</a></td>
 <td class="Switch0" align="center">49.12%</td>
@@ -3844,7 +3780,8 @@ width="75" border="0"></a></td>
 <td class="Switch0" align="center">0.00%</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Cash On Hand</td>
+<td bgcolor="#333366" align="right" class="Headline1">Cash On
+Hand</td>
 <td class="Switch0" align="center" valign="top"><a href=
 "FinanceReportEdit.html?FinanceReportID=&amp;RaceLink=830717&amp;CandidateLink=28"
 class="Text1">$--</a><br>
@@ -3885,7 +3822,7 @@ border="0" alt="Donate"></a></td>
 class="Text1">$--</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Website</td>
+<td bgcolor="#333366" align="right" class="Headline1">Website</td>
 <td class="Switch0" align="center"><a href="https://joebiden.com/"
 target="_blank">[Website]</a></td>
 <td class="Switch0" align="center"><a href=
@@ -3901,7 +3838,8 @@ target="_blank">[Website]</a></td>
 <td class="Switch0" align="center"></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Entry Date</td>
+<td bgcolor="#333366" align="right" class="Headline1">Entry
+Date</td>
 <td class="Switch0" align="center">00/00/2016</td>
 <td class="Switch0" align="center">00/00/2016</td>
 <td class="Switch0" align="center">00/00/2020</td>
@@ -3910,7 +3848,7 @@ target="_blank">[Website]</a></td>
 <td class="Switch0" align="center">03/29/2018</td>
 <td class="Switch0" align="center">04/26/2018</td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -3928,7 +3866,7 @@ target="_blank">[Website]</a></td>
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6"><a href=
+<td bgcolor="#333366" align="right" class="Headline1"><a href=
 "PollAvgDetail.html?RaceID=830717" class="Headline1" target=
 "_blank">Adj Poll Avg</a></td>
 <td class="Switch1" align="center">50.14%<img src=
@@ -3946,169 +3884,171 @@ target="_blank">[Website]</a></td>
 <td class="Switch1" align="center">0.00%<img src=
 "/images/spacer.gif">--</td>
 </tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><span class=
-"c30">New!</span><a href="PollEdit.html?PollID=58447" class=
-"Headline1"><span class="c31">Reuters/Ipsos&nbsp;</span></a><br>
-<span class="c31">07/27/20-07/28/20</span></td>
-<td align="center" class="Text1"><span class="c33">46.70%
-<span class="c32"><img src=
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<font color="yellow"><b>New!</b></font><a href=
+"PollEdit.html?PollID=58447" class="Headline1"><font size=
+"-2">Reuters/Ipsos&nbsp;</font></a><br>
+<font size="-2">07/27/20-07/28/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">46.70% <span style="color:#00FF00;"><img src=
 "/images/GreenArrowUp.gif">0.7</span></span></td>
-<td align="center" class="Text1"><span class="c33">38.40%
-<span class="c32"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">38.40% <span style="color:#00FF00;"><img src=
 "/images/GreenArrowUp.gif">0.4</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><span class=
-"c30">New!</span><a href="PollEdit.html?PollID=58435" class=
-"Headline1"><span class="c31">Change Research&nbsp;</span></a><br>
-<span class="c31">07/24/20-07/26/20</span></td>
-<td align="center" class="Text1"><span class="c33">51.00%
-<span class="c34"><img src=
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<font color="yellow"><b>New!</b></font><a href=
+"PollEdit.html?PollID=58435" class="Headline1"><font size=
+"-2">Change Research&nbsp;</font></a><br>
+<font size="-2">07/24/20-07/26/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">51.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">42.00%
-<span class="c32"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">42.00% <span style="color:#00FF00;"><img src=
 "/images/GreenArrowUp.gif">1.0</span></span></td>
-<td align="center" class="Text1"><span class="c33">2.00%
-<span class="c35"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">2.00% <span style="color:#FF0000;"><img src=
 "/images/RedArrowDown.gif">1.0</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">1.00%
-<span class="c35"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">1.00% <span style="color:#FF0000;"><img src=
 "/images/RedArrowDown.gif">1.0</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-</tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58372" class="Headline1"><span class=
-"c31">Harvard-Harris&nbsp;</span></a><br>
-<span class="c31">07/21/20-07/24/20</span></td>
-<td align="center" class="Text1"><span class="c33">55.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">45.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58371" class="Headline1"><span class=
-"c31">YouGov&nbsp;</span></a><br>
-<span class="c31">07/21/20-07/24/20</span></td>
-<td align="center" class="Text1"><span class="c33">51.00%
-<span class="c34"><img src=
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58372" class="Headline1"><font size=
+"-2">Harvard-Harris&nbsp;</font></a><br>
+<font size="-2">07/21/20-07/24/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">55.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">41.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">45.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-</tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58351" class="Headline1"><span class=
-"c31">Echelon Insights&nbsp;</span></a><br>
-<span class="c31">07/17/20-07/22/20</span></td>
-<td align="center" class="Text1"><span class="c33">50.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">37.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">3.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">1.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58264" class="Headline1"><span class=
-"c31">Reuters/Ipsos&nbsp;</span></a><br>
-<span class="c31">07/15/20-07/21/20</span></td>
-<td align="center" class="Text1"><span class="c33">46.00%
-<span class="c35"><img src=
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58371" class="Headline1"><font size=
+"-2">YouGov&nbsp;</font></a><br>
+<font size="-2">07/21/20-07/24/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">51.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">41.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+</tr>
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58351" class="Headline1"><font size=
+"-2">Echelon Insights&nbsp;</font></a><br>
+<font size="-2">07/17/20-07/22/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">50.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">37.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">3.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">1.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+</tr>
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58264" class="Headline1"><font size=
+"-2">Reuters/Ipsos&nbsp;</font></a><br>
+<font size="-2">07/15/20-07/21/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">46.00% <span style="color:#FF0000;"><img src=
 "/images/RedArrowDown.gif">2.0</span></span></td>
-<td align="center" class="Text1"><span class="c33">38.00%
-<span class="c32"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">38.00% <span style="color:#00FF00;"><img src=
 "/images/GreenArrowUp.gif">3.0</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4126,135 +4066,135 @@ target="_blank">[Website]</a></td>
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6" width="100">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
 Endorsements</td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
 <table border="0">
-<tr class="c10">
-<td align="center" class="Text1 c8">D</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#0000FF" class="Text1">D</td>
 <td align="left"><a href="UserDetail.html?UserID=10746" class=
-"Text1 c36">Tristy100</a></td>
+"Text1"><b>Tristy100</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=431"
 class="Text1">John Warner</a> <a href=
 "https://www.richmond.com/news/virginia/former-sen-john-warner-endorses-joe-biden/article_0d92453f-e0ed-51e5-8f17-ea6c67c96734.html"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c28">I</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#878787" class="Text1">I</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=120"
 class="Text1">Gordon J. Humphrey</a> <a href=
 "https://www.necn.com/news/politics/primary-source/gordon-humphrey-endorses-joe-biden/2215618/"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=628"
 class="Text1">Jeff Flake</a> <a href=
 "https://www.independent.co.uk/news/world/americas/us-election/2020-electoin-joe-biden-donald-trump-jeff-flake-republican-democrat-a9489121.html"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c28">I</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#878787" class="Text1">I</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=4738"
 class="Text1">David F. Durenberger</a> <a href=
 "https://www.startribune.com/party-politics-and-policies-minnesota-republicans-what-are-you-going-to-do/570483052/"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=381"
 class="Text1">Chuck Hagel</a> <a href=
 "https://www.businessinsider.com/top-obama-advisors-endorse-joe-biden-before-super-tuesday-2020-3"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=1113"
 class="Text1">Ray LaHood</a> <a href=
 "https://www.msn.com/en-us/news/elections-2020/former-republican-lawmaker-backs-biden-bucking-trump-campaign-co-chairman-son/ar-BBZ1sHu?li=BBnbfcL"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c37">PPBM</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#EE5577" class="Text1">PPBM</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=39908"
 class="Text1">Mahathir bin Mohamad</a> <a href=
 "https://www.scmp.com/week-asia/people/article/3088756/mahathir-backs-biden-says-us-re-electing-trump-would-be-disaster"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c38">PO</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#EE8100" class="Text1">PO</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=80493"
 class="Text1">Donald Tusk</a> <a href=
 "https://www.independent.co.uk/news/world/americas/us-election/donald-tusk-2020-election-joe-biden-trump-a9597801.html"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c39">Veg</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#88FF55" class="Text1">Veg</td>
 <td align="left"><a href="UserDetail.html?UserID=334" class=
-"Text1 c36">Thomas Walker</a></td>
+"Text1"><b>Thomas Walker</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c40">SDPA</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF4B96" class="Text1">SDPA</td>
 <td align="left"><a href="UserDetail.html?UserID=1802" class=
-"Text1 c36">Dr. Cynic</a></td>
+"Text1"><b>Dr. Cynic</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=3487"
 class="Text1">Colin Powell</a> <a href=
 "https://www.politico.com/news/2020/06/07/colin-powell-voting-joe-biden-305335"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
+<tr bgcolor="#7094D8">
 <td align="center" class="Text1">&nbsp;</td>
 <td align="center" class="Text1"><a href=
 "https://www.usw.org/news/media-center/releases/2020/usw-endorses-joe-biden-for-president"
 target="_blank" class="Text1">United Steel Workers of
 America</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c8">D</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#0000FF" class="Text1">D</td>
 <td align="left"><a href="UserDetail.html?UserID=10557" class=
-"Text1 c36">samir7243_ATL</a></td>
+"Text1"><b>samir7243_ATL</b></a></td>
 </tr>
-<tr class="c10">
+<tr bgcolor="#7094D8">
 <td align="center" class="Text1">&nbsp;</td>
 <td align="center" class="Text1"><a href=
 "https://www.reuters.com/article/us-usa-election-uaw-exclusive/united-auto-workers-union-endorses-biden-for-president-idUSKCN2232ND?il=0"
 target="_blank" class="Text1">United Auto Workers</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c28">I</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#878787" class="Text1">I</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=77937"
 class="Text1">James B. Comey, Jr.</a> <a href=
 "https://www.politico.com/news/2020/03/03/jame-comey-backing-joe-biden-119614"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c28">I</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#878787" class="Text1">I</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=382093"
 class="Text1">George Conway</a> <a href=
 "https://www.salon.com/2020/04/16/george-conway-and-other-lifelong-republicans-endorse-biden-for-president-trump-must-be-defeated_partner/"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c8">D</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#0000FF" class="Text1">D</td>
 <td align="left"><a href="UserDetail.html?UserID=9642" class=
-"Text1 c36">EastTexasDem</a></td>
+"Text1"><b>EastTexasDem</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=7114" class=
-"Text1 c36">Kyle</a></td>
+"Text1"><b>Kyle</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c8">D</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#0000FF" class="Text1">D</td>
 <td align="left"><a href="UserDetail.html?UserID=10204" class=
-"Text1 c36">politicaltracker4096</a></td>
+"Text1"><b>politicaltracker4096</b></a></td>
 </tr>
 </table>
 </div>
@@ -4262,44 +4202,44 @@ target="_blank" class="Text1">[L]</a></td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
 <table border="0">
-<tr class="c10">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=10271" class=
-"Text1 c36">bnml</a></td>
+"Text1"><b>bnml</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=7501" class=
-"Text1 c36">Maryland Republican</a></td>
+"Text1"><b>Maryland Republican</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c25">LDP</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FFFF00" class="Text1">LDP</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=365151"
 class="Text1">Rodrigo Duterte</a> <a href=
 "https://www.reuters.com/article/us-philippines-usa-defence/philippines-duterte-says-trump-deserves-to-be-re-elected-idUSKBN2090FL"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c41">APB</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#6677FF" class="Text1">APB</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=368398"
 class="Text1">Jair Bolsonaro</a> <a href=
 "https://oglobo.globo.com/mundo/bolsonaro-reitera-apoio-reeleicao-de-trump-que-diz-que-colega-muito-querido-pelo-povo-brasileiro-23770081"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=10320" class=
-"Text1 c36">Midwestern Mop</a></td>
+"Text1"><b>Midwestern Mop</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=6977" class=
-"Text1 c36">Impy</a></td>
+"Text1"><b>Impy</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c24">R</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF0000" class="Text1">R</td>
 <td align="left"><a href="UserDetail.html?UserID=10345" class=
-"Text1 c36">Georgia Boi</a></td>
+"Text1"><b>Georgia Boi</b></a></td>
 </tr>
 </table>
 </div>
@@ -4307,15 +4247,15 @@ target="_blank" class="Text1">[L]</a></td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
 <table border="0">
-<tr class="c12">
-<td align="center" class="Text1 c25">LBT</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FFFF00" class="Text1">LBT</td>
 <td align="left"><a href="UserDetail.html?UserID=10179" class=
-"Text1 c36">Rufus</a></td>
+"Text1"><b>Rufus</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c25">LBT</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FFFF00" class="Text1">LBT</td>
 <td align="left"><a href="UserDetail.html?UserID=10038" class=
-"Text1 c36">Pennsylvania Historian</a></td>
+"Text1"><b>Pennsylvania Historian</b></a></td>
 </tr>
 </table>
 </div>
@@ -4323,8 +4263,8 @@ target="_blank" class="Text1">[L]</a></td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
 <table border="0">
-<tr class="c12">
-<td align="center" class="Text1 c42">N</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#336699" class="Text1">N</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=400743"
 class="Text1">Elon Musk</a></td>
 </tr>
@@ -4334,43 +4274,43 @@ class="Text1">Elon Musk</a></td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
 <table border="0">
-<tr class="c10">
-<td align="center" class="Text1 c40">SDPA</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#FF4B96" class="Text1">SDPA</td>
 <td align="left"><a href="UserDetail.html?UserID=1802" class=
-"Text1 c36">Dr. Cynic</a></td>
+"Text1"><b>Dr. Cynic</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c43">S</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#F400A1" class="Text1">S</td>
 <td align="center" class="Text1"><a href=
 "PartyDetail.html?PartyID=9" target="_blank" class=
 "Text1">Socialist Party</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c43">S</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#F400A1" class="Text1">S</td>
 <td align="left"><a href="UserDetail.html?UserID=6380" class=
-"Text1 c36">Zeus the Moose</a></td>
+"Text1"><b>Zeus the Moose</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c44">SAlt</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#FF0064" class="Text1">SAlt</td>
 <td align="left"><a href="UserDetail.html?UserID=10358" class=
-"Text1 c36">kebkowalczyk</a></td>
+"Text1"><b>kebkowalczyk</b></a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c27">G</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#337722" class="Text1">G</td>
 <td align="left"><a href="UserDetail.html?UserID=1028" class=
-"Text1 c36">BR_Green</a></td>
+"Text1"><b>BR_Green</b></a></td>
 </tr>
-<tr class="c12">
-<td align="center" class="Text1 c27">G</td>
+<tr bgcolor="#6084C8">
+<td align="center" bgcolor="#337722" class="Text1">G</td>
 <td align="left"><a href="CandidateDetail.html?CandidateID=490"
 class="Text1">Jesse Ventura</a> <a href=
 "https://twitter.com/GovJVentura/status/1253178846511271941?s=20"
 target="_blank" class="Text1">[L]</a></td>
 </tr>
-<tr class="c10">
-<td align="center" class="Text1 c28">I</td>
+<tr bgcolor="#7094D8">
+<td align="center" bgcolor="#878787" class="Text1">I</td>
 <td align="left"><a href="UserDetail.html?UserID=9951" class=
-"Text1 c36">E Pluribus Unum</a></td>
+"Text1"><b>E Pluribus Unum</b></a></td>
 </tr>
 </table>
 </div>
@@ -4386,7 +4326,7 @@ target="_blank" class="Text1">[L]</a></td>
 </div>
 </td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4399,7 +4339,7 @@ target="_blank" class="Text1">[L]</a></td>
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Photo</td>
+<td bgcolor="#333366" align="right" class="Headline1">Photo</td>
 <td class="Switch0" align="center" valign="bottom"><a href=
 "CandidateDetail.html?CandidateID=365690" class=
 "Headline1"><img src=
@@ -4431,56 +4371,57 @@ border="0"></a></td>
 border="0"></a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Name</td>
-<td align="center" class="Headline1 c45"><a href=
+<td bgcolor="#333366" align="right" class="Headline1">Name</td>
+<td align="center" bgcolor="#006666" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=365690" class="Headline1">Ajay
 Sood</a></td>
-<td align="center" class="Headline1 c46"><a href=
+<td align="center" bgcolor="#663300" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=338958" class="Headline1">Andrew
 Wildman</a></td>
-<td align="center" class="Text1 c47"><a href=
+<td align="center" bgcolor="#FF6699" class="Text1"><a href=
 "RaceDetail.html?RaceID=780310" class="Text1"></a> <a href=
 "CandidateDetail.html?CandidateID=59759" class="Text1">Samuel
 Powell</a></td>
-<td align="center" class="Headline1 c48"><a href=
+<td align="center" bgcolor="#00AAFF" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=389602" class=
 "Headline1">Mohammad Kabir</a></td>
-<td align="center" class="Text1 c49"><a href=
+<td align="center" bgcolor="#FF3300" class="Text1"><a href=
 "RaceDetail.html?RaceID=780310" class="Text1"></a> <a href=
 "CandidateDetail.html?CandidateID=371486" class="Text1">Michelle
 "Hope" Walker</a></td>
-<td align="center" class="Headline1 c50"><a href=
+<td align="center" bgcolor="#333333" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=45819" class="Headline1">Earnest
 Lee Easton</a></td>
-<td align="center" class="Headline1 c51"><a href=
+<td align="center" bgcolor="#CC00CC" class="Headline1"><a href=
 "RaceDetail.html?RaceID=780310" class="Headline1"></a> <a href=
 "CandidateDetail.html?CandidateID=421094" class="Headline1">Terry
 Wheelock</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Party</td>
-<td class="Text1 c28" align="center"><a href=
+<td bgcolor="#333366" align="right" class="Headline1">Party</td>
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c28" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#878787"><a href=
 "PartyDetail.html?PartyID=5" class="Headline1">Independent</a></td>
-<td class="Text1 c51" align="center"><a href=
+<td class="Text1" align="center" bgcolor="#CC00CC"><a href=
 "PartyDetail.html?PartyID=7527" class="Headline1">Independent Party
 of America</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Campaign Logo</td>
+<td bgcolor="#333366" align="right" class="Headline1">Campaign
+Logo</td>
 <td class="Switch0" align="center"></td>
 <td class="Switch0" align="center"></td>
 <td class="Switch0" align="center"></td>
@@ -4493,7 +4434,7 @@ width="75" border="0"></a></td>
 <td class="Switch0" align="center"></td>
 </tr>
 <tr>
-<td class="c6" align="right"><a href=
+<td bgcolor="#333366" align="right"><a href=
 "RaceDetail.html?RaceID=830717&amp;ShowPD=Y" class=
 "Headline1">Predict Avg.</a></td>
 <td class="Switch0" align="center">0.00%</td>
@@ -4505,7 +4446,8 @@ width="75" border="0"></a></td>
 <td class="Switch0" align="center">0.00%</td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Cash On Hand</td>
+<td bgcolor="#333366" align="right" class="Headline1">Cash On
+Hand</td>
 <td class="Switch0" align="center" valign="top"><a href=
 "FinanceReportEdit.html?FinanceReportID=&amp;RaceLink=830717&amp;CandidateLink=365690"
 class="Text1">$--</a><br>
@@ -4538,7 +4480,7 @@ class="Text1" target="_blank"><img src="images/DonateButton.jpg"
 border="0" alt="Donate"></a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Website</td>
+<td bgcolor="#333366" align="right" class="Headline1">Website</td>
 <td class="Switch0" align="center"></td>
 <td class="Switch0" align="center"><a href=
 "http://www.commonsense2nd.com/" target="_blank">[Website]</a></td>
@@ -4552,7 +4494,8 @@ border="0" alt="Donate"></a></td>
 "_blank">[Website]</a></td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6">Entry Date</td>
+<td bgcolor="#333366" align="right" class="Headline1">Entry
+Date</td>
 <td class="Switch0" align="center">04/28/2018</td>
 <td class="Switch0" align="center">12/05/2017</td>
 <td class="Switch0" align="center">08/04/2017</td>
@@ -4561,7 +4504,7 @@ border="0" alt="Donate"></a></td>
 <td class="Switch0" align="center">02/17/2018</td>
 <td class="Switch0" align="center">00/00/2018</td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4579,7 +4522,7 @@ border="0" alt="Donate"></a></td>
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6"><a href=
+<td bgcolor="#333366" align="right" class="Headline1"><a href=
 "PollAvgDetail.html?RaceID=830717" class="Headline1" target=
 "_blank">Adj Poll Avg</a></td>
 <td class="Switch1" align="center">0.00%<img src=
@@ -4597,169 +4540,171 @@ border="0" alt="Donate"></a></td>
 <td class="Switch1" align="center">0.00%<img src=
 "/images/spacer.gif">--</td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><span class=
-"c30">New!</span><a href="PollEdit.html?PollID=58447" class=
-"Headline1"><span class="c31">Reuters/Ipsos&nbsp;</span></a><br>
-<span class="c31">07/27/20-07/28/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<font color="yellow"><b>New!</b></font><a href=
+"PollEdit.html?PollID=58447" class="Headline1"><font size=
+"-2">Reuters/Ipsos&nbsp;</font></a><br>
+<font size="-2">07/27/20-07/28/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-</tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><span class=
-"c30">New!</span><a href="PollEdit.html?PollID=58435" class=
-"Headline1"><span class="c31">Change Research&nbsp;</span></a><br>
-<span class="c31">07/24/20-07/26/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58372" class="Headline1"><span class=
-"c31">Harvard-Harris&nbsp;</span></a><br>
-<span class="c31">07/21/20-07/24/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<font color="yellow"><b>New!</b></font><a href=
+"PollEdit.html?PollID=58435" class="Headline1"><font size=
+"-2">Change Research&nbsp;</font></a><br>
+<font size="-2">07/24/20-07/26/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-</tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58371" class="Headline1"><span class=
-"c31">YouGov&nbsp;</span></a><br>
-<span class="c31">07/21/20-07/24/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c12">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58351" class="Headline1"><span class=
-"c31">Echelon Insights&nbsp;</span></a><br>
-<span class="c31">07/17/20-07/22/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58372" class="Headline1"><font size=
+"-2">Harvard-Harris&nbsp;</font></a><br>
+<font size="-2">07/21/20-07/24/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-</tr>
-<tr class="c10">
-<td align="right" class="Headline1 c6" width="100"><a href=
-"PollEdit.html?PollID=58264" class="Headline1"><span class=
-"c31">Reuters/Ipsos&nbsp;</span></a><br>
-<span class="c31">07/15/20-07/21/20</span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
-"/images/spacer.gif">--</span></span></td>
-<td align="center" class="Text1"><span class="c33">0.00%
-<span class="c34"><img src=
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
 "/images/spacer.gif">--</span></span></td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58371" class="Headline1"><font size=
+"-2">YouGov&nbsp;</font></a><br>
+<font size="-2">07/21/20-07/24/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+</tr>
+<tr bgcolor="#6084C8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58351" class="Headline1"><font size=
+"-2">Echelon Insights&nbsp;</font></a><br>
+<font size="-2">07/17/20-07/22/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+</tr>
+<tr bgcolor="#7094D8">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
+<a href="PollEdit.html?PollID=58264" class="Headline1"><font size=
+"-2">Reuters/Ipsos&nbsp;</font></a><br>
+<font size="-2">07/15/20-07/21/20</font></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+<td align="center" class="Text1"><span style=
+"white-space:nowrap;">0.00% <span style="color:#000000;"><img src=
+"/images/spacer.gif">--</span></span></td>
+</tr>
+<tr bgcolor="#993333">
 <td colspan="9">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4777,7 +4722,7 @@ border="0" alt="Donate"></a></td>
 </td>
 </tr>
 <tr>
-<td align="right" class="Headline1 c6" width="100">
+<td bgcolor="#333366" align="right" class="Headline1" width="100">
 Endorsements</td>
 <td class="Switch0" align="center" valign="top">
 <div class="endorsediv">
@@ -4815,7 +4760,7 @@ Endorsements</td>
 </div>
 </td>
 </tr>
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="9" align="center"><a href=
 "RaceDetail.html?RaceID=830717&amp;ShowAllCand=Y" class=
 "Headline1">VIEW 28 MORE CANDIDATES</a></td>
@@ -4824,7 +4769,7 @@ Endorsements</td>
 <br>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="8">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4868,7 +4813,7 @@ May&nbsp;11,&nbsp;2015 - Oct&nbsp;15,&nbsp;2017</td>
 <br>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="5">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4882,7 +4827,7 @@ May&nbsp;11,&nbsp;2015 - Oct&nbsp;15,&nbsp;2017</td>
 </table>
 </td>
 </tr>
-<tr class="c19" align="center">
+<tr bgcolor="#333366" align="center">
 <td class="Headline1">Start Date</td>
 <td class="Headline1">End Date</td>
 <td class="Headline1">Type</td>
@@ -4951,7 +4896,7 @@ function adVideoHide() {
 <div id="fb-root"></div>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="8">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -4965,549 +4910,562 @@ function adVideoHide() {
 </table>
 </td>
 </tr>
-<tr class="c19">
-<td class="c53" valign="top">
-<div id="AdVideoPlay" class="c52"></div>
+<tr bgcolor="#333366">
+<td style="width:260px;" valign="top">
+<div id="AdVideoPlay" style="display:none;"></div>
 </td>
 <td valign="top">
-<table class="infotable c59" cellspacing="0" cellpadding="0">
-<tr class="c19" align="center">
-<th class="Headline1 c54">Start Date</th>
-<th class="Headline1 c55">Candidate</th>
-<th class="Headline1 c56">Category</th>
-<th class="Headline1 c56">Ad Tone</th>
-<th class="Headline1 c57">Lng</th>
-<th class="Headline1 c58">Title</th>
-<th class="Headline1 c56">Run Time</th>
-<th class="Headline1 c56">Contributor</th>
+<table class="infotable" cellspacing="0" cellpadding="0" style=
+"width:99%">
+<tr bgcolor="#333366" align="center">
+<th class="Headline1" style="width:10%">Start Date</th>
+<th class="Headline1" style="width:20%;">Candidate</th>
+<th class="Headline1" style="width:10%;">Category</th>
+<th class="Headline1" style="width:10%;">Ad Tone</th>
+<th class="Headline1" style="width:5%;">Lng</th>
+<th class="Headline1" style="width:25%;">Title</th>
+<th class="Headline1" style="width:10%;">Run Time</th>
+<th class="Headline1" style="width:10%;">Contributor</th>
 </tr>
 </table>
-<div class="c65">
+<div style="width:100%;height:200px;overflow:auto;">
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/26/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7985"
-class="Text1" onmouseover="adVideoShow('FxT0IFdaaQc','Y')">Didn't
-Matter&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/26/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7985" class="Text1" onmouseover=
+"adVideoShow('FxT0IFdaaQc','Y')">Didn't Matter&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/24/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7979"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/24/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7979" class="Text1" onmouseover=
 "adVideoShow('Mo1lDJrZKx8','Y')">Maxwell&nbsp;</a></td>
-<td class="Text1 c60">00:01:16</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:16</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/23/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7978"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/23/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7978" class="Text1" onmouseover=
 "adVideoShow('2uLJkpH__os','Y')">Failure&nbsp;</a></td>
-<td class="Text1 c60">00:02:36</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:02:36</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/22/2020</td>
-<td class="Text1 c61">Donald Trump vs Joe Biden</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Defend</td>
-<td class="Text1 c62">spa</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7976"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/22/2020</td>
+<td class="Text1" style="width:20%;">Donald Trump vs Joe Biden</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Defend</td>
+<td class="Text1" style="width:5%;">spa</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7976" class="Text1" onmouseover=
 "adVideoShow('eHib1OWSW_s','Y')">Goya&nbsp;</a></td>
-<td class="Text1 c60">00:00:30</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:30</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/21/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Humor</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7974"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/21/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Humor</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7974" class="Text1" onmouseover=
 "adVideoShow('gsaO3v4SvwA','Y')">Trumpfeld&nbsp;</a></td>
-<td class="Text1 c60">00:01:45</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:45</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/17/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7975"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/17/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7975" class="Text1" onmouseover=
 "adVideoShow('nn1bjfOFICY','Y')">New&nbsp;</a></td>
-<td class="Text1 c60">00:01:08</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:08</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/15/2020</td>
-<td class="Text1 c61">Donald Trump vs Joe Biden</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7972"
-class="Text1" onmouseover="adVideoShow('JK6K-sWTAtM','Y')">You
-won't be safe in Joe Biden's America&nbsp;</a></td>
-<td class="Text1 c60">00:00:30</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/15/2020</td>
+<td class="Text1" style="width:20%;">Donald Trump vs Joe Biden</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7972" class="Text1" onmouseover=
+"adVideoShow('JK6K-sWTAtM','Y')">You won't be safe in Joe Biden's
+America&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:30</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/13/2020</td>
-<td class="Text1 c61">Howie Hawkins</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Issue</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7981"
-class="Text1" onmouseover="adVideoShow('RTu7_B2c72A','Y')">Howie
-Hawkins: Hey Media! Do Your Jobs!&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=10334" class=
-"Text1">data&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/13/2020</td>
+<td class="Text1" style="width:20%;">Howie Hawkins</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Issue</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7981" class="Text1" onmouseover=
+"adVideoShow('RTu7_B2c72A','Y')">Howie Hawkins: Hey Media! Do Your
+Jobs!&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=10334" class="Text1">data&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/11/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7969"
-class="Text1" onmouseover="adVideoShow('p00fxoDpaIo','Y')">Law and
-Order&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/11/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7969" class="Text1" onmouseover=
+"adVideoShow('p00fxoDpaIo','Y')">Law and Order&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/08/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7952"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/08/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7952" class="Text1" onmouseover=
 "adVideoShow('-vZp3FAQZvU','Y')">Names&nbsp;</a></td>
-<td class="Text1 c60">00:01:15</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:15</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/07/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7947"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/07/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7947" class="Text1" onmouseover=
 "adVideoShow('bk6d4TgO2NY','Y')">Whispers&nbsp;</a></td>
-<td class="Text1 c60">00:01:15</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:15</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/06/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Biography</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7942"
-class="Text1" onmouseover="adVideoShow('l7kZJ3Rj3NQ','Y')">That's
-Joe&nbsp;</a></td>
-<td class="Text1 c60">00:00:15</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/06/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Biography</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7942" class="Text1" onmouseover=
+"adVideoShow('l7kZJ3Rj3NQ','Y')">That's Joe&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:15</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/05/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7948"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/05/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7948" class="Text1" onmouseover=
 "adVideoShow('z9-JgVgrPD4','Y')">Historic&nbsp;</a></td>
-<td class="Text1 c60">00:01:10</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:10</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/02/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7946"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/02/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7946" class="Text1" onmouseover=
 "adVideoShow('fNS9mxLMnsU','Y')">Rushmore&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">07/01/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">rus</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7949"
-class="Text1" onmouseover="adVideoShow('eUBAAeuBpPQ','Y')">Fellow
-Traveler&nbsp;</a></td>
-<td class="Text1 c60">00:01:38</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">07/01/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">rus</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7949" class="Text1" onmouseover=
+"adVideoShow('eUBAAeuBpPQ','Y')">Fellow Traveler&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:38</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">07/01/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Contrast</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7950"
-class="Text1" onmouseover="adVideoShow('XmFXlt1AFHA','Y')">Which
-Side Of History&nbsp;</a></td>
-<td class="Text1 c60">00:01:15</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">07/01/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Contrast</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7950" class="Text1" onmouseover=
+"adVideoShow('XmFXlt1AFHA','Y')">Which Side Of
+History&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:15</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/30/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7934"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/30/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7934" class="Text1" onmouseover=
 "adVideoShow('nytBEWbwOkw','Y')">Betrayed&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/28/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Contrast</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7935"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/28/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Contrast</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7935" class="Text1" onmouseover=
 "adVideoShow('XOty4J1b0FU','Y')">Debt&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/27/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7936"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/27/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7936" class="Text1" onmouseover=
 "adVideoShow('kiDkTOKI7Ro','Y')">Bounty&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/25/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Contrast</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7937"
-class="Text1" onmouseover="adVideoShow('Y5TiyJ7JWRE','Y')">How A
-President Leads&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/25/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Contrast</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7937" class="Text1" onmouseover=
+"adVideoShow('Y5TiyJ7JWRE','Y')">How A President
+Leads&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/23/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7938"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/23/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7938" class="Text1" onmouseover=
 "adVideoShow('vEzfHfLaLG4','Y')">Truth&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/22/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Contrast</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7951"
-class="Text1" onmouseover="adVideoShow('iSlcmCIG1SA','Y')">Biden:
-He can run and drink water&nbsp;</a></td>
-<td class="Text1 c60">00:00:54</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/22/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Contrast</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7951" class="Text1" onmouseover=
+"adVideoShow('iSlcmCIG1SA','Y')">Biden: He can run and drink
+water&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:54</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/19/2020</td>
-<td class="Text1 c61">Joe Biden</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Feel Good</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7922"
-class="Text1" onmouseover=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/19/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Feel Good</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7922" class="Text1" onmouseover=
 "adVideoShow('U9dRcSss284','Y')">Promise&nbsp;</a></td>
-<td class="Text1 c60">00:00:15</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:15</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/18/2020</td>
-<td class="Text1 c61">Joe Biden</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Feel Good</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7919"
-class="Text1" onmouseover="adVideoShow('s-OXgFlV2CE','Y')">My
-Commitment&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/18/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Feel Good</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7919" class="Text1" onmouseover=
+"adVideoShow('s-OXgFlV2CE','Y')">My Commitment&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/18/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Feel Good</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7918"
-class="Text1" onmouseover="adVideoShow('CV1la96XHqE','Y')">Unite
-Us&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/18/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Feel Good</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7918" class="Text1" onmouseover=
+"adVideoShow('CV1la96XHqE','Y')">Unite Us&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/16/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7923"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/16/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7923" class="Text1" onmouseover=
 "adVideoShow('YEebPU8-Sro','Y')">Descent&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">06/06/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7920"
-class="Text1" onmouseover="adVideoShow('GSqZUfaxhvA','Y')">Just
-Doesn't Care&nbsp;</a></td>
-<td class="Text1 c60">00:00:32</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">06/06/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7920" class="Text1" onmouseover=
+"adVideoShow('GSqZUfaxhvA','Y')">Just Doesn't Care&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:32</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">06/03/2020</td>
-<td class="Text1 c61">Joe Biden vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Feel Good</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7921"
-class="Text1" onmouseover="adVideoShow('KG1SuSScW-s','Y')">Build
-The Future&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">06/03/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Feel Good</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7921" class="Text1" onmouseover=
+"adVideoShow('KG1SuSScW-s','Y')">Build The Future&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">05/22/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7886"
-class="Text1" onmouseover="adVideoShow('viO4Nz7DyHI','Y')">Deer In
-The Headlights&nbsp;</a></td>
-<td class="Text1 c60">00:01:05</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">05/22/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7886" class="Text1" onmouseover=
+"adVideoShow('viO4Nz7DyHI','Y')">Deer In The
+Headlights&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:05</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">05/11/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7880"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">05/11/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7880" class="Text1" onmouseover=
 "adVideoShow('kOhs-tzVm1g','Y')">Timeline&nbsp;</a></td>
-<td class="Text1 c60">00:02:42</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:02:42</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">05/04/2020</td>
-<td class="Text1 c61">vs Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Attack</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7873"
-class="Text1" onmouseover="adVideoShow('t_yG_-K2MDo','Y')">Mourning
-in America&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">05/04/2020</td>
+<td class="Text1" style="width:20%;">vs Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Attack</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7873" class="Text1" onmouseover=
+"adVideoShow('t_yG_-K2MDo','Y')">Mourning in America&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">04/17/2020</td>
-<td class="Text1 c61">Jo Jorgensen</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Issue</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7982"
-class="Text1" onmouseover="adVideoShow('bObwg3wUoFQ','Y')">Break
-the Media Blockade&nbsp;</a></td>
-<td class="Text1 c60">00:00:41</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=10334" class=
-"Text1">data&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">04/17/2020</td>
+<td class="Text1" style="width:20%;">Jo Jorgensen</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Issue</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7982" class="Text1" onmouseover=
+"adVideoShow('bObwg3wUoFQ','Y')">Break the Media
+Blockade&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:41</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=10334" class="Text1">data&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">04/14/2020</td>
-<td class="Text1 c61">Joe Biden</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Endorsement</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7865"
-class="Text1" onmouseover="adVideoShow('tJAPfahus_U','Y')">Former
-President Barack Obama Endorses Joe Biden for
-President&nbsp;</a></td>
-<td class="Text1 c60">00:11:57</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">04/14/2020</td>
+<td class="Text1" style="width:20%;">Joe Biden</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Endorsement</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7865" class="Text1" onmouseover=
+"adVideoShow('tJAPfahus_U','Y')">Former President Barack Obama
+Endorses Joe Biden for President&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:11:57</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">02/24/2020</td>
-<td class="Text1 c61">Joseph "Joe" Kishore</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Issue</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7881"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">02/24/2020</td>
+<td class="Text1" style="width:20%;">Joseph "Joe" Kishore</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Issue</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7881" class="Text1" onmouseover=
 "adVideoShow('aI-hEIaSVn0','Y')">#Socialism2020 Joseph Kishore for
 US president: "Free Julian Assange and Chelsea Manning!" Socialist
 Equality Party&nbsp;</a></td>
-<td class="Text1 c60">00:08:27</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=10334" class=
-"Text1">data&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:08:27</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=10334" class="Text1">data&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c64">12/04/2019</td>
-<td class="Text1 c61">Joe Biden</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Contrast</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7821"
-class="Text1" onmouseover="adVideoShow('yUSdf-_xmJg','Y')">Laughed
-At&nbsp;</a></td>
-<td class="Text1 c60">00:01:03</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=9642" class=
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;color:#444;">12/04/2019</td>
+<td class="Text1" style="width:20%;">Joe Biden</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Contrast</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7821" class="Text1" onmouseover=
+"adVideoShow('yUSdf-_xmJg','Y')">Laughed At&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:03</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=9642" class=
 "Text1">EastTexasDem&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c64">08/22/2019</td>
-<td class="Text1 c61">Joe Biden</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Feel Good</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7718"
-class="Text1" onmouseover=
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;color:#444;">08/22/2019</td>
+<td class="Text1" style="width:20%;">Joe Biden</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Feel Good</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7718" class="Text1" onmouseover=
 "adVideoShow('4X9z5SyOKnk','Y')">President Obama's First
 Decision&nbsp;</a></td>
-<td class="Text1 c60">00:01:00</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:00</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c64">01/21/2019</td>
-<td class="Text1 c61">Dario Hunter</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Mixed</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7855"
-class="Text1" onmouseover="adVideoShow('ujNlyAO3D3w','Y')">Dario
-Hunter - Announcement of 2020 Exploratory Committee&nbsp;</a></td>
-<td class="Text1 c60">00:05:02</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=10334" class=
-"Text1">data&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;color:#444;">01/21/2019</td>
+<td class="Text1" style="width:20%;">Dario Hunter</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Mixed</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7855" class="Text1" onmouseover=
+"adVideoShow('ujNlyAO3D3w','Y')">Dario Hunter - Announcement of
+2020 Exploratory Committee&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:05:02</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=10334" class="Text1">data&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">10/22/2018</td>
-<td class="Text1 c61">Charlotte R. Jobe</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Biography</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7564"
-class="Text1" onmouseover="adVideoShow('pKmyYN8gY70','Y')">Be our
-Electors!&nbsp;</a></td>
-<td class="Text1 c60">00:00:30</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=9518" class=
-"Text1">Charlotte Rose&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">10/22/2018</td>
+<td class="Text1" style="width:20%;">Charlotte R. Jobe</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Biography</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7564" class="Text1" onmouseover=
+"adVideoShow('pKmyYN8gY70','Y')">Be our Electors!&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:30</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=9518" class="Text1">Charlotte
+Rose&nbsp;</a></td>
 </tr>
-<tr class="c10" valign="top">
-<td class="Text1 c60">10/18/2018</td>
-<td class="Text1 c61">Charlotte R. Jobe</td>
-<td class="Text1 c60">Web Only Ad</td>
-<td class="Text1 c60">Biography</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=7532"
-class="Text1" onmouseover="adVideoShow('Igb1IZPrF28','Y')">22 for
-President&nbsp;</a></td>
-<td class="Text1 c60">00:01:17</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=9518" class=
-"Text1">Charlotte Rose&nbsp;</a></td>
+<tr bgcolor="#7094D8" valign="top">
+<td class="Text1" style="width:10%;">10/18/2018</td>
+<td class="Text1" style="width:20%;">Charlotte R. Jobe</td>
+<td class="Text1" style="width:10%;">Web Only Ad</td>
+<td class="Text1" style="width:10%;">Biography</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=7532" class="Text1" onmouseover=
+"adVideoShow('Igb1IZPrF28','Y')">22 for President&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:01:17</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=9518" class="Text1">Charlotte
+Rose&nbsp;</a></td>
 </tr>
-<tr class="c12" valign="top">
-<td class="Text1 c60">08/13/2017</td>
-<td class="Text1 c61">Donald Trump</td>
-<td class="Text1 c60">TVAd</td>
-<td class="Text1 c60">Defend</td>
-<td class="Text1 c62">eng</td>
-<td class="Text1 c63"><a href="AdVideoDetail.html?AdVideoID=6156"
-class="Text1" onmouseover="adVideoShow('vptm8IvmPck','Y')">Let
-President Trump Do His Job &nbsp;</a></td>
-<td class="Text1 c60">00:00:30</td>
-<td class="Text1 c60"><a href="UserDetail.html?UserID=1" class=
-"Text1">RP&nbsp;</a></td>
+<tr bgcolor="#6084C8" valign="top">
+<td class="Text1" style="width:10%;">08/13/2017</td>
+<td class="Text1" style="width:20%;">Donald Trump</td>
+<td class="Text1" style="width:10%;">TVAd</td>
+<td class="Text1" style="width:10%;">Defend</td>
+<td class="Text1" style="width:5%;">eng</td>
+<td class="Text1" style="width:25%;"><a href=
+"AdVideoDetail.html?AdVideoID=6156" class="Text1" onmouseover=
+"adVideoShow('vptm8IvmPck','Y')">Let President Trump Do His Job
+&nbsp;</a></td>
+<td class="Text1" style="width:10%;">00:00:30</td>
+<td class="Text1" style="width:10%;"><a href=
+"UserDetail.html?UserID=1" class="Text1">RP&nbsp;</a></td>
 </tr>
 </table>
 </div>
@@ -5517,7 +5475,7 @@ President Trump Do His Job &nbsp;</a></td>
 <br>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="3">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -5533,7 +5491,7 @@ President Trump Do His Job &nbsp;</a></td>
 <br>
 <table class="infotable" cellspacing="0" cellpadding="0" width=
 "100%">
-<tr class="c5">
+<tr bgcolor="#993333">
 <td colspan="5">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
@@ -5547,7 +5505,7 @@ President Trump Do His Job &nbsp;</a></td>
 </table>
 </td>
 </tr>
-<tr class="c19" align="center">
+<tr bgcolor="#333366" align="center">
 <td class="Headline1">Date</td>
 <td class="Headline1">Category</td>
 <td class="Headline1">Headline</td>
@@ -5712,7 +5670,9 @@ function prevDiscussion(num) {
 }
 //-->
 </script>
-<div id="EmoteSelect" class="c66"><b>Add Your 2¢</b><br>
+<div id="EmoteSelect" style=
+"display:none;position:absolute;background-color:white;border:2px solid red;padding:4px;width:100px;z-index:300;">
+<b>Add Your 2¢</b><br>
 <a href="javascript:emote(1)">Agree</a><br>
 <a href="javascript:emote(2)">Disagree</a><br>
 <a href="javascript:emote(4)">Laugh</a><br>
@@ -5722,16 +5682,18 @@ function prevDiscussion(num) {
 <a href="javascript:emote(6)">Work Complete</a><br>
 <a href="javascript:emote(8)">Prediction</a><br>
 <a href="javascript:emote(0)">[close]</a><br></div>
-<div id="EmotePeople" class="c67" onmouseout="emoteBlur()"></div>
+<div id="EmotePeople" style=
+"display:none;position:absolute;background-color:white;border:2px solid red;padding:4px;width:100px;"
+onmouseout="emoteBlur()"></div>
 <table class="infotable" cellspacing="0" cellpadding="0">
 <tr>
 <th colspan="3">DISCUSSION</th>
 </tr>
 <tr>
-<td colspan="3" id="PreviousMsgTR" align="center" class="c69">
-<a href="javascript:prevDiscussion(4)" class="Headline1">[View
-All</a>
-<div id="PreviousCount" class="c68">4</div>
+<td colspan="3" id="PreviousMsgTR" align="center" style=
+"background-color:#333366;"><a href="javascript:prevDiscussion(4)"
+class="Headline1">[View All</a>
+<div id="PreviousCount" style="display:inline;">4</div>
 Previous Messages]</td>
 </tr>
 <tr>
@@ -5743,19 +5705,19 @@ Previous Messages]</td>
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c70" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">I:10200</td>
+<td class="Headline1" style="background-color:#878787;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">I:10200</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=10200" class=
 "Headline1">Jeaux</a> ( 0.0000&nbsp;points)
-<div id="Emote1055552" class="c68"></div>
+<div id="Emote1055552" style="display:inline;"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 02:04:34 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055552" class="c52">Trump has tweeted calling for a
-delay in the election
+<div id="MsgC1055552" style="display:none;">Trump has tweeted
+calling for a delay in the election
 https://twitter.com/realDonaldTrump/status/1288818160389558273</div>
 Trump has tweeted calling for a delay in the election
 <div id="tweet1288818160389558273"></div>
@@ -5774,18 +5736,18 @@ twttr.ready(function (twttr) { twttr.widgets.createTweet('1288818160389558273',d
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c71" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">D:1</td>
+<td class="Headline1" style="background-color:#0000FF;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">D:1</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=1" class=
 "Headline1">RP</a> ( 4505.5361&nbsp;points)
-<div id="Emote1055553" class="c68"></div>
+<div id="Emote1055553" style="display:inline;"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 02:54:43 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055553" class="c52">
+<div id="MsgC1055553" style="display:none;">
 https://twitter.com/SteveGuest/status/1253796935011651587</div>
 <div id="tweet1253796935011651587"></div>
 <script>
@@ -5803,18 +5765,18 @@ twttr.ready(function (twttr) { twttr.widgets.createTweet('1253796935011651587',d
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c71" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">D:1</td>
+<td class="Headline1" style="background-color:#0000FF;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">D:1</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=1" class=
 "Headline1">RP</a> ( 4505.5361&nbsp;points)
-<div id="Emote1055554" class="c68"></div>
+<div id="Emote1055554" style="display:inline;"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 03:02:06 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055554" class="c52">
+<div id="MsgC1055554" style="display:none;">
 https://twitter.com/AmericaFirstPAC/status/1253740778427383808</div>
 <div id="tweet1253740778427383808"></div>
 <script>
@@ -5834,20 +5796,20 @@ twttr.ready(function (twttr) { twttr.widgets.createTweet('1253740778427383808',d
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c70" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">I:1038</td>
+<td class="Headline1" style="background-color:#878787;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">I:1038</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=1038" class=
 "Headline1">PA Indy</a> ( 863.6685&nbsp;points)
-<div id="Emote1055555" class="c68"><img src="images/emote4.gif"
-onclick="emoteView('',1055555,4,event)"></div>
+<div id="Emote1055555" style="display:inline;"><img src=
+"images/emote4.gif" onclick="emoteView('',1055555,4,event)"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 03:05:22 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055555" class="c52">I'm sure they're soberly and
-responsibly walking back those comments. /s</div>
+<div id="MsgC1055555" style="display:none;">I'm sure they're
+soberly and responsibly walking back those comments. /s</div>
 I'm sure they're soberly and responsibly walking back those
 comments. /s</td>
 </tr>
@@ -5864,28 +5826,29 @@ comments. /s</td>
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c72" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">R:9757</td>
+<td class="Headline1" style="background-color:#FF0000;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">R:9757</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=9757" class=
 "Headline1">BrentinCO</a> ( 1710.1019&nbsp;points)
-<div id="Emote1055561" class="c68"><img src="images/emote1.gif"
-onclick="emoteView('',1055561,1,event)"></div>
+<div id="Emote1055561" style="display:inline;"><img src=
+"images/emote1.gif" onclick="emoteView('',1055561,1,event)"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 04:15:07 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055561" class="c52">Trump believes in himself, he
-doesn't believe in America or its institutions. Trump is setting up
-his loss and has been for months that is why this should be
-absolutely no surprise. And its no different in how he has set up
-any other business or political loss - he passes the buck or claims
-he was treated unfairly. Not surprising to me based on his record,
-but he plans to break the last beautiful stained glass windows of
-our vaunted democracy that he hasn't already broken - accepting the
-judgement of the voters and the peaceful transition between
-Presidents. But whatever, these are the times we are in.</div>
+<div id="MsgC1055561" style="display:none;">Trump believes in
+himself, he doesn't believe in America or its institutions. Trump
+is setting up his loss and has been for months that is why this
+should be absolutely no surprise. And its no different in how he
+has set up any other business or political loss - he passes the
+buck or claims he was treated unfairly. Not surprising to me based
+on his record, but he plans to break the last beautiful stained
+glass windows of our vaunted democracy that he hasn't already
+broken - accepting the judgement of the voters and the peaceful
+transition between Presidents. But whatever, these are the times we
+are in.</div>
 Trump believes in himself, he doesn't believe in America or its
 institutions.<br>
 <br>
@@ -5912,22 +5875,22 @@ But whatever, these are the times we are in.</td>
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c70" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">I:10200</td>
+<td class="Headline1" style="background-color:#878787;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">I:10200</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=10200" class=
 "Headline1">Jeaux</a> ( 0.0000&nbsp;points)
-<div id="Emote1055571" class="c68"><img src="images/emote1.gif"
-onclick="emoteView('',1055571,1,event)"></div>
+<div id="Emote1055571" style="display:inline;"><img src=
+"images/emote1.gif" onclick="emoteView('',1055571,1,event)"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 06:09:46 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055571" class="c52">So right Brent....its never his
-fault when something goes wrong, and we've been seeing that as he
-blames governors for COVID fallout, not the lack of a federal
-response</div>
+<div id="MsgC1055571" style="display:none;">So right Brent....its
+never his fault when something goes wrong, and we've been seeing
+that as he blames governors for COVID fallout, not the lack of a
+federal response</div>
 So right Brent....its never his fault when something goes wrong,
 and we've been seeing that as he blames governors for COVID
 fallout, not the lack of a federal response</td>
@@ -5943,19 +5906,19 @@ fallout, not the lack of a federal response</td>
 <td valign="top" class="Text1">
 <table border="0" width="100%">
 <tr>
-<td class="Headline1 c71" width="100" align="center"><img src=
-"../images/containers/Container1.gif" height="15" align=
-"left">D:1</td>
+<td class="Headline1" style="background-color:#0000FF;" width="100"
+align="center"><img src="../images/containers/Container1.gif"
+height="15" align="left">D:1</td>
 <td class="Headline1"><a href="UserDetail.html?UserID=1" class=
 "Headline1">RP</a> ( 4505.5361&nbsp;points)
-<div id="Emote1055581" class="c68"></div>
+<div id="Emote1055581" style="display:inline;"></div>
 </td>
 <td class="Headline1" align="right">Thu, July 30, 2020 09:10:52 PM
 UTC0:00</td>
 </tr>
 </table>
-<div id="MsgC1055581" class="c52">They're trying to pretend that
-Trump was "just joking" again...</div>
+<div id="MsgC1055581" style="display:none;">They're trying to
+pretend that Trump was "just joking" again...</div>
 They're trying to pretend that Trump was "just joking"
 again...</td>
 </tr>
