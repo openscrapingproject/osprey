@@ -30,6 +30,10 @@ pub struct SelectorValue {
 pub enum Transform {
     TrimWhitespace,
     RemoveNewlines,
+    // We don't really want this transform enum to become a subset of XPath's
+    // function library However, for interim purposes, this is here.
+    // TODO: maybe find a declarative function library we can just plug in
+    // to.
     SubstringAfter(String),
 }
 
