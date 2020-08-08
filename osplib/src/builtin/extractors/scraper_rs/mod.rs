@@ -30,6 +30,7 @@ pub struct SelectorValue {
 pub enum Transform {
     TrimWhitespace,
     RemoveNewlines,
+    SubstringAfter(String),
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -112,6 +113,17 @@ fn elem_to_out_item(em: ElementRef, opts: &SelectorValue) -> Result<OutItem> {
         Ok(match t {
             Transform::TrimWhitespace => intermediate.trim().to_string(),
             Transform::RemoveNewlines => intermediate.replace('\n', ""),
+            Transform::SubstringAfter(s) => intermediate
+                .splitn(2, s)
+                .last()
+                .ok_or_else(|| {
+                    anyhow!(
+                        "failed to create substring after {} using {}",
+                        intermediate,
+                        s
+                    )
+                })?
+                .to_string(),
         })
     } else {
         Ok(intermediate)
@@ -335,6 +347,45 @@ mod tests {
         })?;
 
         println!("got result: {:#?}", result);
+
+        Ok(())
+    }
+
+    #[test]
+    fn use_transform() -> Result<()> {
+        init();
+
+        let html = r#"
+        <!DOCTYPE html>
+        <meta charset="utf-8">
+        <title>Hello, world!</title>
+        <h1 class="foo">Hello, <i>world!</i></h1>
+        <form name="dateForm" method="post" action="RaceDetail.html?SetNow=Y&amp;SetNow=Y&amp;SetNow=Y&amp;SetNow=Y&amp;RaceID=79753" xpath="1" style=""></form>
+        "#;
+
+        // TODO: maybe have this map include the expected values
+        let e = ScraperRs {
+            definitions: convert(map!(
+                "raceID".to_string() => SelectorValue {
+                    selector:"form".to_string(),
+                    val: ElemOptions::Attr("action".to_string()),
+                    transform: Some(Transform::SubstringAfter("RaceID=".to_string()))
+                }
+            )),
+        };
+
+        let result = e.extract(&crate::api::Response {
+            url: "localhost:8080/hello".to_string(),
+            status: 200,
+            version: "HTTP/1.1".to_string(),
+            headers: HashMap::new(),
+            body: html.to_string(),
+        })?;
+
+        println!("got result: {:#?}", result);
+
+        // TODO: figure out a way to assert this is actually what we expect.
+        // Maybe use Any
 
         Ok(())
     }

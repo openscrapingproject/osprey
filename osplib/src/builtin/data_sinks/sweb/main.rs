@@ -1,13 +1,14 @@
 /*!
- * The Oxigraph Data Sink is a direct data sink to the Oxigraph triplestore/graph database
- * It simply takes in the output JSON-LD, may convert it into a different acceptable format,
- * and POSTs it to an Oxigraph endpoint
+ * The Oxigraph Data Sink is a direct data sink to the Oxigraph
+ * triplestore/graph database It simply takes in the output JSON-LD, may
+ * convert it into a different acceptable format, and POSTs it to an
+ * Oxigraph endpoint
  */
 use crate::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticWebServerSink {
-    pub baseURL: String
+    pub baseURL: String,
 }
 
 impl Default for SemanticWebServerSink {
@@ -18,8 +19,8 @@ impl Default for SemanticWebServerSink {
     }
 }
 
-use erased_serde::Serializer as ESerializer;
 use async_trait::async_trait;
+use erased_serde::Serializer as ESerializer;
 
 #[async_trait]
 #[typetag::serde(name = "oxigraph")]
@@ -40,7 +41,12 @@ impl crate::api::DataSink for SemanticWebServerSink {
         // Right now, Oxigraph allows POSTing directly to the / endpoint
         let postLocation = &self.baseURL;
 
-        let res = &c.post(postLocation).header("Content-Type", "application/ld+json").body(writer).send().await?;
+        let res = &c
+            .post(postLocation)
+            .header("Content-Type", "application/ld+json")
+            .body(writer)
+            .send()
+            .await?;
 
         res.error_for_status_ref()?;
 
