@@ -22,6 +22,14 @@ pub struct SelectorValue {
 
     /// Val is which property of the HTML element to extract
     pub val: ElemOptions,
+
+    pub transform: Option<Transform>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum Transform {
+    TrimWhitespace,
+    RemoveNewlines,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -73,8 +81,8 @@ pub type OutItem = String;
 //     Vec<String>
 // }
 
-fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
-    match opts {
+fn elem_to_out_item(em: ElementRef, opts: &SelectorValue) -> Result<OutItem> {
+    let intermediate = match &opts.val {
         HTML => Ok(em.html()),
         InnerHTML => Ok(em.inner_html()),
         // TODO: figure out what this separator should be
@@ -94,6 +102,19 @@ fn elem_to_out_item(em: ElementRef, opts: &ElemOptions) -> Result<OutItem> {
             .id()
             .map(|id| id.to_string())
             .ok_or_else(|| Error::msg("failed to get ID")),
+    }?;
+
+    // TODO: think about user-provided transforms
+    // Also think about using semantic information (e.g. xsd:DateTime) to parse
+    // certain inputs to normalize them Also maybe have an option that is
+    // original: boolean, which disables all transforms and outputs direct out
+    if let Some(t) = &opts.transform {
+        Ok(match t {
+            Transform::TrimWhitespace => intermediate.trim().to_string(),
+            Transform::RemoveNewlines => intermediate.replace('\n', ""),
+        })
+    } else {
+        Ok(intermediate)
     }
 }
 
@@ -120,7 +141,11 @@ impl crate::api::Extractor for ScraperRs {
                     continue;
                 }
                 Value::Selector(sel) => {
-                    let s = Selector::parse(sel.selector.as_str())
+                    let mut slc = sel.clone();
+                    if slc.transform.is_none() {
+                        slc.transform = Some(Transform::TrimWhitespace)
+                    }
+                    let s = Selector::parse(slc.selector.as_str())
                         // .context("failed")?;
                         // TODO: figure out this weird error handling
                         // Selector library uses other error handling lib that
@@ -135,7 +160,7 @@ impl crate::api::Extractor for ScraperRs {
                     for elem in sr {
                         debug!("got elem {:#?}", elem.value().name());
 
-                        let o = elem_to_out_item(elem, &sel.val)?;
+                        let o = elem_to_out_item(elem, &slc)?;
                         multiple.push(SVal::String(o));
                     }
 
@@ -185,7 +210,8 @@ mod tests {
             definitions: map!(
                 "charset".to_string() => Value::Selector(SelectorValue {
                     selector:"meta[charset]".to_string(),
-                    val: ElemOptions::HTML
+                    val: ElemOptions::HTML,
+                    transform: None
                 })
             ),
         };
@@ -200,7 +226,8 @@ mod tests {
             definitions: map!(
                 "charset".to_string() => Value::Selector(SelectorValue {
                     selector:"meta[charset]".to_string(),
-                    val: ElemOptions::HTML
+                    val: ElemOptions::HTML,
+                    transform: None
                 });
                 "literal".to_string() => Value::Literal("an IRI".to_string())
             ),
@@ -224,23 +251,28 @@ mod tests {
         let mut hm = map!(
             "charset".to_string() => SelectorValue {
                 selector:"meta[charset]".to_string(),
-                val: ElemOptions::HTML
+                val: ElemOptions::HTML,
+                transform: None
             };
             "charset2".to_string() => SelectorValue {
                 selector:"meta[charset]".to_string(),
-                val: ElemOptions::InnerHTML
+                val: ElemOptions::InnerHTML,
+                transform: None
             };
             "charset3".to_string() => SelectorValue {
                 selector:"meta[charset]".to_string(),
-                val: ElemOptions::Text
+                val: ElemOptions::Text,
+                transform: None
             };
             "headerText".to_string() => SelectorValue {
                 selector:"h1".to_string(),
-                val: ElemOptions::Text
+                val: ElemOptions::Text,
+                transform: None
             };
             "italicText".to_string() => SelectorValue {
                 selector:".foo>i".to_string(),
-                val: ElemOptions::Text
+                val: ElemOptions::Text,
+                transform: None
             }
         );
 
@@ -283,11 +315,13 @@ mod tests {
             definitions: convert(map!(
                 "headerText".to_string() => SelectorValue {
                     selector:".Headline1".to_string(),
-                    val: ElemOptions::Text
+                    val: ElemOptions::Text,
+                    transform: None
                 };
                 "office".to_string() => SelectorValue {
                     selector: officeSelector.to_string(),
-                    val: ElemOptions::Text
+                    val: ElemOptions::Text,
+                    transform: None
                 }
             )),
         };
