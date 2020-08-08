@@ -63,7 +63,7 @@ impl Agent for DynamicAgent {
                     let out = page_set.extractor.extract(&resp)?;
                     debug!("Extracted: {:#?}", out);
 
-                    data_sink.consume(out)?;
+                    data_sink.consume(out).await?;
 
                     info!("Completed");
                 }
@@ -84,6 +84,8 @@ impl Agent for DynamicAgent {
             .as_ref()
             .ok_or_else(|| Error::msg("failed to get data plugin"))?;
 
+        // TODO: for each of the following Try ? operators: think about
+        // only skipping a faulty page set instead of stopping the whole job
         for (page_id, page_set) in &c.pages {
             info!("Runnning pipeline on {}", page_id);
             // TODO: optimize this?
@@ -105,7 +107,7 @@ impl Agent for DynamicAgent {
                 let out = page_set.extractor.extract(&resp)?;
                 debug!("Extracted: {:#?}", out);
 
-                data_sink.consume(out)?;
+                data_sink.consume(out).await?;
 
                 info!("Completed");
             }

@@ -37,8 +37,8 @@ use mopa::{mopafy, Any};
 /// SerDebug trait. This allows code that knows the original concrete type of
 /// the trait to cast it back to that type The main use case for this is to run
 /// tests that validate the output of extractors.
-pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug + Any {}
-impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug + Any {}
+pub trait SerDebug: erased_serde::Serialize + std::fmt::Debug + Any + Send {}
+impl<T> SerDebug for T where T: erased_serde::Serialize + std::fmt::Debug + Any + Send {}
 
 mopafy!(SerDebug);
 
@@ -57,8 +57,9 @@ pub trait Extractor: Super {
 
 /// Outputs relevant data to a data sink
 #[typetag::serde(tag = "plugin", content = "config")]
+#[async_trait]
 pub trait DataSink: Super {
-    fn consume(&self, input: Intermediate) -> Result<()>;
+    async fn consume(&self, input: Intermediate) -> Result<()>;
 }
 
 #[cfg(test)]
