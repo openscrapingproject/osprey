@@ -86,7 +86,7 @@ impl crate::api::Extractor for XPathExtractor {
     fn extract(
         &self,
         input: &crate::api::Response,
-    ) -> Result<crate::api::Intermediate> {
+    ) -> Result<crate::api::ExtractOutput> {
         info!("extracting");
 
         debug!("parsing");
@@ -121,7 +121,10 @@ impl crate::api::Extractor for XPathExtractor {
 
             out.insert(n, o);
         }
-        Ok(Box::new(out))
+        Ok(crate::api::ExtractOutput {
+            data: Box::new(out),
+            generated: Vec::new(),
+        })
     }
 }
 
@@ -196,9 +199,10 @@ mod tests {
             headers: HashMap::new(),
             body: html.to_string(),
         })?;
+        let d = r.data;
 
-        assert!(r.is::<Output>());
-        let fin = r.downcast_ref::<Output>().unwrap();
+        assert!(d.is::<Output>());
+        let fin = d.downcast_ref::<Output>().unwrap();
         assert_eq!(
             fin,
             &map!(
@@ -209,7 +213,7 @@ mod tests {
             )
         );
 
-        println!("{:#?}", r);
+        println!("{:#?}", d);
 
         Ok(())
     }
@@ -245,7 +249,7 @@ mod tests {
             body: html,
         })?;
 
-        assert!(r.is::<Output>());
+        assert!(r.data.is::<Output>());
         // let fin = r.downcast_ref::<Output>().unwrap();
         // assert_eq!(
         //     fin,
@@ -257,7 +261,7 @@ mod tests {
         //     )
         // );
 
-        println!("{:#?}", r);
+        println!("{:#?}", r.data);
 
         Ok(())
     }

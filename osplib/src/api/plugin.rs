@@ -56,13 +56,25 @@ mopafy!(SerDebug);
 /// using erased_serde upon arrival.
 pub type Intermediate = Box<dyn SerDebug>;
 
+pub type Link = String;
+
+use crate::prelude::*;
+
+// We can't derive deserialize because data can literally be any type that
+// impls serialize also there's no real use to want to deserialize this
+#[derive(Debug, Serialize)]
+pub struct ExtractOutput {
+    pub data: Intermediate,
+    pub generated: Vec<Link>,
+}
+
 /// Extracts relevant data from the page
 #[typetag::serde(tag = "plugin", content = "config")]
 pub trait Extractor: Super {
     /// TODO: in the future, as we think about standardizing Scraping
     /// Definitions, we might modify this signature. However, for now, they
     /// can go directly into the plugin's Config.
-    fn extract(&self, input: &crate::api::Response) -> Result<Intermediate>;
+    fn extract(&self, input: &crate::api::Response) -> Result<ExtractOutput>;
 }
 
 /// Outputs relevant data to a data sink
@@ -71,6 +83,10 @@ pub trait Extractor: Super {
 pub trait DataSink: Super {
     async fn consume(&self, input: Intermediate) -> Result<()>;
 }
+
+// In the future, we may add a separate Generator trait which could have
+// different dynamics But for now, the extractor trait is all we need really to
+// generate new links to visit
 
 #[cfg(test)]
 mod tests {

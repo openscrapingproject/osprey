@@ -140,7 +140,7 @@ impl crate::api::Extractor for ScraperRs {
     fn extract(
         &self,
         input: &crate::api::Response,
-    ) -> Result<crate::api::Intermediate> {
+    ) -> Result<crate::api::ExtractOutput> {
         info!("extracting");
         // TODO: think about using fragment instead of Document here
         let doc = Html::parse_document(input.body.as_str());
@@ -194,7 +194,10 @@ impl crate::api::Extractor for ScraperRs {
                 }
             }
         }
-        Ok(Box::new(out))
+        Ok(crate::api::ExtractOutput {
+            data: Box::new(out),
+            generated: Vec::new(),
+        })
     }
 }
 
