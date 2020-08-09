@@ -103,7 +103,6 @@ impl Agent for DynamicAgent {
             }
             i += 1;
         }
-        Ok(())
     }
     async fn run(job: &crate::api::Job) -> Result<()> {
         let c = &job.config;

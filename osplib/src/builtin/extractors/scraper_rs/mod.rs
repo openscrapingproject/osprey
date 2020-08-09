@@ -35,6 +35,8 @@ pub enum Transform {
     // TODO: maybe find a declarative function library we can just plug in
     // to.
     SubstringAfter(String),
+    /// Template allows for a single value template using the {VAL} syntax.
+    Template(String),
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -63,10 +65,28 @@ pub enum ElemOptions {
 // The above has some commented out because they represent multiple values.
 // However, the output for a given key needs to be one string.
 
+// We support literals but not nesting
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum GeneratorValue {
+    Val(Value),
+    FromPrevious(String),
+    FromPreviousWithTransform(String, Transform),
+}
+
 use serde_json::{Map, Value as SVal};
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct ScraperRs {
+    /// The raw data output that will be serialized
     pub definitions: HashMap<Key, Value>,
+
+    /// Keys which will be extracted, but not serialized. They are accessible
+    /// only by generated values
+    pub internals: Option<Vec<String>>,
+
+    // A set of selectors which create vectors of strings. All theses strings
+    // will be returned as the URLs to scrape next
+    pub generated: Option<Vec<GeneratorValue>>,
 }
 
 pub type Output = Map<Key, SVal>;
@@ -85,6 +105,25 @@ pub type OutItem = String;
 //     String,
 //     Vec<String>
 // }
+
+fn do_transform(input: &String, t: &Transform) -> Result<String> {
+    Ok(match t {
+        Transform::TrimWhitespace => input.trim().to_string(),
+        Transform::RemoveNewlines => input.replace('\n', ""),
+        Transform::SubstringAfter(s) => input
+            .splitn(2, s)
+            .last()
+            .ok_or_else(|| {
+                anyhow!(
+                    "failed to create substring after {} using {}",
+                    input,
+                    s
+                )
+            })?
+            .to_string(),
+        Transform::Template(tpl) => tpl.replace("{VAL}", input),
+    })
+}
 
 fn elem_to_out_item(em: ElementRef, opts: &SelectorValue) -> Result<OutItem> {
     let intermediate = match &opts.val {
@@ -114,23 +153,45 @@ fn elem_to_out_item(em: ElementRef, opts: &SelectorValue) -> Result<OutItem> {
     // certain inputs to normalize them Also maybe have an option that is
     // original: boolean, which disables all transforms and outputs direct out
     if let Some(t) = &opts.transform {
-        Ok(match t {
-            Transform::TrimWhitespace => intermediate.trim().to_string(),
-            Transform::RemoveNewlines => intermediate.replace('\n', ""),
-            Transform::SubstringAfter(s) => intermediate
-                .splitn(2, s)
-                .last()
-                .ok_or_else(|| {
-                    anyhow!(
-                        "failed to create substring after {} using {}",
-                        intermediate,
-                        s
-                    )
-                })?
-                .to_string(),
-        })
+        do_transform(&intermediate, t)
     } else {
         Ok(intermediate)
+    }
+}
+
+fn handle_value(doc: &Html, val: &Value) -> Result<SVal> {
+    match val {
+        Value::Literal(l) => {
+            return Ok(SVal::String(l.clone()));
+        }
+        Value::Selector(sel) => {
+            let mut slc = sel.clone();
+            if slc.transform.is_none() {
+                slc.transform = Some(Transform::TrimWhitespace)
+            }
+            let s = Selector::parse(slc.selector.as_str())
+                // .context("failed")?;
+                // TODO: figure out this weird error handling
+                // Selector library uses other error handling lib that
+                // is incompatible with anyhow Context
+                .or_else(|_| Err(Error::msg("failed to parse selector")))?;
+
+            let sr = doc.select(&s);
+
+            let mut multiple: Vec<SVal> = Vec::new();
+            for elem in sr {
+                debug!("got elem {:#?}", elem.value().name());
+
+                let o = elem_to_out_item(elem, &slc)?;
+                multiple.push(SVal::String(o));
+            }
+
+            if multiple.len() == 1 {
+                return Ok(multiple[0].clone());
+            }
+
+            return Ok(SVal::Array(multiple));
+        }
     }
 }
 
@@ -151,52 +212,62 @@ impl crate::api::Extractor for ScraperRs {
 
         let defs = &self.definitions;
         for (key, val) in defs {
-            match val {
-                Value::Literal(l) => {
-                    out.insert(key.clone(), SVal::String(l.clone()));
-                    continue;
+            let o = handle_value(&doc, val)?;
+            out.insert(key.to_string(), o);
+        }
+
+        let mut gen = Vec::new();
+        if self.generated.is_some() {
+            debug!("Generated exists");
+            let g = self.generated.as_ref().unwrap();
+
+            fn handle_prev(out: &Output, k: &String) -> Result<String> {
+                debug!("gen val from prev {}", k);
+                if let Some(v) = out.get(k) {
+                    debug!("got prev {}", v);
+                    match v {
+                        serde_json::Value::String(s) => {
+                            return Ok(s.to_owned())
+                        }
+                        _ => return Err(anyhow!(
+                            "unexpected value recieved from generated value"
+                        )),
+                    }
+                } else {
+                    debug!("no luck prev");
+                    return Err(anyhow!(
+                        "failed to access key {} in previous output map",
+                        k
+                    ));
                 }
-                Value::Selector(sel) => {
-                    let mut slc = sel.clone();
-                    if slc.transform.is_none() {
-                        slc.transform = Some(Transform::TrimWhitespace)
+            }
+            for gval in g {
+                match gval {
+                    GeneratorValue::Val(v) => {
+                        debug!("gen val from val {:?}", v);
+                        let o = handle_value(&doc, v)?;
+                        match o {
+                            serde_json::Value::String(s) => gen.push(s),
+                            _ => return Err(anyhow!("unexpected value recieved from generated value"))
+                        }
                     }
-                    let s = Selector::parse(slc.selector.as_str())
-                        // .context("failed")?;
-                        // TODO: figure out this weird error handling
-                        // Selector library uses other error handling lib that
-                        // is incompatible with anyhow Context
-                        .or_else(|_| {
-                            Err(Error::msg("failed to parse selector"))
-                        })?;
-
-                    let sr = doc.select(&s);
-
-                    let mut multiple: Vec<SVal> = Vec::new();
-                    for elem in sr {
-                        debug!("got elem {:#?}", elem.value().name());
-
-                        let o = elem_to_out_item(elem, &slc)?;
-                        multiple.push(SVal::String(o));
+                    GeneratorValue::FromPrevious(k) => {
+                        gen.push(handle_prev(&out, k)?);
                     }
-
-                    let n = key.clone();
-
-                    debug!("key: {}, value (output): {:?}", n, multiple);
-
-                    if multiple.len() == 1 {
-                        let s = &multiple[0];
-                        out.insert(n, s.clone());
-                        continue;
-                    }
-
-                    out.insert(n, SVal::Array(multiple));
+                    GeneratorValue::FromPreviousWithTransform(
+                        prev,
+                        transform,
+                    ) => gen.push(do_transform(
+                        &handle_prev(&out, &prev)?,
+                        transform,
+                    )?),
                 }
             }
         }
+
         Ok(crate::api::ExtractOutput {
             data: Box::new(out),
-            generated: Vec::new(),
+            generated: gen,
         })
     }
 }
@@ -233,6 +304,8 @@ mod tests {
                     transform: None
                 })
             ),
+            internals: None,
+            generated: None,
         };
 
         Ok(())
@@ -250,6 +323,8 @@ mod tests {
                 });
                 "literal".to_string() => Value::Literal("an IRI".to_string())
             ),
+            internals: None,
+            generated: None,
         };
 
         Ok(())
@@ -298,6 +373,8 @@ mod tests {
         // TODO: maybe have this map include the expected values
         let e = ScraperRs {
             definitions: convert(hm),
+            internals: None,
+            generated: None,
         };
 
         e.extract(&crate::api::Response {
@@ -343,6 +420,8 @@ mod tests {
                     transform: None
                 }
             )),
+            internals: None,
+            generated: None,
         };
 
         let result = e.extract(&crate::api::Response {
@@ -379,6 +458,8 @@ mod tests {
                     transform: Some(Transform::SubstringAfter("RaceID=".to_string()))
                 }
             )),
+            internals: None,
+            generated: None,
         };
 
         let result = e.extract(&crate::api::Response {
