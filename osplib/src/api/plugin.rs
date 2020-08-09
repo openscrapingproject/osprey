@@ -46,6 +46,10 @@ impl<T> SerDebug for T where
 {
 }
 
+// Now this trait automatically implements serde::Serialize for any type needed
+// No more jiggering with weird Serializer's manually
+erased_serde::serialize_trait_object!(SerDebug);
+
 mopafy!(SerDebug);
 
 /// Any type that can be [std::fmt::Debug] ed and also serialized
