@@ -264,7 +264,7 @@ mod tests {
         <h1 class="foo">Hello, <i>world!</i></h1>
         "#;
 
-        let mut hm = map!(
+        let hm = map!(
             "charset".to_string() => SelectorValue {
                 selector:"meta[charset]".to_string(),
                 val: ElemOptions::HTML,
@@ -313,7 +313,7 @@ mod tests {
 
     // Cargo runs tests in the workspace dir (e.g. osplib), so we do this
     const HTML_PREFIX: &'static str = "../tests/html";
-    const officeSelector: &'static str = "body:nth-child(2) td.Text1 td.Text1 td:nth-child(1) table.infotable:nth-child(1) tbody:nth-child(1) tr:nth-child(3) > td.Switch0";
+    const OFFICE_SELECTOR: &'static str = "body:nth-child(2) td.Text1 td.Text1 td:nth-child(1) table.infotable:nth-child(1) tbody:nth-child(1) tr:nth-child(3) > td.Switch0";
 
     #[test]
     fn run_realistic_extract() -> Result<()> {
@@ -335,7 +335,7 @@ mod tests {
                     transform: None
                 };
                 "office".to_string() => SelectorValue {
-                    selector: officeSelector.to_string(),
+                    selector: OFFICE_SELECTOR.to_string(),
                     val: ElemOptions::Text,
                     transform: None
                 }

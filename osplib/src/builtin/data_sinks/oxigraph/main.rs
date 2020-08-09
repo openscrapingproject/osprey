@@ -8,13 +8,13 @@ use crate::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct OxigraphSink {
-    pub baseURL: String,
+    pub base_url: String,
 }
 
 impl Default for OxigraphSink {
     fn default() -> Self {
         OxigraphSink {
-            baseURL: "0.0.0.0:8000".to_string(),
+            base_url: "0.0.0.0:8000".to_string(),
         }
     }
 }
@@ -36,13 +36,12 @@ impl crate::api::DataSink for OxigraphSink {
         let ser = &mut serde_json::Serializer::pretty(&mut writer);
 
         input.erased_serialize(&mut ESerializer::erase(ser))?;
-        // input.eras
 
         // Right now, Oxigraph allows POSTing directly to the / endpoint
-        let postLocation = &self.baseURL;
+        let post_location = &self.base_url;
 
         let res = &c
-            .post(postLocation)
+            .post(post_location)
             .header("Content-Type", "application/ld+json")
             .body(writer)
             .send()

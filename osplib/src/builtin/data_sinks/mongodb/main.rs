@@ -21,7 +21,6 @@ impl Default for MongoDBSink {
 use async_trait::async_trait;
 // use erased_serde::Serializer as ESerializer;
 
-use bson::ser::Serializer;
 use mongodb::{options::ClientOptions, Client};
 
 #[async_trait]
@@ -50,15 +49,7 @@ impl crate::api::DataSink for MongoDBSink {
 
         let col = db.collection("campaign_race_pages");
 
-        // let ser = &mut Serializer::new();
-
-        // let doc = input.erased_serialize()?;
-
-        // let inp = erased_serde::serialize_trait_object!(input);
         let bs = bson::ser::to_bson(&input)?;
-        // let doc = erased_serde::serialize(&input, &mut
-        // erased_serde::Serializer::erase(Serializer::new()))?;
-        // let doc =
 
         match bs {
             bson::Bson::Document(d) => {

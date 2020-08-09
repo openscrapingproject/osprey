@@ -10,7 +10,7 @@ use std::collections::HashMap;
 pub type Key = String;
 
 use sxd_document::parser;
-use sxd_xpath::{Context, Factory, Value, XPath};
+use sxd_xpath::{Context, Factory};
 
 /// Value represents one property extracted from one HTML element
 // #[derive(Serialize, Deserialize, Debug)]
@@ -218,6 +218,7 @@ mod tests {
     fn run_complex_extract() -> Result<()> {
         init();
 
+        // Using the sxd-xpath lib
         // We get this: 'failed to parse XML: Error { location: 151, errors:
         // {UnclosedElement} }' with the html
         // let html = r#"
@@ -228,8 +229,6 @@ mod tests {
         // "#;
 
         let html = read_to_string(Path::new(HTML_PREFIX).join("race.html"))?;
-
-        let italic = r#"//*[@class="foo"]/i"#;
 
         // TODO: maybe have this map include the expected values
         let e = XPathExtractor {

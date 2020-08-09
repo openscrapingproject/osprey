@@ -9,14 +9,14 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticWebServerSink {
-    pub baseURL: String,
+    pub base_url: String,
     pub mapping: HashMap<String, String>,
 }
 
 impl Default for SemanticWebServerSink {
     fn default() -> Self {
         SemanticWebServerSink {
-            baseURL: "0.0.0.0:9000".to_string(),
+            base_url: "0.0.0.0:9000".to_string(),
             mapping: HashMap::new(),
         }
     }
@@ -49,12 +49,12 @@ impl crate::api::DataSink for SemanticWebServerSink {
         // simplify things also if I write the JSON-LD parser
         // supporting that
 
-        let postLocation = format!("{}{}", &self.baseURL, "/person");
+        let post_location = format!("{}{}", &self.base_url, "/person");
 
-        debug!("sending request to: {}", postLocation);
+        debug!("sending request to: {}", post_location);
 
         let res = &c
-            .post(&postLocation)
+            .post(&post_location)
             .header("Content-Type", "application/ld+json")
             .body(writer)
             .send()
