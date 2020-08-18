@@ -79,3 +79,18 @@ Also, during API redesign - allowed extractor to output `Box<dyn Any>` and data 
 This theoretically means implementations could use any intermediate representations.
 
 OK - realizing need to work on this.
+
+
+## About the scraper_rs
+
+It has expanded to be the bloated swiss army knife of all things
+
+Transforms, previous values, generated
+
+All feeling very crappy and antipattern, although am getting experience with match and recursively building out parsers, along with refs and such.
+
+Will need to do API design to purposefully restrict scraper_rs scope. Go back to Spec and documentation. Think about using separate JSON transformation language.
+
+On the existing path we either:
+- allow previous to operate on arrays, thus having an "all links selector" work there
+- allow sets of transforms, like SubstringAfter and then Template
